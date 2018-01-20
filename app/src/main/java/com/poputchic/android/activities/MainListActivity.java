@@ -1,6 +1,8 @@
 package com.poputchic.android.activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -60,26 +62,36 @@ public class MainListActivity extends AppCompatActivity {
     }
 
     private void exit() {
-        try {
-            // отрываем поток для записи
-            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(
-                    openFileOutput("FILENAME", MODE_PRIVATE)));
-            // пишем данные
-            Gson gson = new Gson();
-            String json = gson.toJson(null);
+        new AlertDialog.Builder(MainListActivity.this)
+                .setTitle("Выход")
+                .setMessage("Вы действительно хотите выйти?")
+                .setPositiveButton("Ок", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        //the user wants to leave - so dismiss the dialog and exit
+                        try {
+                            // отрываем поток для записи
+                            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(
+                                    openFileOutput("FILENAME", MODE_PRIVATE)));
+                            // пишем данные
+                            Gson gson = new Gson();
+                            String json = gson.toJson(null);
 
 
-            bw.write(json);
-            // закрываем поток
-            bw.close();
-            //Log.d(MainActivity.LOG_TAG, "Файл записан");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Intent intent = new Intent(MainListActivity.this, SignInOrRegistration.class);
-        startActivity(intent);
+                            bw.write(json);
+                            // закрываем поток
+                            bw.close();
+                            //Log.d(MainActivity.LOG_TAG, "Файл записан");
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        Intent intent = new Intent(MainListActivity.this, SignInOrRegistration.class);
+                        startActivity(intent);
+                        dialog.dismiss();
+                    }
+                }).show();
+
 
     }
 }
