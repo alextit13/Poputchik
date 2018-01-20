@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    android:id="@+id/a_fl_container"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.poputchic.android.reg_and_sign.Registration">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:gravity="center"
+                android:textSize="25sp"
+                android:fontFamily="@font/lobster"
+                android:textColor="@color/yallou"
+                android:text="@string/APP_NAME"
+                android:id="@+id/a_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:background="@color/black_50">
+            </TextView>
+            <ImageView
+                android:layout_below="@id/a_toolbar"
+                android:src="@color/yallou"
+                android:layout_width="match_parent"
+                android:layout_height="200dp" />
+            <TextView
+                android:id="@+id/a_text_reg"
+                android:gravity="center"
+                android:layout_marginTop="30dp"
+                android:layout_below="@id/a_toolbar"
+                android:textColor="@color/black_100"
+                android:textSize="30sp"
+                android:fontFamily="@font/el_messiri_regular"
+                android:text="@string/registration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:background="#fff"
+                android:layout_below="@id/a_text_reg"
+                android:orientation="vertical"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="@string/enter_your_data"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    android:id="@+id/a_et_email"
+                    android:inputType="textEmailAddress"
+                    android:hint="@string/email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    android:id="@+id/a_et_password"
+                    android:inputType="textPassword"
+                    android:hint="@string/password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    android:id="@+id/a_et_password_confirm"
+                    android:inputType="textPassword"
+                    android:hint="@string/confirm_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <RadioGroup
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <RadioButton
+                        android:onClick="click_buttons"
+                        android:id="@+id/a_cb_driver"
+                        android:gravity="center"
+                        android:text="@string/driver"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <RadioButton
+                        android:onClick="click_buttons"
+                        android:id="@+id/a_cb_companion"
+                        android:gravity="center"
+                        android:text="@string/user"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </RadioGroup>
+                <View
+                    android:background="@color/black_50"
+                    android:layout_width="200sp"
+                    android:layout_height="1dp"/>
+                <EditText
+                    android:id="@+id/a_et_model_auto"
+                    android:hint="@string/uato_model"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    android:id="@+id/a_et_number_of_phone"
+                    android:inputType="phone"
+                    android:hint="@string/number_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <Button
+                    android:onClick="click_buttons"
+                    android:id="@+id/a_b_chose_photo"
+                    android:padding="3dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/chose_the_image"
+                    android:drawableStart="@drawable/image_chose"
+                    android:background="@color/yallou"
+                    android:layout_width="150dp"
+                    android:layout_height="50dp" />
+                <ImageView
+                    android:id="@+id/a_iv_icon_photo"
+                    android:layout_marginTop="5dp"
+                    android:layout_gravity="center"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp" />
+                <TableRow
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="30dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="30dp">
+                    <ImageView
+                        android:onClick="click_buttons"
+                        android:id="@+id/a_iv_back"
+                        android:layout_marginBottom="10dp"
+                        android:src="@drawable/icon_left"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"/>
+                    <Button
+                        android:onClick="click_buttons"
+                        android:id="@+id/a_b_registration"
+                        android:layout_marginBottom="10dp"
+                        android:text="@string/registration"
+                        android:background="@color/yallou"
+                        android:layout_width="150dp"
+                        android:layout_height="50dp"/>
+                </TableRow>
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+    <ProgressBar
+        android:id="@+id/a_pb"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</FrameLayout>

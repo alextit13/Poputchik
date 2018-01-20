@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Попутчик</string>
+    <string name="registration">РЕГИСТРАЦИЯ</string>
+    <string name="enter_your_data">ВВЕДИТЕ ВАШИ ДАННЫЕ</string>
+    <string name="email">E-mail</string>
+    <string name="password">Пароль</string>
+    <string name="confirm_password">Подтвердите пароль</string>
+    <string name="driver">Водитель</string>
+    <string name="user">Пользователь</string>
+    <string name="uato_model">Модель авто</string>
+    <string name="number_phone">Номер телефона</string>
+    <string name="chose_the_image">ВЫБЕРИТЕ ФОТО</string>
+    <string name="APP_NAME">Попутчик</string>
+    <string name="sign_in">Вход</string>
+    <string name="registration_or_sign_in">Вход или регистрация</string>
+</resources>

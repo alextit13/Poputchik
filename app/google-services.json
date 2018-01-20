@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "894057971231",
+    "firebase_url": "https://poputchik-ed5f6.firebaseio.com",
+    "project_id": "poputchik-ed5f6",
+    "storage_bucket": "poputchik-ed5f6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:894057971231:android:a5bed21cf0904e7c",
+        "android_client_info": {
+          "package_name": "com.poputchic.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "894057971231-og5camhi61g5042psn3ni200upirrmli.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.poputchic.android",
+            "certificate_hash": "1007549abc549a3a7d35cde4b7d1bb87423703bc"
+          }
+        },
+        {
+          "client_id": "894057971231-spc4pfi7dlgrgmh6g00hdq27rt12tb70.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMGQS3BeNpXcv-QbzJCmQbxeB1GZV7QCg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "894057971231-spc4pfi7dlgrgmh6g00hdq27rt12tb70.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "526689427467",
+    "firebase_url": "https://poputchik-1cd95.firebaseio.com",
+    "project_id": "poputchik-1cd95",
+    "storage_bucket": "poputchik-1cd95.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:526689427467:android:391c8579fad6499c",
+        "android_client_info": {
+          "package_name": "com.acherniakovich.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "526689427467-sr9r1roelm2p7sg27457m1b4uh9rvfvl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6m9VX6ffmdDnRxZf0G9fjmHHm7WAK42Y"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
