@@ -26,6 +26,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.gson.Gson;
 import com.poputchic.android.R;
 import com.poputchic.android.activities.MainListActivity;
 import com.poputchic.android.classes.classes.Companion;
@@ -33,6 +34,10 @@ import com.poputchic.android.classes.classes.Driver;
 import com.poputchic.android.classes.classes.Review;
 import com.poputchic.android.classes.classes.Travel;
 
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -51,7 +56,7 @@ public class Registration extends Activity {
     private String      image_path;
     private Driver      driver;
     private Companion   companion;
-    private int ID =    0;
+    private int         ID = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -192,10 +197,12 @@ public class Registration extends Activity {
             if (a_cb_driver.isChecked()){
                 // create_driver
                 driver = createDriver();
+                createSharedPreferenceDriver(driver);
                 pushDriverToFirebase(driver);
             }else if (a_cb_companion.isChecked()){
                 // create companion
                 companion = createCompanion();
+                createSharedPreferenceCompanion(companion);
                 pushCompanionToFirebase(companion);
             }
         }
@@ -281,5 +288,46 @@ public class Registration extends Activity {
 
     private void closeApplication() {
         this.finish();
+    }
+
+    private void createSharedPreferenceDriver(Driver driver) {
+        try {
+            // отрываем поток для записи
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(
+                    openFileOutput("FILENAME", MODE_PRIVATE)));
+            // пишем данные
+            Gson gson = new Gson();
+            String json = gson.toJson(driver);
+
+
+            bw.write(json);
+            // закрываем поток
+            bw.close();
+            //Log.d(MainActivity.LOG_TAG, "Файл записан");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    private void createSharedPreferenceCompanion(Companion companion) {
+        try {
+            // отрываем поток для записи
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(
+                    openFileOutput("FILENAME", MODE_PRIVATE)));
+            // пишем данные
+            Gson gson = new Gson();
+            String json = gson.toJson(companion);
+
+
+            bw.write(json);
+            // закрываем поток
+            bw.close();
+            //Log.d(MainActivity.LOG_TAG, "Файл записан");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

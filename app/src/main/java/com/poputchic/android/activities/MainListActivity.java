@@ -1,19 +1,25 @@
 package com.poputchic.android.activities;
 
-import android.support.v7.app.ActionBar;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.poputchic.android.R;
+import com.poputchic.android.reg_and_sign.SignInOrRegistration;
+
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 
 public class MainListActivity extends AppCompatActivity {
 
     private ListView b_main_list;
+    private ImageView b_menu_1,b_menu_2,b_menu_3,b_menu_4,b_menu_5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,5 +30,56 @@ public class MainListActivity extends AppCompatActivity {
 
     private void init() {
         b_main_list = (ListView)findViewById(R.id.b_main_list);
+        b_menu_1 = (ImageView) findViewById(R.id.b_menu_1);
+        b_menu_2 = (ImageView) findViewById(R.id.b_menu_2);
+        b_menu_3 = (ImageView) findViewById(R.id.b_menu_3);
+        b_menu_4 = (ImageView) findViewById(R.id.b_menu_4);
+        b_menu_5 = (ImageView) findViewById(R.id.b_menu_5);
+    }
+
+    public void click(View view) {
+        switch (view.getId()){
+            case R.id.b_menu_1:
+                // private room
+                break;
+            case R.id.b_menu_2:
+                // exit
+                exit();
+                break;
+            case R.id.b_menu_3:
+                // add
+                break;
+            case R.id.b_menu_4:
+                // ?
+                break;
+            case R.id.b_menu_5:
+                // ?
+                break;
+
+        }
+    }
+
+    private void exit() {
+        try {
+            // отрываем поток для записи
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(
+                    openFileOutput("FILENAME", MODE_PRIVATE)));
+            // пишем данные
+            Gson gson = new Gson();
+            String json = gson.toJson(null);
+
+
+            bw.write(json);
+            // закрываем поток
+            bw.close();
+            //Log.d(MainActivity.LOG_TAG, "Файл записан");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Intent intent = new Intent(MainListActivity.this, SignInOrRegistration.class);
+        startActivity(intent);
+
     }
 }

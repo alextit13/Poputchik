@@ -28,6 +28,10 @@ public class Users implements Serializable{
         this.number_of_phone = number_of_phone;
     }
 
+    public Users(String email, String name, long date_of_create, String image_path, ArrayList<Review> list_review, String rating, String year_old, String about_me, String number_of_phone) {
+
+    }
+
     public String getNumber_of_phone() {
         return number_of_phone;
     }

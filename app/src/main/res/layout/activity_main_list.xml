@@ -44,13 +44,62 @@
                 android:layout_height="40dp" />
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
-
-    <ListView
-        android:layout_margin="3dp"
-        android:layout_below="@id/b_toolbar"
-        android:id="@+id/b_main_list"
+    <FrameLayout
+        android:id="@+id/main_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </ListView>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginBottom="53dp"
+        android:layout_below="@id/b_toolbar">
+        <ListView
+            android:layout_margin="3dp"
+            android:id="@+id/b_main_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </ListView>
+    </FrameLayout>
+    <TableRow
+        android:background="@color/black_100"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <ImageView
+            android:onClick="click"
+            android:src="@drawable/icon_menu_1"
+            android:layout_weight="1"
+            android:id="@+id/b_menu_1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <ImageView
+            android:onClick="click"
+            android:src="@drawable/icon_menu_exit"
+            android:layout_weight="1"
+            android:id="@+id/b_menu_2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <ImageView
+            android:onClick="click"
+            android:src="@drawable/icon_menu_add"
+            android:layout_weight="1"
+            android:id="@+id/b_menu_3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <ImageView
+            android:onClick="click"
+            android:src="@drawable/icon_menu_1"
+            android:layout_weight="1"
+            android:id="@+id/b_menu_4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <ImageView
+            android:onClick="click"
+            android:src="@drawable/icon_menu_1"
+            android:layout_weight="1"
+            android:id="@+id/b_menu_5"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </TableRow>
 
 </RelativeLayout>

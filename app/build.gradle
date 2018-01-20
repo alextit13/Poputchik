@@ -38,6 +38,8 @@ dependencies {
 
     compile 'com.joooonho:selectableroundedimageview:1.0.1'
 
+    compile 'com.google.code.gson:gson:2.8.0'
+
 
 
 
