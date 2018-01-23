@@ -3,27 +3,47 @@ package com.poputchic.android.classes.classes;
 import java.io.Serializable;
 
 public class Review implements Serializable {
-    private String time_create;
-    private Users user_from_review;
+    private String date;
+    private String from;
+    private String to;
+    private String text;
 
-    public Review(String time_create, Users user_from_review) {
-        this.time_create = time_create;
-        this.user_from_review = user_from_review;
+    public Review(String date, String from, String to, String text) {
+        this.date = date;
+        this.from = from;
+        this.to = to;
+        this.text = text;
     }
 
-    public String getTime_create() {
-        return time_create;
+    public String getDate() {
+        return date;
     }
 
-    public void setTime_create(String time_create) {
-        this.time_create = time_create;
+    public void setDate(String date) {
+        this.date = date;
     }
 
-    public Users getUser_from_review() {
-        return user_from_review;
+    public String getFrom() {
+        return from;
     }
 
-    public void setUser_from_review(Users user_from_review) {
-        this.user_from_review = user_from_review;
+    public void setFrom(String from) {
+        this.from = from;
+    }
+
+    public String getTo() {
+        return to;
+    }
+
+    public void setTo(String to) {
+        this.to = to;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 }

@@ -7,6 +7,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.poputchic.android.R;
 import com.poputchic.android.activities.MainListActivity;
@@ -40,36 +44,29 @@ public class SignInOrRegistration extends AppCompatActivity {
     public void click_buttons(View view) {
         switch (view.getId()){
             case R.id.c_b_sign_in:
-                // signIn
-                gotochosemethod("sign_in");
+                 signIn();
+                //gotochosemethod("sign_in");
                 break;
             case R.id.c_b_registration:
                 // reg
-                gotochosemethod("registration");
+                //gotochosemethod("registration");
+                Intent intent = new Intent(SignInOrRegistration.this,Registration.class);
+                startActivity(intent);
                 break;
             default:
                 break;
         }
     }
 
-    private void gotochosemethod(String key) {
-        Intent intent;
-        switch (key){
-            case "sign_in":
-                intent = new Intent(SignInOrRegistration.this,SignIn.class);
-                startActivity(intent);
-                break;
-            case "registration":
-                intent = new Intent(SignInOrRegistration.this,Registration.class);
-                startActivity(intent);
-                break;
-            default:
-                break;
-        }
+    private void signIn() {
+        Intent intent = new Intent(SignInOrRegistration.this,SignIn.class);
+        startActivity(intent);
     }
 
     private void checkSharedPreference() {
         try {
+            Driver driver = null;
+            Companion companion = null;
             // открываем поток для чтения
             BufferedReader br = new BufferedReader(new InputStreamReader(
                     openFileInput("FILENAME")));
@@ -78,19 +75,20 @@ public class SignInOrRegistration extends AppCompatActivity {
             while ((str = br.readLine()) != null) {
                 //Log.d(LOG_TAG, str);
                 Gson gson = new Gson();
-                driver = gson.fromJson(str, Driver.class);
-                companion = gson.fromJson(str, Companion.class);
-            }
+                try {
+                    driver = gson.fromJson(str, Driver.class);
+                    companion = gson.fromJson(str,Companion.class);
+                }catch (Exception e){
+                    //Log...
+                }
 
+            }
             if (driver!=null){
                 //Log.d(MainActivity.LOG_TAG,"user = " + user);
                 Intent intent = new Intent(SignInOrRegistration.this,MainListActivity.class);
                 intent.putExtra("driver",driver);
                 startActivity(intent);
-            }
-
-            if (companion!=null){
-                //Log.d(MainActivity.LOG_TAG,"user = " + user);
+            }else if (companion!=null){
                 Intent intent = new Intent(SignInOrRegistration.this,MainListActivity.class);
                 intent.putExtra("companion",companion);
                 startActivity(intent);

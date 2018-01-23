@@ -11,6 +11,8 @@ import android.widget.ListView;
 
 import com.google.gson.Gson;
 import com.poputchic.android.R;
+import com.poputchic.android.classes.classes.Companion;
+import com.poputchic.android.classes.classes.Driver;
 import com.poputchic.android.reg_and_sign.SignInOrRegistration;
 
 import java.io.BufferedWriter;
@@ -22,6 +24,8 @@ public class MainListActivity extends AppCompatActivity {
 
     private ListView b_main_list;
     private ImageView b_menu_1,b_menu_2,b_menu_3,b_menu_4,b_menu_5;
+    private Driver driver;
+    private Companion companion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +41,17 @@ public class MainListActivity extends AppCompatActivity {
         b_menu_3 = (ImageView) findViewById(R.id.b_menu_3);
         b_menu_4 = (ImageView) findViewById(R.id.b_menu_4);
         b_menu_5 = (ImageView) findViewById(R.id.b_menu_5);
+        selectUser();
+    }
+
+    private void selectUser() {
+        Intent intent = getIntent();
+        try {
+            driver = (Driver) intent.getSerializableExtra("driver");
+            companion = (Companion) intent.getSerializableExtra("companion");
+        }catch (Exception e){
+            //Log...
+        }
     }
 
     public void click(View view) {
@@ -90,8 +105,12 @@ public class MainListActivity extends AppCompatActivity {
                         startActivity(intent);
                         dialog.dismiss();
                     }
-                }).show();
-
-
+                }).setNegativeButton("Нет", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        })
+                .show();
     }
 }

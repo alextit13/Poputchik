@@ -3,6 +3,7 @@ package com.poputchic.android.reg_and_sign;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +16,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.poputchic.android.R;
 import com.poputchic.android.activities.MainListActivity;
+import com.poputchic.android.classes.VARIABLES_CLASS;
 import com.poputchic.android.classes.classes.Companion;
 import com.poputchic.android.classes.classes.Driver;
 
@@ -60,62 +62,53 @@ public class SignIn extends AppCompatActivity {
     }
 
     private void signIn() {
-        if (checkUser()){
-            if (driver!=null){
-                Intent intent = new Intent(SignIn.this,MainListActivity.class);
-                intent.putExtra("driver",driver);
-                startActivity(intent);
-            }else if (companion!=null){
-                Intent intent = new Intent(SignIn.this,MainListActivity.class);
-                intent.putExtra("companion",companion);
-                startActivity(intent);
-            }
+        Log.d(VARIABLES_CLASS.LOG_TAG,"1");
+        if (!b_et_email.getText().toString().equals("")
+                &&!b_et_password.getText().toString().equals("")){
+            Log.d(VARIABLES_CLASS.LOG_TAG,"2");
+            FirebaseDatabase.getInstance().getReference().child("users").child("companion")
+                    .addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                                Log.d(VARIABLES_CLASS.LOG_TAG,"3");
+                                if (postSnapshot.getValue(Companion.class).getEmail().equals(b_et_email.getText().toString())
+                                        &&
+                                        postSnapshot.getValue(Companion.class).getPassword().equals(b_et_password.getText().toString())){
+                                    Log.d(VARIABLES_CLASS.LOG_TAG,"4");
+                                    Intent intent = new Intent(SignIn.this,MainListActivity.class);
+                                    intent.putExtra("companion",postSnapshot.getValue(Companion.class));
+                                    startActivity(intent);
+                                }
+                            }
+                        }
 
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+            FirebaseDatabase.getInstance().getReference().child("users").child("drivers")
+                    .addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                                if (postSnapshot.getValue(Driver.class).getEmail().equals(b_et_email.getText().toString())
+                                        &&
+                                        postSnapshot.getValue(Driver.class).getPassword().equals(b_et_password.getText().toString())){
+                                    Intent intent = new Intent(SignIn.this,MainListActivity.class);
+                                    intent.putExtra("driver",postSnapshot.getValue(Driver.class));
+                                    startActivity(intent);
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
         }
-    }
-
-    private boolean checkUser() {
-        final boolean[] check = {false};
-        FirebaseDatabase.getInstance().getReference().child("users").child("drivers").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                    //list_drivers.add(postSnapshot.getValue(Driver.class));
-                    if (postSnapshot.getValue(Driver.class).getEmail().equals(b_et_email.getText().toString())&&
-                            postSnapshot.getValue(Driver.class).getPassword().equals(b_et_password.getText().toString())){
-                        check[0] = true;
-                        driver = postSnapshot.getValue(Driver.class);
-                        break;
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-        FirebaseDatabase.getInstance().getReference().child("users").child("companion").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                    //list_drivers.add(postSnapshot.getValue(Driver.class));
-                    if (postSnapshot.getValue(Companion.class).getEmail().equals(b_et_email.getText().toString())&&
-                            postSnapshot.getValue(Driver.class).getPassword().equals(b_et_password.getText().toString())){
-                        check[0] = true;
-                        companion = postSnapshot.getValue(Companion.class);
-                        break;
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-        return check[0];
     }
 }

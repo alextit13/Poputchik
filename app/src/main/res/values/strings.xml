@@ -13,4 +13,5 @@
     <string name="APP_NAME">Попутчик</string>
     <string name="sign_in">Вход</string>
     <string name="registration_or_sign_in">Вход или регистрация</string>
+    <string name="name">Ваше имя</string>
 </resources>
