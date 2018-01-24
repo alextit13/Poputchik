@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:background="@android:drawable/dialog_holo_light_frame"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:id="@+id/a_fl_container"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@drawable/icon_menu_1"
+            android:id="@+id/item_image_driver"
+            android:layout_width="70dp"
+            android:layout_height="70dp" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_marginStart="9dp"
+                android:layout_marginTop="4dp"
+                android:textSize="21sp"
+                android:textColor="@color/black_100"
+                tools:text="Игорь Иванов,36"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_marginStart="26dp"
+                tools:text="BMW 3-Series 2015"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_gravity="center"
+                    android:src="@drawable/start_rating"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"/>
+                <TextView
+                    android:textSize="18sp"
+                    android:layout_gravity="center"
+                    tools:text="4.6"
+                    android:id="@+id/item_rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <ImageView
+                    android:layout_gravity="center"
+                    android:layout_marginStart="20dp"
+                    android:src="@drawable/review"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"/>
+                <TextView
+                    android:layout_marginEnd="2dp"
+                    android:textSize="18sp"
+                    tools:text="7"
+                    android:layout_gravity="center"
+                    android:id="@+id/item_review"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </TableRow>
+
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_marginStart="10dp"
+            android:layout_gravity="end|top"
+            android:src="@drawable/finish"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+        <TextView
+            android:layout_marginTop="3dp"
+            android:layout_gravity="top|center"
+            android:textSize="18sp"
+            tools:text="2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <View
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:background="@color/black_50"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TableRow
+            android:layout_marginTop="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_weight="10"
+                android:textColor="@color/black_50"
+                android:gravity="top|center"
+                android:textSize="19sp"
+                tools:text="Тула\nул.Ленина, 65\n 12:00"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <ImageView
+                android:layout_weight="15"
+                android:layout_gravity="center"
+                android:src="@drawable/go_from_to"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_weight="10"
+                android:textColor="@color/black_50"
+                android:gravity="top|center"
+                android:textSize="19sp"
+                tools:text="Москва\nул.Пушкина, 39\n 15:00"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </TableRow>
+
+    </LinearLayout>
+
+    <TableRow
+        android:layout_marginStart="2dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@drawable/peoples"
+            android:layout_width="40dp"
+            android:layout_height="40dp"/>
+        <TextView
+            android:layout_marginStart="7dp"
+            android:layout_gravity="center"
+            android:textSize="18sp"
+            tools:text="1/3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </TableRow>
+
+</LinearLayout>

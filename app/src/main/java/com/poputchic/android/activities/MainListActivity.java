@@ -52,6 +52,11 @@ public class MainListActivity extends AppCompatActivity {
         }catch (Exception e){
             //Log...
         }
+        if (driver!=null){
+            // вошел водитель
+        }else if (companion!=null){
+            // вошел пользователь
+        }
     }
 
     public void click(View view) {
@@ -67,6 +72,8 @@ public class MainListActivity extends AppCompatActivity {
                 // add
                 if (driver!=null){
                     addTravel();
+                }else if (companion!=null){
+                    
                 }
                 break;
             case R.id.b_menu_4:
