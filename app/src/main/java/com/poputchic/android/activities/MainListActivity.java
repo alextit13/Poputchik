@@ -65,6 +65,9 @@ public class MainListActivity extends AppCompatActivity {
                 break;
             case R.id.b_menu_3:
                 // add
+                if (driver!=null){
+                    addTravel();
+                }
                 break;
             case R.id.b_menu_4:
                 // ?
@@ -74,6 +77,12 @@ public class MainListActivity extends AppCompatActivity {
                 break;
 
         }
+    }
+
+    private void addTravel() {
+        Intent intent = new Intent(MainListActivity.this,AddTravel.class);
+        intent.putExtra("driver",driver);
+        startActivity(intent);
     }
 
     private void exit() {

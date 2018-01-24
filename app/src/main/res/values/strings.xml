@@ -14,4 +14,18 @@
     <string name="sign_in">Вход</string>
     <string name="registration_or_sign_in">Вход или регистрация</string>
     <string name="name">Ваше имя</string>
+    <string name="from">Откуда (город)</string>
+    <string name="to">Куда (город)</string>
+    <string name="adress_from">Точный адрес</string>
+    <string name="time_start">Время отправления</string>
+    <string name="time_finish">Время прибытия</string>
+    <string name="cancel">Отмена</string>
+    <string name="save">Сохранить</string>
+    <string name="date">Выберите дату</string>
+    <string name="add_travel">Создай поездку!</string>
+    <string name="map">Карта</string>
+
+    <string name="KEY_MAP">AIzaSyAXX25tP47S27_Z3olquHCogs2SuKmQziA</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="about">О поездке</string>
 </resources>
