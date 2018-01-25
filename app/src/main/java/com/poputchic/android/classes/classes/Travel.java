@@ -11,6 +11,9 @@ public class Travel implements Serializable {
     private String about_travel;
     private String time_create;
 
+    public Travel() {
+    }
+
     public Travel(String from, String to, String time_from, String time_to, Driver driver, String about_travel, String time_create) {
         this.from = from;
         this.to = to;

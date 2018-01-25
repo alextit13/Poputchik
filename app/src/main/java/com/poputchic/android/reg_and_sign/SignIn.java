@@ -14,12 +14,17 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 import com.poputchic.android.R;
 import com.poputchic.android.activities.MainListActivity;
 import com.poputchic.android.classes.VARIABLES_CLASS;
 import com.poputchic.android.classes.classes.Companion;
 import com.poputchic.android.classes.classes.Driver;
 
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
 public class SignIn extends AppCompatActivity {
@@ -62,10 +67,10 @@ public class SignIn extends AppCompatActivity {
     }
 
     private void signIn() {
-        Log.d(VARIABLES_CLASS.LOG_TAG,"1");
+        //Log.d(VARIABLES_CLASS.LOG_TAG,"1");
         if (!b_et_email.getText().toString().equals("")
                 &&!b_et_password.getText().toString().equals("")){
-            Log.d(VARIABLES_CLASS.LOG_TAG,"2");
+            //Log.d(VARIABLES_CLASS.LOG_TAG,"2");
             FirebaseDatabase.getInstance().getReference().child("users").child("companion")
                     .addValueEventListener(new ValueEventListener() {
                         @Override
@@ -75,7 +80,8 @@ public class SignIn extends AppCompatActivity {
                                 if (postSnapshot.getValue(Companion.class).getEmail().equals(b_et_email.getText().toString())
                                         &&
                                         postSnapshot.getValue(Companion.class).getPassword().equals(b_et_password.getText().toString())){
-                                    Log.d(VARIABLES_CLASS.LOG_TAG,"4");
+                                    //Log.d(VARIABLES_CLASS.LOG_TAG,"4");
+                                    saveSharedPreferenceCOMPANION(postSnapshot.getValue(Companion.class));
                                     Intent intent = new Intent(SignIn.this,MainListActivity.class);
                                     intent.putExtra("companion",postSnapshot.getValue(Companion.class));
                                     startActivity(intent);
@@ -97,6 +103,7 @@ public class SignIn extends AppCompatActivity {
                                 if (postSnapshot.getValue(Driver.class).getEmail().equals(b_et_email.getText().toString())
                                         &&
                                         postSnapshot.getValue(Driver.class).getPassword().equals(b_et_password.getText().toString())){
+                                    saveSharedPreferenceDRIVER(postSnapshot.getValue(Driver.class));
                                     Intent intent = new Intent(SignIn.this,MainListActivity.class);
                                     intent.putExtra("driver",postSnapshot.getValue(Driver.class));
                                     startActivity(intent);
@@ -111,4 +118,47 @@ public class SignIn extends AppCompatActivity {
                     });
         }
     }
+
+    private void saveSharedPreferenceCOMPANION(Companion companion) {
+        try {
+            // отрываем поток для записи
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(
+                    openFileOutput("FILENAME", MODE_PRIVATE)));
+            // пишем данные
+            Gson gson = new Gson();
+            String json = gson.toJson(companion);
+
+
+            bw.write(json);
+            // закрываем поток
+            bw.close();
+            //Log.d(MainActivity.LOG_TAG, "Файл записан");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void saveSharedPreferenceDRIVER(Driver driver) {
+        try {
+            // отрываем поток для записи
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(
+                    openFileOutput("FILENAME", MODE_PRIVATE)));
+            // пишем данные
+            Gson gson = new Gson();
+            String json = gson.toJson(driver);
+
+
+            bw.write(json);
+            // закрываем поток
+            bw.close();
+            //Log.d(MainActivity.LOG_TAG, "Файл записан");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

@@ -5,20 +5,30 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.poputchic.android.R;
+import com.poputchic.android.adapters.CompanionAdapter;
+import com.poputchic.android.adapters.TravelAdapter;
+import com.poputchic.android.classes.VARIABLES_CLASS;
 import com.poputchic.android.classes.classes.Companion;
 import com.poputchic.android.classes.classes.Driver;
+import com.poputchic.android.classes.classes.Travel;
 import com.poputchic.android.reg_and_sign.SignInOrRegistration;
 
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 
 public class MainListActivity extends AppCompatActivity {
 
@@ -26,6 +36,9 @@ public class MainListActivity extends AppCompatActivity {
     private ImageView b_menu_1,b_menu_2,b_menu_3,b_menu_4,b_menu_5;
     private Driver driver;
     private Companion companion;
+
+    private ArrayList<Companion>listCompanions;
+    private ArrayList<Travel> listTravesl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,9 +67,35 @@ public class MainListActivity extends AppCompatActivity {
         }
         if (driver!=null){
             // вошел водитель
+            takeAndStartWithListTravels();
         }else if (companion!=null){
             // вошел пользователь
+            takeAndStartWithListTravels();
         }
+    }
+
+    private void takeAndStartWithListTravels() {
+        listTravesl = new ArrayList<>();
+        FirebaseDatabase.getInstance().getReference().child("travels")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot data : dataSnapshot.getChildren()){
+                            listTravesl.add(data.getValue(Travel.class));
+                        }
+                        travelsAdapter(listTravesl);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+    }
+
+    private void travelsAdapter(ArrayList<Travel> LDR) {
+        TravelAdapter adapter = new TravelAdapter(this,LDR);
+        b_main_list.setAdapter(adapter);
     }
 
     public void click(View view) {

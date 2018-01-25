@@ -12,20 +12,28 @@ import android.widget.TextView;
 
 import com.poputchic.android.R;
 import com.poputchic.android.classes.classes.Driver;
+import com.poputchic.android.classes.classes.Travel;
 
+import java.text.DateFormat;
+import java.text.FieldPosition;
+import java.text.ParsePosition;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
-public class DriversAdapter extends BaseAdapter{
+public class TravelAdapter extends BaseAdapter{
 
     Context ctx;
     LayoutInflater lInflater;
-    ArrayList<Driver> objects;
+    ArrayList<Travel> objects;
 
-    DriversAdapter(){
+    TextView tv_date,d_tv_from,d_tv_to,d_tv_about;
+
+    public TravelAdapter(){
 
     }
 
-    DriversAdapter(Context context, ArrayList<Driver> products) {
+    public TravelAdapter(Context context, ArrayList<Travel> products) {
         ctx = context;
         objects = products;
         lInflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -33,7 +41,7 @@ public class DriversAdapter extends BaseAdapter{
 
     @Override
     public int getCount() {
-        return 0;
+        return objects.size();
     }
 
     @Override
@@ -54,21 +62,36 @@ public class DriversAdapter extends BaseAdapter{
             view = lInflater.inflate(R.layout.driver_list_item, parent, false);
         }
 
-        Driver d = getProduct(position);
+        Travel t = getProduct(position);
 
+        init(view);
+
+        if (t.getTime_create()!=null){
+            String d = "";
+            Date date = new Date(Long.parseLong(t.getTime_create()));
+            DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.LONG,  Locale.getDefault());
+            d = dateFormat.format(date);
+            tv_date.setText(d);
+        }
+        if (t.getFrom()!=null){d_tv_from.setText(t.getFrom());}
+        if (t.getTo()!=null){d_tv_to.setText(t.getTo());}
+        if (t.getAbout_travel()!=null){d_tv_about.setText(t.getAbout_travel());}
         // заполняем View в пункте списка данными из товаров: наименование, цена
         // и картинка
-        ((TextView) view.findViewById(R.id.tv_date)).setText("date");
-        ((TextView) view.findViewById(R.id.d_tv_from)).setText("from");
-        ((TextView) view.findViewById(R.id.d_tv_to)).setText("to");
-        ((TextView) view.findViewById(R.id.d_tv_about)).setText("about");
 
         return view;
     }
 
+    private void init(View v) {
+        tv_date = (TextView) v.findViewById(R.id.tv_date);
+        d_tv_from = (TextView) v.findViewById(R.id.d_tv_from);
+        d_tv_to = (TextView) v.findViewById(R.id.d_tv_to);
+        d_tv_about = (TextView) v.findViewById(R.id.d_tv_about);
+    }
+
     // товар по позиции
-    Driver getProduct(int position) {
-        return ((Driver) getItem(position));
+    Travel getProduct(int position) {
+        return ((Travel) getItem(position));
     }
 
     @Nullable

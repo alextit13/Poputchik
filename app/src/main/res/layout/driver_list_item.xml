@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
+    android:background="@android:drawable/dialog_holo_light_frame"
     android:padding="8dp"
     android:layout_margin="4dp"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -21,6 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
+            android:layout_margin="3dp"
             tools:text="Минск"
             android:textSize="16sp"
             android:textAlignment="center"
@@ -29,7 +31,13 @@
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+        <ImageView
+            android:layout_gravity="center"
+            android:src="@drawable/go_from_to"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"/>
         <TextView
+            android:layout_margin="3dp"
             tools:text="Москва"
             android:textSize="16sp"
             android:textAlignment="center"
@@ -40,6 +48,8 @@
             android:layout_height="wrap_content" />
     </TableRow>
     <View
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginTop="4dp"
         android:layout_below="@id/tr_from_to"
         android:id="@+id/spacer"
@@ -47,9 +57,10 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"/>
     <TextView
+        android:layout_margin="3dp"
         android:textSize="18sp"
         android:textColor="@color/black_50"
-        android:textAlignment="viewStart"
+        android:textAlignment="center"
         tools:text="Выезд от станции метро Восток..."
         android:layout_below="@id/spacer"
         android:id="@+id/d_tv_about"
