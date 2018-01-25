@@ -39,6 +39,21 @@
                 android:hint="@string/car_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/edit_driver_auto_year"
+                android:hint="@string/car_year"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/edit_driver_card"
+                android:hint="@string/card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/edit_driver_about"
+                android:hint="@string/about_me"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -59,6 +74,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             </TableRow>
+            <TextView
+                android:id="@+id/hint_text_rating"
+                android:textColor="#060606"
+                android:textSize="8sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
         </LinearLayout>
     </ScrollView>
 </FrameLayout>

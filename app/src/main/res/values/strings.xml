@@ -31,4 +31,7 @@
     <string name="year">Возраст</string>
     <string name="car_name">Авто</string>
     <string name="ok">Сохранить</string>
+    <string name="card">Номер карты</string>
+    <string name="about_me">О себе</string>
+    <string name="car_year">Год выпуска авто</string>
 </resources>

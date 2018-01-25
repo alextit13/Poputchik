@@ -42,6 +42,27 @@ public class Driver implements Serializable{
         this.rewiews = rewiews;
     }
 
+    @Override
+    public String toString() {
+        return "Driver{" +
+                "numberCard='" + numberCard + '\'' +
+                ", about='" + about + '\'' +
+                ", date_create='" + date_create + '\'' +
+                ", year=" + year +
+                ", image_path='" + image_path + '\'' +
+                ", rating='" + rating + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", name_car='" + name_car + '\'' +
+                ", year_car='" + year_car + '\'' +
+                ", numberPhone='" + numberPhone + '\'' +
+                ", active_travels=" + active_travels +
+                ", complete_travels=" + complete_travels +
+                ", rewiews=" + rewiews +
+                '}';
+    }
+
     public String getNumberPhone() {
         return numberPhone;
     }

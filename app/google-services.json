@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "894057971231-nbgjjcji9mdh4g009ql74n1q35944sru.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.poputchic.android",
+            "certificate_hash": "9e783b5b481329f3bf521c2d2612271ae1fad93f"
+          }
+        },
+        {
           "client_id": "894057971231-og5camhi61g5042psn3ni200upirrmli.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

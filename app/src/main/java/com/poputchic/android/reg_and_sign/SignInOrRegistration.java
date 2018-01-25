@@ -1,6 +1,7 @@
 package com.poputchic.android.reg_and_sign;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -65,8 +66,11 @@ public class SignInOrRegistration extends AppCompatActivity {
 
     private void checkSharedPreference() {
         try {
-            Driver driver = null;
-            Companion companion = null;
+            final Driver[] driver = {null};
+            final Companion[] companion = {null};
+
+            String D = "";
+            String C = "";
             // открываем поток для чтения
             BufferedReader br = new BufferedReader(new InputStreamReader(
                     openFileInput("FILENAME")));
@@ -76,19 +80,47 @@ public class SignInOrRegistration extends AppCompatActivity {
                 //Log.d(LOG_TAG, str);
                 Gson gson = new Gson();
                 try {
-                    driver = gson.fromJson(str, Driver.class);
-                    companion = gson.fromJson(str,Companion.class);
+                    D = gson.fromJson(str, String.class);
+                    C = gson.fromJson(str,String.class);
                 }catch (Exception e){
                     //Log...
                 }
 
+                if (!D.equals("")){
+                    FirebaseDatabase.getInstance().getReference().child("users").child("drivers")
+                            .child(D).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            driver[0] = dataSnapshot.getValue(Driver.class);
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                }else if (!C.equals("")){
+                    FirebaseDatabase.getInstance().getReference().child("users").child("companion")
+                            .child(D).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            companion[0] = dataSnapshot.getValue(Companion.class);
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+
             }
-            if (driver!=null){
+            if (driver[0] !=null){
                 //Log.d(MainActivity.LOG_TAG,"user = " + user);
                 Intent intent = new Intent(SignInOrRegistration.this,MainListActivity.class);
-                intent.putExtra("driver",driver);
+                intent.putExtra("driver", driver[0]);
                 startActivity(intent);
-            }else if (companion!=null){
+            }else if (companion[0]!=null){
                 Intent intent = new Intent(SignInOrRegistration.this,MainListActivity.class);
                 intent.putExtra("companion",companion);
                 startActivity(intent);
