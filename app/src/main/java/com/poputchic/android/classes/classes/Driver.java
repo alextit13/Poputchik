@@ -16,6 +16,7 @@ public class Driver implements Serializable{
     private String name;
     private String name_car;
     private String year_car;
+    private String numberPhone;
     private ArrayList<Travel>active_travels;
     private ArrayList<Travel>complete_travels;
     private ArrayList<Travel>rewiews;
@@ -29,6 +30,14 @@ public class Driver implements Serializable{
         this.password = password;
         this.name = name;
 
+    }
+
+    public String getNumberPhone() {
+        return numberPhone;
+    }
+
+    public void setNumberPhone(String numberPhone) {
+        this.numberPhone = numberPhone;
     }
 
     public String getNumberCard() {

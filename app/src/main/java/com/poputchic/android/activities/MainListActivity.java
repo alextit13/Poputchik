@@ -16,6 +16,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.poputchic.android.R;
+import com.poputchic.android.activities.person_rooms.PersonRoomDriver;
 import com.poputchic.android.adapters.CompanionAdapter;
 import com.poputchic.android.adapters.TravelAdapter;
 import com.poputchic.android.classes.VARIABLES_CLASS;
@@ -102,6 +103,11 @@ public class MainListActivity extends AppCompatActivity {
         switch (view.getId()){
             case R.id.b_menu_1:
                 // private room
+                if (driver!=null){
+                    goToPrivateRoomDriver(driver);
+                }else if (companion!=null){
+                    goToPrivateRoomCompanion(companion);
+                }
                 break;
             case R.id.b_menu_2:
                 // exit
@@ -123,6 +129,16 @@ public class MainListActivity extends AppCompatActivity {
                 break;
 
         }
+    }
+
+    private void goToPrivateRoomCompanion(Companion CO) {
+
+    }
+
+    private void goToPrivateRoomDriver(Driver DR) {
+        Intent intent = new Intent(MainListActivity.this, PersonRoomDriver.class);
+        intent.putExtra("driver",DR);
+        startActivity(intent);
     }
 
     private void addTravel() {
