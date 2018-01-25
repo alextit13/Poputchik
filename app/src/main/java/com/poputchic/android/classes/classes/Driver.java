@@ -24,12 +24,22 @@ public class Driver implements Serializable{
     public Driver() {
     }
 
-    public Driver(String name,String date_create, String email, String password) {
+    public Driver(String numberCard, String about, String date_create, int year, String image_path, String rating, String email, String password, String name, String name_car, String year_car, String numberPhone, ArrayList<Travel> active_travels, ArrayList<Travel> complete_travels, ArrayList<Travel> rewiews) {
+        this.numberCard = numberCard;
+        this.about = about;
         this.date_create = date_create;
+        this.year = year;
+        this.image_path = image_path;
+        this.rating = rating;
         this.email = email;
         this.password = password;
         this.name = name;
-
+        this.name_car = name_car;
+        this.year_car = year_car;
+        this.numberPhone = numberPhone;
+        this.active_travels = active_travels;
+        this.complete_travels = complete_travels;
+        this.rewiews = rewiews;
     }
 
     public String getNumberPhone() {

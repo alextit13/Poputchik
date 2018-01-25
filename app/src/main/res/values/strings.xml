@@ -28,4 +28,7 @@
     <string name="KEY_MAP">AIzaSyAXX25tP47S27_Z3olquHCogs2SuKmQziA</string>
     <string name="title_activity_maps">Map</string>
     <string name="about">О поездке</string>
+    <string name="year">Возраст</string>
+    <string name="car_name">Авто</string>
+    <string name="ok">Сохранить</string>
 </resources>

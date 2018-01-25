@@ -31,10 +31,13 @@ import com.poputchic.android.R;
 import com.poputchic.android.activities.MainListActivity;
 import com.poputchic.android.classes.classes.Companion;
 import com.poputchic.android.classes.classes.Driver;
+import com.poputchic.android.classes.classes.Travel;
+
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Registration extends Activity {
@@ -97,8 +100,12 @@ public class Registration extends Activity {
                     && a_et_password.getText().toString().equals(a_et_password_confirm.getText()
             .toString())&&!a_et_name.getText().toString().equals("")){
                 ((ProgressBar) findViewById(R.id.a_pb)).setVisibility(View.VISIBLE);
-                driver = new Driver(a_et_name.getText().toString(),new Date().getTime()+""
-                        ,a_et_email.getText().toString(),a_et_password.getText().toString());
+                driver = new Driver("0000 0000 0000 0000","Обо мне",new Date().getTime()+"",25,
+                        "http://www.clker.com/cliparts/B/R/Y/m/P/e/blank-profile-hi.png","0",
+                        a_et_email.getText().toString(),a_et_password.getText().toString()
+                        ,a_et_name.getText().toString(),"Авто","1",a_et_number_of_phone
+                        .getText().toString(),new ArrayList<Travel>(),new ArrayList<Travel>(),
+                        new ArrayList<Travel>());
                 saveToFirebaseDriver();
             }
         }else if (a_cb_companion.isChecked()){

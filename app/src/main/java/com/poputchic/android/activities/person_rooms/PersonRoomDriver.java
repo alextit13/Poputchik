@@ -3,6 +3,7 @@ package com.poputchic.android.activities.person_rooms;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
@@ -57,8 +58,24 @@ public class PersonRoomDriver extends AppCompatActivity {
 
         listReview = new ArrayList<>();
 
+        clicker();
         takeDriver();
         stack();
+    }
+
+    private void clicker() {
+        pr_iv_edit_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                editProfile();
+            }
+        });
+    }
+
+    private void editProfile() {
+        Intent intent = new Intent(PersonRoomDriver.this,EditDriverProfile.class);
+        intent.putExtra("driver",driver);
+        startActivity(intent);
     }
 
     private void stack() {
@@ -68,7 +85,7 @@ public class PersonRoomDriver extends AppCompatActivity {
     private void completeViews() {
         if (driver!=null){
             if (driver.getRating()!=null){pr_rb_rating_bar.setRating(Float.parseFloat(driver.getRating()));pr_tv_rating.setText(driver.getRating());}
-            if (driver.getImage_path()!=null){Picasso.with(this).load(driver.getImage_path()).into(pr_CIV_image_driver);}
+            if (driver.getImage_path()!=null){Picasso.with(this).load(driver.getImage_path()).into(pr_CIV_image_driver);}else{Picasso.with(this).load("http://www.clker.com/cliparts/B/R/Y/m/P/e/blank-profile-hi.png").into(pr_CIV_image_driver);}
             if (driver.getName()!=null){pr_tv_name.setText(driver.getName());}
             if (driver.getYear()!=0){pr_tv_years.setText(driver.getYear()+" лет");}
             if (driver.getEmail()!=null){pr_tv_email.setText(driver.getEmail());}

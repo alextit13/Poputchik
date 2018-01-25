@@ -83,8 +83,13 @@
         <activity
             android:name=".map.MapsActivity"
             android:label="@string/title_activity_maps" />
-        <activity android:name=".activities.person_rooms.PersonRoomDriver"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" ></activity>
+        <activity
+            android:name=".activities.person_rooms.PersonRoomDriver"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".activities.person_rooms.EditDriverProfile"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
+        </activity>
     </application>
 
 </manifest>
