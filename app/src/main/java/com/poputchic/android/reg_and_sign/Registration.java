@@ -29,6 +29,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 import com.poputchic.android.R;
 import com.poputchic.android.activities.MainListActivity;
+import com.poputchic.android.classes.VARIABLES_CLASS;
 import com.poputchic.android.classes.classes.Companion;
 import com.poputchic.android.classes.classes.Driver;
 import com.poputchic.android.classes.classes.Travel;
@@ -173,14 +174,14 @@ public class Registration extends Activity {
         });
     }
 
-    private void saveSharedPreferenceDRIVER(Driver driver) {
+    private void saveSharedPreferenceDRIVER(Driver d) {
         try {
             // отрываем поток для записи
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(
-                    openFileOutput("FILENAME", MODE_PRIVATE)));
+                    openFileOutput(VARIABLES_CLASS.FILENAME, MODE_PRIVATE)));
             // пишем данные
             Gson gson = new Gson();
-            String json = gson.toJson(driver.getDate_create());
+            String json = gson.toJson(d);
 
 
             bw.write(json);

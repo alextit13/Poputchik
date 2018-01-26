@@ -140,14 +140,14 @@ public class SignIn extends AppCompatActivity {
         }
     }
 
-    private void saveSharedPreferenceDRIVER(Driver driver) {
+    private void saveSharedPreferenceDRIVER(Driver d) {
         try {
             // отрываем поток для записи
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(
-                    openFileOutput("FILENAME", MODE_PRIVATE)));
+                    openFileOutput(VARIABLES_CLASS.FILENAME, MODE_PRIVATE)));
             // пишем данные
             Gson gson = new Gson();
-            String json = gson.toJson(driver.getDate_create());
+            String json = gson.toJson(d);
 
 
             bw.write(json);
