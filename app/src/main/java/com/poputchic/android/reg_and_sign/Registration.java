@@ -29,6 +29,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 import com.poputchic.android.R;
 import com.poputchic.android.activities.MainListActivity;
+import com.poputchic.android.classes.Data;
 import com.poputchic.android.classes.VARIABLES_CLASS;
 import com.poputchic.android.classes.classes.Companion;
 import com.poputchic.android.classes.classes.Driver;
@@ -115,9 +116,10 @@ public class Registration extends Activity {
                     && a_et_password.getText().toString().equals(a_et_password_confirm.getText()
                     .toString())){
                 ((ProgressBar) findViewById(R.id.a_pb)).setVisibility(View.VISIBLE);
-                companion = new Companion(new Date().getTime()+""
+                companion = new Companion("Обо мне",new Date().getTime()+""
+                        ,18,"http://www.clker.com/cliparts/B/R/Y/m/P/e/blank-profile-hi.png"
                         ,a_et_email.getText().toString(),a_et_password.getText().toString()
-                ,a_et_name.getText().toString());
+                ,a_et_name.getText().toString(),a_et_number_of_phone.getText().toString());
                 saveToFirebaseCompanion();
             }
         }
@@ -130,34 +132,18 @@ public class Registration extends Activity {
                 .setValue(companion).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                saveSharedPreferenceCOMPANION(companion);
+
+                Data data = new Data(Registration.this);
+                data.saveSharedPreferenceCOMPANION(companion);
+
                 Intent intent = new Intent(Registration.this,MainListActivity.class);
                 intent.putExtra("companion",companion);
+                Toast.makeText(Registration.this, "Вошел компаньон", Toast.LENGTH_SHORT).show();
                 startActivity(intent);
             }
         });
     }
 
-    private void saveSharedPreferenceCOMPANION(Companion companion) {
-        try {
-            // отрываем поток для записи
-            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(
-                    openFileOutput("FILENAME", MODE_PRIVATE)));
-            // пишем данные
-            Gson gson = new Gson();
-            String json = gson.toJson(companion);
-
-
-            bw.write(json);
-            // закрываем поток
-            bw.close();
-            //Log.d(MainActivity.LOG_TAG, "Файл записан");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     private void saveToFirebaseDriver() {
         FirebaseDatabase.getInstance().getReference().child("users")
@@ -166,33 +152,16 @@ public class Registration extends Activity {
                 .setValue(driver).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                saveSharedPreferenceDRIVER(driver);
+
+                Data data = new Data(Registration.this);
+                data.saveSharedPreferenceDRIVER(driver);
+
                 Intent intent = new Intent(Registration.this,MainListActivity.class);
+                Toast.makeText(Registration.this, "Вошел драйвер", Toast.LENGTH_SHORT).show();
                 intent.putExtra("driver",driver);
                 startActivity(intent);
             }
         });
-    }
-
-    private void saveSharedPreferenceDRIVER(Driver d) {
-        try {
-            // отрываем поток для записи
-            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(
-                    openFileOutput(VARIABLES_CLASS.FILENAME, MODE_PRIVATE)));
-            // пишем данные
-            Gson gson = new Gson();
-            String json = gson.toJson(d);
-
-
-            bw.write(json);
-            // закрываем поток
-            bw.close();
-            //Log.d(MainActivity.LOG_TAG, "Файл записан");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     private void closeApplication() {

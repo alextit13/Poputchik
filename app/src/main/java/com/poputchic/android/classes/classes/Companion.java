@@ -12,16 +12,20 @@ public class Companion implements Serializable{
     private String email;
     private String password;
     private String name;
-    private ArrayList<Travel>rewiews;
+    private String phone;
 
     public Companion() {
     }
 
-    public Companion(String date_create, String email, String password, String name) {
+    public Companion(String about, String date_create, int year, String image_path, String email, String password, String name, String phone) {
+        this.about = about;
         this.date_create = date_create;
+        this.year = year;
+        this.image_path = image_path;
         this.email = email;
         this.password = password;
         this.name = name;
+        this.phone = phone;
     }
 
     public String getAbout() {
@@ -80,11 +84,25 @@ public class Companion implements Serializable{
         this.name = name;
     }
 
-    public ArrayList<Travel> getRewiews() {
-        return rewiews;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setRewiews(ArrayList<Travel> rewiews) {
-        this.rewiews = rewiews;
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    @Override
+    public String toString() {
+        return "Companion{" +
+                "about='" + about + '\'' +
+                ", date_create='" + date_create + '\'' +
+                ", year=" + year +
+                ", image_path='" + image_path + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", phone='" + phone + '\'' +
+                '}';
     }
 }

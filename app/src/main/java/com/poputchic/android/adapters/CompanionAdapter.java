@@ -76,11 +76,6 @@ public class CompanionAdapter extends BaseAdapter{
         if (c.getName()!=null) list_comp_name.setText(c.getName());
         if (c.getAbout()!=null)list_comp_about.setText(c.getAbout());
         if (c.getYear()!=0)list_comp_years.setText(c.getYear()+"");
-        if (c.getRewiews()!=null&&c.getRewiews().size()!=0){
-            list_comp_num_review.setText(c.getRewiews().size()+"");
-        }else{
-            list_comp_num_review.setText("0");
-        }
 
         return view;
     }

@@ -88,13 +88,15 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".activities.person_rooms.EditDriverProfile"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-
-        </activity>
-        <activity android:name=".activities.person_rooms.my_travels.MyTravels"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-
-        </activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activities.person_rooms.my_travels.MyTravels"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activities.person_rooms.PersonRoomCompanion"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".activities.person_rooms.my_travels.MyFinishesTravels" />
+        <activity android:name=".activities.person_rooms.EditCompanionProfile"></activity>
     </application>
 
 </manifest>

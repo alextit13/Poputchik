@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -15,6 +16,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.poputchic.android.R;
 import com.poputchic.android.activities.MainListActivity;
+import com.poputchic.android.classes.Data;
 import com.poputchic.android.classes.VARIABLES_CLASS;
 import com.poputchic.android.classes.classes.Companion;
 import com.poputchic.android.classes.classes.Driver;
@@ -40,7 +42,75 @@ public class SignInOrRegistration extends AppCompatActivity {
     private void init(){
         c_b_sign_in = (Button) findViewById(R.id.c_b_sign_in);
         c_b_registration = (Button) findViewById(R.id.c_b_registration);
-        checkSharedPreference();
+        checkSavedData();
+    }
+
+    private void checkSavedData() {
+        driver = null;
+        companion = null;
+        String D = "";
+        String C = "";
+        Data data = new Data(this);
+        try {
+            D = data.getDriverData();
+            C = data.getCompanionData();
+
+            if (!D.equals("")||!C.equals("")){
+                if (!D.equals("")){
+                    createDriver(D);
+                }
+                if (!C.equals("")){
+                    createCompanion(C);
+                }
+            }
+
+        }catch (Exception e){
+            //Log...
+        }
+        //Log.d(VARIABLES_CLASS.LOG_TAG,"DDD = " + driver);
+        //Log.d(VARIABLES_CLASS.LOG_TAG,"CCC = " + companion);
+
+
+    }
+
+    private void createCompanion(String s) {
+        companion = null;
+        final Intent intent = new Intent(SignInOrRegistration.this,MainListActivity.class);
+        FirebaseDatabase.getInstance().getReference().child("users").child("companion").child(s).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                companion = dataSnapshot.getValue(Companion.class);
+                if (companion!=null){
+                    intent.putExtra("companion",companion);
+                    startActivity(intent);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void createDriver(String s) {
+        driver = null;
+        final Intent intent = new Intent(SignInOrRegistration.this,MainListActivity.class);
+        FirebaseDatabase.getInstance().getReference().child("users").child("drivers").child(s).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                driver = dataSnapshot.getValue(Driver.class);
+                if (driver!=null){
+                    intent.putExtra("driver",driver);
+                    startActivity(intent);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public void click_buttons(View view) {
@@ -63,41 +133,5 @@ public class SignInOrRegistration extends AppCompatActivity {
     private void signIn() {
         Intent intent = new Intent(SignInOrRegistration.this,SignIn.class);
         startActivity(intent);
-    }
-
-    private void checkSharedPreference() {
-        try {
-
-            // открываем поток для чтения
-            BufferedReader br = new BufferedReader(new InputStreamReader(openFileInput(VARIABLES_CLASS.FILENAME)));
-            String str = "";
-            // читаем содержимое
-            while ((str = br.readLine()) != null) {
-                //Log.d(LOG_TAG, str);
-                Gson gson = new Gson();
-                try {
-                    driver = gson.fromJson(str, Driver.class);
-                    companion = gson.fromJson(str,Companion.class);
-                }catch (Exception e){
-                    //Log...
-                }
-            }
-
-
-            if (driver!=null){
-                Intent intent = new Intent(SignInOrRegistration.this,MainListActivity.class);
-                intent.putExtra("driver", driver);
-                startActivity(intent);
-            }else if (companion!=null){
-                Intent intent = new Intent(SignInOrRegistration.this,MainListActivity.class);
-                intent.putExtra("companion",companion);
-                startActivity(intent);
-            }
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }
