@@ -18,10 +18,36 @@
         android:src="@drawable/icon_left_yellow"
         android:layout_width="40dp"
         android:layout_height="40dp" />
-    <ListView
-        android:id="@+id/list_my_travels"
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:textSize="22sp"
+        android:textColor="@color/yallou"
+        android:text="@string/app_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:background="@color/yallou"
         android:layout_below="@id/toolbar_my_travels"
         android:layout_width="match_parent"
+        android:layout_height="240dp" />
+    <TextView
+        android:id="@+id/logo_my_travels"
+        android:layout_marginTop="40dp"
+        android:layout_below="@id/toolbar_my_travels"
+        android:layout_centerHorizontal="true"
+        android:textSize="40sp"
+        android:textColor="@color/black_100"
+        android:text="@string/my_travels"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ListView
+        android:background="@color/gray_10"
+        android:layout_marginTop="50dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/list_my_travels"
+        android:layout_below="@id/logo_my_travels"
+        android:layout_width="300dp"
         android:layout_height="wrap_content">
     </ListView>
 </RelativeLayout>

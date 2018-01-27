@@ -34,4 +34,6 @@
     <string name="card">Номер карты</string>
     <string name="about_me">О себе</string>
     <string name="car_year">Год выпуска авто</string>
+    <string name="how_many_people">Сколько свободных мест</string>
+    <string name="my_travels">Мои поездки</string>
 </resources>

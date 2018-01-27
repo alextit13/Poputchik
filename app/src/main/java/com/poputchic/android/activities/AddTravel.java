@@ -42,7 +42,7 @@ public class AddTravel extends AppCompatActivity{
 
     private ProgressBar f_pb_;
     private AutoCompleteTextView e_et_from,e_et_to;
-    private EditText e_et_pointer_adress_1,e_et_pointer_adress_2,e_about;
+    private EditText e_et_pointer_adress_1,e_et_pointer_adress_2,e_about,e_how_many_peoples;
     private Button e_b_time_start,e_b_time_finish,e_b_cancel,e_b_go,e_b_date,b_onMap_start,b_onMap_finish;
 
     int DIALOG_TIME = 1;
@@ -87,6 +87,7 @@ public class AddTravel extends AppCompatActivity{
 
         e_et_pointer_adress_1 = (EditText) findViewById(R.id.e_et_pointer_adress_1);
         e_et_pointer_adress_2 = (EditText) findViewById(R.id.e_et_pointer_adress_2);
+        e_how_many_peoples = (EditText) findViewById(R.id.e_how_many_peoples);
 
         e_b_time_start = (Button) findViewById(R.id.e_b_time_start);
         e_b_time_finish = (Button) findViewById(R.id.e_b_time_finish);
@@ -164,7 +165,8 @@ public class AddTravel extends AppCompatActivity{
     private void createTravel() {
         createAdresses();
         if (adress_from!=null||adress_to!=null){
-            Travel travel = new Travel(adress_from,adress_to,e_b_time_start.getText().toString()
+            Travel travel = new Travel(Integer.parseInt(e_how_many_peoples.getText().toString())
+                    ,adress_from,adress_to,e_b_time_start.getText().toString()
                     ,e_b_time_finish.getText().toString(),driver,e_about.getText().toString(),new Date().getTime()+"");
             f_pb_.setVisibility(View.VISIBLE);
             add_container.setAlpha(.3f);

@@ -8,7 +8,7 @@
     tools:context="com.poputchic.android.activities.person_rooms.PersonRoomDriver">
     <RelativeLayout
         android:background="@color/black_100"
-        android:id="@+id/toolbar_emulator"
+        android:id="@+id/toolbar_companion_finish_trav"
         android:layout_width="match_parent"
         android:layout_height="70dp">
         <ImageView
@@ -36,7 +36,7 @@
             android:layout_height="40dp" />
     </RelativeLayout>
     <ScrollView
-        android:layout_below="@id/toolbar_emulator"
+        android:layout_below="@id/toolbar_companion_finish_trav"
         android:id="@+id/scroll_private_room_driver"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -78,6 +78,14 @@
                 android:layout_height="wrap_content" />
             <TextView
                 android:id="@+id/pr_tv_number_phone_c"
+                android:textSize="18sp"
+                android:textColor="@color/black_50"
+                tools:text="+5478852144"
+                android:textAlignment="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/pr_tv_about_c"
                 android:textSize="18sp"
                 android:textColor="@color/black_50"
                 tools:text="+5478852144"

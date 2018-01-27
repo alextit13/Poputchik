@@ -8,7 +8,7 @@
     tools:context="com.poputchic.android.activities.person_rooms.PersonRoomDriver">
     <RelativeLayout
         android:background="@color/black_100"
-        android:id="@+id/toolbar_emulator"
+        android:id="@+id/toolbar_companion_finish_trav"
         android:layout_width="match_parent"
         android:layout_height="70dp">
         <ImageView
@@ -36,7 +36,7 @@
             android:layout_height="40dp" />
     </RelativeLayout>
     <ScrollView
-        android:layout_below="@id/toolbar_emulator"
+        android:layout_below="@id/toolbar_companion_finish_trav"
         android:id="@+id/scroll_private_room_driver"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

@@ -27,7 +27,7 @@ public class TravelAdapter extends BaseAdapter{
     LayoutInflater lInflater;
     ArrayList<Travel> objects;
 
-    TextView tv_date,d_tv_from,d_tv_to,d_tv_about;
+    TextView tv_date,d_tv_from,d_tv_to,d_tv_about,places;
 
     public TravelAdapter(){
 
@@ -76,6 +76,7 @@ public class TravelAdapter extends BaseAdapter{
         if (t.getFrom()!=null){d_tv_from.setText(t.getFrom());}
         if (t.getTo()!=null){d_tv_to.setText(t.getTo());}
         if (t.getAbout_travel()!=null){d_tv_about.setText(t.getAbout_travel());}
+        if (t.getPlaces()!=0){places.setText("Свободно мест: "+t.getPlaces()+"/"+t.getPlaces());}
         // заполняем View в пункте списка данными из товаров: наименование, цена
         // и картинка
 
@@ -87,6 +88,7 @@ public class TravelAdapter extends BaseAdapter{
         d_tv_from = (TextView) v.findViewById(R.id.d_tv_from);
         d_tv_to = (TextView) v.findViewById(R.id.d_tv_to);
         d_tv_about = (TextView) v.findViewById(R.id.d_tv_about);
+        places = (TextView) v.findViewById(R.id.places);
     }
 
     // товар по позиции

@@ -8,5 +8,8 @@
     <color name="black_50">#212121</color>
     <color name="black_10">#585858</color>
 
+    <color name="gray_10">#e4e4e4</color>
+
     <color name="yallou">#ffeb3b</color>
+    <color name="yallou_100">#d7c100</color>
 </resources>

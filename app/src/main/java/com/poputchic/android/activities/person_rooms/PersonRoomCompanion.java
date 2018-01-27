@@ -44,7 +44,7 @@ public class PersonRoomCompanion extends AppCompatActivity {
     private Companion companion;
     private ProgressBar private_room_progress_bar_c;
     private ImageView pr_iv_my_travels_c, pr_iv_edit_profile_c;
-    private TextView pr_tv_name_c, pr_tv_years_c, pr_tv_email_c, pr_tv_number_phone_c;
+    private TextView pr_tv_name_c, pr_tv_years_c, pr_tv_email_c, pr_tv_number_phone_c,pr_tv_about_c;
     private CircleImageView pr_CIV_image_companion;
     private ListView pr_lv_reviews_c;
     private ArrayList<Review> listReview;
@@ -70,6 +70,7 @@ public class PersonRoomCompanion extends AppCompatActivity {
         pr_tv_years_c = (TextView) findViewById(R.id.pr_tv_years_c);
         pr_tv_email_c = (TextView) findViewById(R.id.pr_tv_email_c);
         pr_tv_number_phone_c = (TextView) findViewById(R.id.pr_tv_number_phone_c);
+        pr_tv_about_c = (TextView) findViewById(R.id.pr_tv_about_c);
 
         pr_CIV_image_companion = (CircleImageView) findViewById(R.id.pr_CIV_image_companion);
 
@@ -214,6 +215,9 @@ public class PersonRoomCompanion extends AppCompatActivity {
             }
             if (companion.getPhone() != null) {
                 pr_tv_number_phone_c.setText(companion.getPhone());
+            }
+            if (companion.getAbout()!=null){
+                pr_tv_about_c.setText(companion.getAbout()+"");
             }
             // add list review
         }

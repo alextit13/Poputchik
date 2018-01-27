@@ -57,12 +57,21 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"/>
     <TextView
+        android:textColor="@color/yallou_100"
+        tools:text="Свободно мест: 3/3"
+        android:layout_marginStart="20dp"
+        android:textAlignment="viewStart"
+        android:id="@+id/places"
+        android:layout_below="@id/spacer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
         android:layout_margin="3dp"
         android:textSize="18sp"
         android:textColor="@color/black_50"
         android:textAlignment="center"
         tools:text="Выезд от станции метро Восток..."
-        android:layout_below="@id/spacer"
+        android:layout_below="@id/places"
         android:id="@+id/d_tv_about"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

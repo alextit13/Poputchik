@@ -141,6 +141,13 @@
             </TableRow>
 
             <EditText
+                android:inputType="number"
+                android:id="@+id/e_how_many_peoples"
+                android:hint="@string/how_many_people"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <EditText
                 android:id="@+id/e_about"
                 android:hint="@string/about"
                 android:layout_width="match_parent"

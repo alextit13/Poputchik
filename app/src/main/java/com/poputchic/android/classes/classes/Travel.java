@@ -10,11 +10,13 @@ public class Travel implements Serializable {
     private Driver driver;
     private String about_travel;
     private String time_create;
+    private int places;
 
     public Travel() {
     }
 
-    public Travel(String from, String to, String time_from, String time_to, Driver driver, String about_travel, String time_create) {
+    public Travel(int places,String from, String to, String time_from, String time_to, Driver driver, String about_travel, String time_create) {
+        this.places = places;
         this.from = from;
         this.to = to;
         this.time_from = time_from;
@@ -22,6 +24,14 @@ public class Travel implements Serializable {
         this.driver = driver;
         this.about_travel = about_travel;
         this.time_create = time_create;
+    }
+
+    public int getPlaces() {
+        return places;
+    }
+
+    public void setPlaces(int places) {
+        this.places = places;
     }
 
     public String getFrom() {
@@ -78,5 +88,19 @@ public class Travel implements Serializable {
 
     public void setTime_create(String time_create) {
         this.time_create = time_create;
+    }
+
+    @Override
+    public String toString() {
+        return "Travel{" +
+                "from='" + from + '\'' +
+                ", to='" + to + '\'' +
+                ", time_from='" + time_from + '\'' +
+                ", time_to='" + time_to + '\'' +
+                ", driver=" + driver +
+                ", about_travel='" + about_travel + '\'' +
+                ", time_create='" + time_create + '\'' +
+                ", places=" + places +
+                '}';
     }
 }
