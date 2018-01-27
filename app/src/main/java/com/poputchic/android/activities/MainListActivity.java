@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -65,12 +66,27 @@ public class MainListActivity extends AppCompatActivity {
         main_list_progress_bar = (ProgressBar) findViewById(R.id.main_list_progress_bar);
         main_list_progress_bar.setVisibility(View.VISIBLE);
         b_main_list = (ListView)findViewById(R.id.b_main_list);
+        b_main_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (companion!=null){
+                    clickPosition(position);
+                }
+            }
+        });
         b_menu_1 = (ImageView) findViewById(R.id.b_menu_1);
         b_menu_2 = (ImageView) findViewById(R.id.b_menu_2);
         b_menu_3 = (ImageView) findViewById(R.id.b_menu_3);
         b_menu_4 = (ImageView) findViewById(R.id.b_menu_4);
         b_menu_5 = (ImageView) findViewById(R.id.b_menu_5);
         selectUser();
+    }
+
+    private void clickPosition(int p) {
+        Intent intent = new Intent(MainListActivity.this,DetailViewTravel.class);
+        intent.putExtra("companion",companion);
+        intent.putExtra("travel",listTravesl.get(p));
+        startActivity(intent);
     }
 
     private void selectUser() {

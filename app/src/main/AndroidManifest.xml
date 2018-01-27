@@ -95,11 +95,15 @@
         <activity
             android:name=".activities.person_rooms.PersonRoomCompanion"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".activities.person_rooms.my_travels.MyFinishesTravels"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-        <activity android:name=".activities.person_rooms.EditCompanionProfile"
+        <activity
+            android:name=".activities.person_rooms.my_travels.MyFinishesTravels"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activities.person_rooms.EditCompanionProfile"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-
+        </activity>
+        <activity android:name=".activities.DetailViewTravel"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
     </application>
 

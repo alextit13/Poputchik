@@ -6,32 +6,51 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.poputchic.android.activities.person_rooms.my_travels.MyFinishesTravels">
-    <RelativeLayout
+    <ImageView
+        android:id="@+id/toolbar_my_travels"
         android:background="@color/black_100"
-        android:id="@+id/toolbar_companion_finish_trav"
         android:layout_width="match_parent"
-        android:layout_height="70dp">
-        <ImageView
-            android:id="@+id/pr_iv_my_travels_finish_c"
-            android:layout_marginStart="10dp"
-            android:layout_centerVertical="true"
-            android:src="@drawable/icon_left_yellow"
-            android:layout_width="40dp"
-            android:layout_height="40dp" />
-        <TextView
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:textSize="22sp"
-            android:textColor="@color/yallou"
-            android:text="@string/app_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </RelativeLayout>
+        android:layout_height="70dp" />
+    <ImageView
+        android:id="@+id/pr_iv_my_travels_finish_c"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/icon_left_yellow"
+        android:layout_width="40dp"
+        android:layout_height="40dp" />
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:textSize="22sp"
+        android:textColor="@color/yallou"
+        android:text="@string/app_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:background="@color/yallou"
+        android:layout_below="@id/toolbar_my_travels"
+        android:layout_width="match_parent"
+        android:layout_height="240dp" />
+    <TextView
+        android:id="@+id/logo_my_travels"
+        android:layout_marginTop="40dp"
+        android:layout_below="@id/toolbar_my_travels"
+        android:layout_centerHorizontal="true"
+        android:textSize="40sp"
+        android:textColor="@color/black_100"
+        android:text="@string/my_travels"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
     <ListView
-        android:layout_margin="3dp"
-        android:layout_below="@id/toolbar_companion_finish_trav"
+        android:scrollIndicators="none"
+        android:divider="@color/gray_10"
+        android:dividerHeight="0dp"
+        android:background="@color/gray_10"
+        android:layout_marginTop="50dp"
+        android:layout_centerHorizontal="true"
         android:id="@+id/companion_finish_travels"
-        android:layout_width="match_parent"
+        android:layout_below="@id/logo_my_travels"
+        android:layout_width="300dp"
         android:layout_height="wrap_content">
     </ListView>
 </RelativeLayout>

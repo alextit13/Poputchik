@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.poputchic.android.activities.person_rooms.my_travels.MyTravels">
+    tools:context="com.poputchic.android.activities.DetailViewTravel">
     <ImageView
         android:id="@+id/toolbar_my_travels"
         android:background="@color/black_100"
@@ -30,7 +30,7 @@
         android:background="@color/yallou"
         android:layout_below="@id/toolbar_my_travels"
         android:layout_width="match_parent"
-        android:layout_height="240dp" />
+        android:layout_height="200dp" />
     <TextView
         android:id="@+id/logo_my_travels"
         android:layout_marginTop="40dp"
@@ -38,19 +38,7 @@
         android:layout_centerHorizontal="true"
         android:textSize="40sp"
         android:textColor="@color/black_100"
-        android:text="@string/my_travels"
+        android:text="@string/travel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-    <ListView
-        android:scrollIndicators="none"
-        android:divider="@color/gray_10"
-        android:dividerHeight="0dp"
-        android:background="@color/gray_10"
-        android:layout_marginTop="50dp"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/list_my_travels"
-        android:layout_below="@id/logo_my_travels"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content">
-    </ListView>
 </RelativeLayout>
