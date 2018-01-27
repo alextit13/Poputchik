@@ -126,7 +126,7 @@ public class SignIn extends AppCompatActivity {
                     openFileOutput("FILENAME", MODE_PRIVATE)));
             // пишем данные
             Gson gson = new Gson();
-            String json = gson.toJson(companion.getDate_create());
+            String json = gson.toJson(companion);
 
 
             bw.write(json);

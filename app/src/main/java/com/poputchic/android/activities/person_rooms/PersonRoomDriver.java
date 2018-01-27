@@ -19,21 +19,27 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.poputchic.android.R;
+import com.poputchic.android.activities.person_rooms.my_travels.MyTravels;
 import com.poputchic.android.classes.VARIABLES_CLASS;
 import com.poputchic.android.classes.classes.Driver;
 import com.poputchic.android.classes.classes.Review;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -48,6 +54,8 @@ import static com.poputchic.android.classes.VARIABLES_CLASS.LOG_TAG;
 public class PersonRoomDriver extends AppCompatActivity {
 
     private Driver driver;
+
+    private ProgressBar private_room_progress_bar;
 
     private ImageView pr_iv_my_travels, pr_iv_edit_profile;
     private RatingBar pr_rb_rating_bar;
@@ -71,6 +79,8 @@ public class PersonRoomDriver extends AppCompatActivity {
     }
 
     private void init() {
+
+        private_room_progress_bar = (ProgressBar) findViewById(R.id.private_room_progress_bar);
         pr_iv_my_travels = (ImageView) findViewById(R.id.pr_iv_my_travels);
         pr_iv_edit_profile = (ImageView) findViewById(R.id.pr_iv_edit_profile);
 
@@ -91,7 +101,6 @@ public class PersonRoomDriver extends AppCompatActivity {
 
         clicker();
         takeDriver();
-        stack();
     }
 
     private void clicker() {
@@ -105,6 +114,14 @@ public class PersonRoomDriver extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 checkPermissionsAndOpenFilePicker();
+            }
+        });
+        pr_iv_my_travels.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PersonRoomDriver.this, MyTravels.class);
+                intent.putExtra("driver",driver);
+                startActivity(intent);
             }
         });
     }
@@ -197,7 +214,17 @@ public class PersonRoomDriver extends AppCompatActivity {
                 pr_tv_rating.setText(driver.getRating());
             }
             if (driver.getImage_path() != null) {
-                Picasso.with(this).load(driver.getImage_path()).into(pr_CIV_image_driver);
+                Picasso.with(this).load(driver.getImage_path()).into(pr_CIV_image_driver, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        private_room_progress_bar.setVisibility(View.INVISIBLE);
+                    }
+
+                    @Override
+                    public void onError() {
+
+                    }
+                });
             } else {
                 Picasso.with(this).load("http://www.clker.com/cliparts/B/R/Y/m/P/e/blank-profile-hi.png").into(pr_CIV_image_driver);
             }
@@ -222,6 +249,20 @@ public class PersonRoomDriver extends AppCompatActivity {
 
     private void takeDriver() {
         driver = (Driver) getIntent().getSerializableExtra("driver");
+
+        FirebaseDatabase.getInstance().getReference().child("users").child("drivers")
+                .child(driver.getDate_create()+"").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                driver = (Driver) dataSnapshot.getValue(Driver.class);
+                stack();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
 }

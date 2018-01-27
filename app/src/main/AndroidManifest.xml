@@ -86,7 +86,12 @@
         <activity
             android:name=".activities.person_rooms.PersonRoomDriver"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".activities.person_rooms.EditDriverProfile"
+        <activity
+            android:name=".activities.person_rooms.EditDriverProfile"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
+        </activity>
+        <activity android:name=".activities.person_rooms.my_travels.MyTravels"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
         </activity>

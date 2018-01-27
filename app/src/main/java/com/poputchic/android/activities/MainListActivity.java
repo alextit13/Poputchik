@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -41,6 +43,10 @@ public class MainListActivity extends AppCompatActivity {
     private ArrayList<Companion>listCompanions;
     private ArrayList<Travel> listTravesl;
 
+    private RelativeLayout main_list_container;
+    private ProgressBar main_list_progress_bar;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +55,8 @@ public class MainListActivity extends AppCompatActivity {
     }
 
     private void init() {
+        main_list_progress_bar = (ProgressBar) findViewById(R.id.main_list_progress_bar);
+        main_list_progress_bar.setVisibility(View.VISIBLE);
         b_main_list = (ListView)findViewById(R.id.b_main_list);
         b_menu_1 = (ImageView) findViewById(R.id.b_menu_1);
         b_menu_2 = (ImageView) findViewById(R.id.b_menu_2);
@@ -84,6 +92,7 @@ public class MainListActivity extends AppCompatActivity {
                         for (DataSnapshot data : dataSnapshot.getChildren()){
                             listTravesl.add(data.getValue(Travel.class));
                         }
+                        main_list_progress_bar.setVisibility(View.INVISIBLE);
                         travelsAdapter(listTravesl);
                     }
 
@@ -157,11 +166,10 @@ public class MainListActivity extends AppCompatActivity {
                         try {
                             // отрываем поток для записи
                             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(
-                                    openFileOutput("FILENAME", MODE_PRIVATE)));
+                                    openFileOutput(VARIABLES_CLASS.FILENAME, MODE_PRIVATE)));
                             // пишем данные
                             Gson gson = new Gson();
                             String json = gson.toJson(null);
-
 
                             bw.write(json);
                             // закрываем поток
@@ -172,9 +180,7 @@ public class MainListActivity extends AppCompatActivity {
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                        Intent intent = new Intent(MainListActivity.this, SignInOrRegistration.class);
-                        startActivity(intent);
-                        dialog.dismiss();
+                        finish();
                     }
                 }).setNegativeButton("Нет", new DialogInterface.OnClickListener() {
             @Override

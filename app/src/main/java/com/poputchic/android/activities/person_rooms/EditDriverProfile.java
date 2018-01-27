@@ -128,7 +128,7 @@ public class EditDriverProfile extends AppCompatActivity {
         try {
             // отрываем поток для записи
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(
-                    openFileOutput("FILENAME", MODE_PRIVATE)));
+                    openFileOutput(VARIABLES_CLASS.FILENAME, MODE_PRIVATE)));
             // пишем данные
             Gson gson = new Gson();
             String json = gson.toJson(driver);

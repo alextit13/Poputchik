@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.poputchic.android.activities.person_rooms.my_travels.MyTravels">
+    <ImageView
+        android:id="@+id/toolbar_my_travels"
+        android:background="@color/black_100"
+        android:layout_width="match_parent"
+        android:layout_height="70dp" />
+    <ImageView
+        android:id="@+id/back_button_my_travels"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/icon_left_yellow"
+        android:layout_width="40dp"
+        android:layout_height="40dp" />
+    <ListView
+        android:id="@+id/list_my_travels"
+        android:layout_below="@id/toolbar_my_travels"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </ListView>
+</RelativeLayout>
