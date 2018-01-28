@@ -165,9 +165,9 @@ public class AddTravel extends AppCompatActivity{
     private void createTravel() {
         createAdresses();
         if (adress_from!=null||adress_to!=null){
-            Travel travel = new Travel(Integer.parseInt(e_how_many_peoples.getText().toString())
+            Travel travel = new Travel(0,Integer.parseInt(e_how_many_peoples.getText().toString())
                     ,adress_from,adress_to,e_b_time_start.getText().toString()
-                    ,e_b_time_finish.getText().toString(),driver,e_about.getText().toString(),new Date().getTime()+"");
+                    ,e_b_time_finish.getText().toString(),driver.getDate_create()+"",e_about.getText().toString(),new Date().getTime()+"");
             f_pb_.setVisibility(View.VISIBLE);
             add_container.setAlpha(.3f);
             pushToFirebase(travel);

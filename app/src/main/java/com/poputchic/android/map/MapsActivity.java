@@ -58,9 +58,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     //Log...
                 }
                 Intent intent = new Intent();
-                if (addresses!=null&&!addresses.get(0).equals("")){
-                    intent.putExtra("adress", addresses.get(0).getAddressLine(0));
+                try {
+                    if (addresses!=null&&!addresses.get(0).equals("")){
+                        intent.putExtra("adress", addresses.get(0).getAddressLine(0));
+                    }
+                }catch (Exception e){
+                    //Log...
                 }
+
                 setResult(RESULT_OK, intent);
                 finish();
             }

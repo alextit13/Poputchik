@@ -7,23 +7,33 @@ public class Travel implements Serializable {
     private String to;
     private String time_from;
     private String time_to;
-    private Driver driver;
+    private String driver_create;
     private String about_travel;
     private String time_create;
     private int places;
+    private int companion;
 
     public Travel() {
     }
 
-    public Travel(int places,String from, String to, String time_from, String time_to, Driver driver, String about_travel, String time_create) {
+    public Travel(int companion, int places,String from, String to, String time_from, String time_to, String driver_create, String about_travel, String time_create) {
+        this.companion = companion;
         this.places = places;
         this.from = from;
         this.to = to;
         this.time_from = time_from;
         this.time_to = time_to;
-        this.driver = driver;
+        this.driver_create = driver_create;
         this.about_travel = about_travel;
         this.time_create = time_create;
+    }
+
+    public int getCompanion() {
+        return companion;
+    }
+
+    public void setCompanion(int companion) {
+        this.companion = companion;
     }
 
     public int getPlaces() {
@@ -66,12 +76,12 @@ public class Travel implements Serializable {
         this.time_to = time_to;
     }
 
-    public Driver getDriver() {
-        return driver;
+    public String getDriver_create() {
+        return driver_create;
     }
 
-    public void setDriver(Driver driver) {
-        this.driver = driver;
+    public void setDriver_create(String driver_create) {
+        this.driver_create = driver_create;
     }
 
     public String getAbout_travel() {
@@ -97,7 +107,7 @@ public class Travel implements Serializable {
                 ", to='" + to + '\'' +
                 ", time_from='" + time_from + '\'' +
                 ", time_to='" + time_to + '\'' +
-                ", driver=" + driver +
+                ", driver=" + driver_create +
                 ", about_travel='" + about_travel + '\'' +
                 ", time_create='" + time_create + '\'' +
                 ", places=" + places +

@@ -144,7 +144,7 @@ public class MainListActivity extends AppCompatActivity {
     }
 
     private void travelsAdapter(ArrayList<Travel> LDR) {
-        TravelAdapter adapter = new TravelAdapter(this,LDR);
+        TravelAdapter adapter = new TravelAdapter(this,LDR,companion);
         b_main_list.setAdapter(adapter);
     }
 

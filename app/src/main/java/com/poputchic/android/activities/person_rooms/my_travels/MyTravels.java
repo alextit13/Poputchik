@@ -52,12 +52,12 @@ public class MyTravels extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot data : dataSnapshot.getChildren()){
-                    if ((data.getValue(Travel.class).getDriver().getDate_create()+"")
+                    if ((data.getValue(Travel.class).getDriver_create()+"")
                             .equals(driver.getDate_create()+"")){
                         list_trawels.add(data.getValue(Travel.class));
                     }
                 }
-                list_my_travels.setAdapter(new TravelAdapter(MyTravels.this,list_trawels));
+                list_my_travels.setAdapter(new TravelAdapter(MyTravels.this,list_trawels,null));
             }
 
             @Override

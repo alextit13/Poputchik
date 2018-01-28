@@ -7,12 +7,130 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:id="@+id/linear_about_driver"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/circleImageView"
+            android:layout_margin="2dp"
+            tools:src="@drawable/a_main_icon"
+            android:layout_width="70dp"
+            android:layout_height="70dp" />
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textSize="20sp"
+                android:textColor="@color/black_100"
+                android:lines="1"
+                android:gravity="center"
+                tools:text="Иванов Иван, 35 лет"
+                android:id="@+id/name_driver_and_year"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:lines="1"
+                tools:text="BMW 3-Series 2014"
+                android:id="@+id/car"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:lines="1"
+                tools:text="+89734375"
+                android:id="@+id/number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_gravity="center"
+                    android:src="@drawable/start_rating"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp" />
+                <TextView
+                    android:textColor="@color/black_50"
+                    android:textAlignment="center"
+                    android:layout_gravity="center"
+                    tools:text="4.3"
+                    android:id="@+id/rating_driver"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:layout_gravity="center"
+                    android:src="@drawable/chat"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp" />
+                <TextView
+                    android:textColor="@color/black_50"
+                    android:textAlignment="center"
+                    android:layout_gravity="center"
+                    tools:text="7"
+                    android:id="@+id/review_driver"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:gravity="end"
+            android:layout_margin="4dp"
+            android:layout_weight="2"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_gravity="end"
+                android:src="@drawable/finish"
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
+            <TextView
+                android:textSize="18dp"
+                android:textColor="@color/black_100"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:lines="1"
+                tools:text="5"
+                android:id="@+id/finish_travels"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+
+    <View
+        android:layout_below="@id/linear_about_driver"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="4dp"
+        android:id="@+id/spacer_1"
+        android:background="@color/black_100"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+
     <TextView
         tools:text="25 января 2018"
         android:textSize="24sp"
         android:textColor="@color/black_100"
         android:textAlignment="center"
-        android:layout_alignParentTop="true"
+        android:layout_below="@id/spacer_1"
         android:id="@+id/tv_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -75,4 +193,11 @@
         android:id="@+id/d_tv_about"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/add_to_company"
+        android:src="@drawable/add"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_width="50dp"
+        android:layout_height="50dp" />
 </RelativeLayout>
