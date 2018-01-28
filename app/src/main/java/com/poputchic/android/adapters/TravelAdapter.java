@@ -1,10 +1,10 @@
 package com.poputchic.android.adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +24,7 @@ import com.poputchic.android.classes.Data;
 import com.poputchic.android.classes.classes.Companion;
 import com.poputchic.android.classes.classes.Driver;
 import com.poputchic.android.classes.classes.Travel;
+import com.poputchic.android.classes.classes.Zayavka;
 import com.squareup.picasso.Picasso;
 
 import java.text.DateFormat;
@@ -95,7 +96,7 @@ public class TravelAdapter extends BaseAdapter{
         if (t.getFrom()!=null){d_tv_from.setText(t.getFrom());}
         if (t.getTo()!=null){d_tv_to.setText(t.getTo());}
         if (t.getAbout_travel()!=null){d_tv_about.setText(t.getAbout_travel());}
-        if (t.getPlaces()!=0){places.setText("Свободно мест: "+t.getPlaces()+"/"+t.getPlaces());}
+        if (t.getPlaces()!=0){places.setText("Свободно мест: "+(t.getPlaces() - t.getCompanion()));}
 
         takeDriver(t.getDriver_create());
         clicker(t);
@@ -176,10 +177,15 @@ public class TravelAdapter extends BaseAdapter{
 
     private void addMeToTravel(Travel t) {
         if (t.getCompanion()<t.getPlaces()){
-            int companion = t.getCompanion();
-            companion++;
+            Zayavka z = new Zayavka(new Date().getTime()+"",t.getDriver_create()+"",companion.getDate_create()+""
+            ,t.getDriver_create()+"");
+            FirebaseDatabase.getInstance().getReference().child("zayavki").child(z.getDateCreate()+"").setValue(z);
+
+            int comp = t.getCompanion();
+            comp++;
+
             FirebaseDatabase.getInstance().getReference().child("travels").child(t.getTime_create()+"")
-                    .child("companion").setValue(companion);
+                    .child("companion").setValue(comp);
         }else{
             Toast.makeText(ctx, "Свободных мест больше нет!", Toast.LENGTH_SHORT).show();
 

@@ -1,7 +1,7 @@
 package com.poputchic.android.activities.person_rooms;
 
+import android.app.Activity;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -27,7 +27,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 
-public class EditDriverProfile extends AppCompatActivity {
+public class EditDriverProfile extends Activity {
 
     private EditText edit_driver_name, edit_driver_email, edit_driver_year, edit_driver_phone, edit_driver_auto
             ,edit_driver_auto_year,edit_driver_card,edit_driver_about;

@@ -1,12 +1,10 @@
 package com.poputchic.android.activities;
 
-import android.content.Context;
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -14,34 +12,23 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.gson.Gson;
 import com.poputchic.android.R;
 import com.poputchic.android.activities.person_rooms.PersonRoomCompanion;
 import com.poputchic.android.activities.person_rooms.PersonRoomDriver;
-import com.poputchic.android.adapters.CompanionAdapter;
+import com.poputchic.android.activities.person_rooms.my_travels.MyTravels;
 import com.poputchic.android.adapters.TravelAdapter;
 import com.poputchic.android.classes.Data;
-import com.poputchic.android.classes.VARIABLES_CLASS;
 import com.poputchic.android.classes.classes.Companion;
 import com.poputchic.android.classes.classes.Driver;
 import com.poputchic.android.classes.classes.Travel;
-import com.poputchic.android.reg_and_sign.Registration;
-import com.poputchic.android.reg_and_sign.SignInOrRegistration;
-
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-public class MainListActivity extends AppCompatActivity {
+public class MainListActivity extends Activity {
 
     private ListView b_main_list;
     private ImageView b_menu_1,b_menu_2,b_menu_3,b_menu_4,b_menu_5;
@@ -173,6 +160,11 @@ public class MainListActivity extends AppCompatActivity {
                 }
                 break;
             case R.id.b_menu_4:
+                if (driver!=null){
+                    Intent intent = new Intent(MainListActivity.this, ZayavkiToMyTravels.class);
+                    intent.putExtra("driver",driver);
+                    startActivity(intent);
+                }
                 // ?
                 break;
             case R.id.b_menu_5:

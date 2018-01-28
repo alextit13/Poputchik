@@ -1,16 +1,20 @@
 package com.poputchic.android.activities;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.util.Linkify;
+import android.support.v4.app.ActivityCompat;
+import android.test.mock.MockPackageManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -21,7 +25,6 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TimePicker;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.FirebaseDatabase;
@@ -32,18 +35,27 @@ import com.poputchic.android.classes.classes.Travel;
 import com.poputchic.android.classes.enums.Cities;
 import com.poputchic.android.map.MapsActivity;
 
+import org.ankit.gpslibrary.MyTracker;
+
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
-public class AddTravel extends AppCompatActivity{
+public class AddTravel extends Activity {
+
+    private static final int REQUEST_CODE_PERMISSION = 2;
+    String mPermission = Manifest.permission.ACCESS_FINE_LOCATION;
 
     private Driver driver;
 
+    private String defaultLocation = "";
+
     private ProgressBar f_pb_;
-    private AutoCompleteTextView e_et_from,e_et_to;
-    private EditText e_et_pointer_adress_1,e_et_pointer_adress_2,e_about,e_how_many_peoples;
-    private Button e_b_time_start,e_b_time_finish,e_b_cancel,e_b_go,e_b_date,b_onMap_start,b_onMap_finish;
+    private AutoCompleteTextView e_et_from, e_et_to;
+    private EditText e_et_pointer_adress_1, e_et_pointer_adress_2, e_about, e_how_many_peoples;
+    private Button e_b_time_start, e_b_time_finish, e_b_cancel, e_b_go, e_b_date, b_onMap_start, b_onMap_finish;
 
     int DIALOG_TIME = 1;
     int myHour = 14;
@@ -57,7 +69,7 @@ public class AddTravel extends AppCompatActivity{
     private String adress_from;
     private String adress_to;
 
-    private List <Cities> listCities;
+    private List<Cities> listCities;
 
     private FrameLayout add_container;
 
@@ -65,8 +77,55 @@ public class AddTravel extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_travel);
-
         init();
+    }
+
+    void getLocation(){
+        /*MyTracker tracker=new MyTracker(this);
+//        Log.d(VARIABLES_CLASS.LOG_TAG,"tracker.getLatitude() = " + tracker.getLatitude());
+//        Log.d(VARIABLES_CLASS.LOG_TAG,"tracker.getLongitude() = " + tracker.getLongitude());
+//        Log.d(VARIABLES_CLASS.LOG_TAG,"tracker.getLocation() = " + tracker.getLocation());
+
+        defaultLocation = tracker.getLocation()+"";
+
+        double lat = tracker.getLatitude();
+        double lon = tracker.getLongitude();
+
+        Log.d(VARIABLES_CLASS.LOG_TAG,"defaultLocation = " + defaultLocation);
+        e_et_pointer_adress_1.setText("Координаты отправления: " + lat+", "+lon);
+
+        *//*System.out.println(tracker.getLatitude());
+        System.out.println(tracker.getLongitude());
+        System.out.println(tracker.getLocation());
+        System.out.println(tracker.address);
+        System.out.println(tracker.cityName);
+        System.out.println(tracker.state);
+        System.out.println(tracker.countryName);
+        System.out.println(tracker.countryCode);
+        System.out.println(tracker.ipAddress);
+        System.out.println(tracker.macAddress);*//*
+
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+
+
+        *//*Log.d(VARIABLES_CLASS.LOG_TAG,"lat = " + lat);
+        Log.d(VARIABLES_CLASS.LOG_TAG,"lon = " + lon);
+        */
+
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_CODE_PERMISSION:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    getLocation();
+                } else {
+                    System.out.println("permission denied!");
+                }
+                break;
+        }
     }
 
     private void init() {
@@ -82,8 +141,8 @@ public class AddTravel extends AppCompatActivity{
 
         e_b_date = (Button) findViewById(R.id.e_b_date);
 
-        e_et_from = (AutoCompleteTextView)findViewById(R.id.e_et_from);
-        e_et_to = (AutoCompleteTextView)findViewById(R.id.e_et_to);
+        e_et_from = (AutoCompleteTextView) findViewById(R.id.e_et_from);
+        e_et_to = (AutoCompleteTextView) findViewById(R.id.e_et_to);
 
         e_et_pointer_adress_1 = (EditText) findViewById(R.id.e_et_pointer_adress_1);
         e_et_pointer_adress_2 = (EditText) findViewById(R.id.e_et_pointer_adress_2);
@@ -97,8 +156,27 @@ public class AddTravel extends AppCompatActivity{
         b_onMap_start = (Button) findViewById(R.id.b_onMap_start);
         b_onMap_finish = (Button) findViewById(R.id.b_onMap_finish);
 
+        takeCoordinates();
         clickers();
         autocompleteCityes();
+    }
+
+    private void takeCoordinates() {
+
+
+        try {
+            if (ActivityCompat.checkSelfPermission(this, mPermission)
+                    != MockPackageManager.PERMISSION_GRANTED) {
+
+                ActivityCompat.requestPermissions(this, new String[]{mPermission, Manifest.permission.READ_PHONE_STATE},
+                        REQUEST_CODE_PERMISSION);
+            }else{
+                //read location
+                getLocation();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void clickers() {

@@ -1,9 +1,9 @@
 package com.poputchic.android.activities.person_rooms.my_travels;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Trace;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -24,7 +24,7 @@ import com.poputchic.android.classes.classes.Travel;
 
 import java.util.ArrayList;
 
-public class MyTravels extends AppCompatActivity {
+public class MyTravels extends Activity {
 
     private ImageView back_button_my_travels;
     private ListView list_my_travels;

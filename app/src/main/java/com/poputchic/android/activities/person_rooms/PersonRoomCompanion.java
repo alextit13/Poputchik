@@ -1,12 +1,12 @@
 package com.poputchic.android.activities.person_rooms;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -39,7 +39,7 @@ import java.util.UUID;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class PersonRoomCompanion extends AppCompatActivity {
+public class PersonRoomCompanion extends Activity {
 
     private Companion companion;
     private ProgressBar private_room_progress_bar_c;

@@ -1,13 +1,13 @@
 package com.poputchic.android.activities;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.Activity;
 import android.os.Bundle;
 
 import com.poputchic.android.R;
 import com.poputchic.android.classes.classes.Companion;
 import com.poputchic.android.classes.classes.Travel;
 
-public class DetailViewTravel extends AppCompatActivity {
+public class DetailViewTravel extends Activity {
 
     private Companion companion;
     private Travel travel;

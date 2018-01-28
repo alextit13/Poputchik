@@ -1,6 +1,6 @@
 package com.poputchic.android.activities.person_rooms.my_travels;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -8,7 +8,7 @@ import android.widget.ListView;
 
 import com.poputchic.android.R;
 
-public class MyFinishesTravels extends AppCompatActivity {
+public class MyFinishesTravels extends Activity {
 
     private ImageView pr_iv_my_travels_finish_c;
     private ListView companion_finish_travels;

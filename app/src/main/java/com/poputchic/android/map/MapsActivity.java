@@ -6,6 +6,7 @@ import android.location.Geocoder;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -14,6 +15,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.poputchic.android.R;
+import com.poputchic.android.classes.VARIABLES_CLASS;
 
 import java.io.IOException;
 import java.util.List;
@@ -45,7 +47,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onMapLongClick(LatLng latLng) {
                 sydney[0] = latLng;
-                mMap.addMarker(new MarkerOptions().position(sydney[0]).title("Точка"));
+                //mMap.addMarker(new MarkerOptions().position(sydney[0]).title("Точка"));
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney[0]));
 
                 Geocoder geocoder;
@@ -54,6 +56,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 try {
                     addresses = geocoder.getFromLocation(sydney[0].latitude, sydney[0].longitude, 1);
+                    Log.d(VARIABLES_CLASS.LOG_TAG,"address = " + addresses.get(0));
                 } catch (IOException e) {
                     //Log...
                 }
@@ -70,7 +73,5 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 finish();
             }
         });
-
-
     }
 }

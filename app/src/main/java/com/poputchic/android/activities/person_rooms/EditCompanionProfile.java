@@ -1,8 +1,8 @@
 package com.poputchic.android.activities.person_rooms;
 
+import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,7 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.poputchic.android.R;
 import com.poputchic.android.classes.classes.Companion;
 
-public class EditCompanionProfile extends AppCompatActivity {
+public class EditCompanionProfile extends Activity {
 
     private EditText edit_driver_name_c,edit_driver_email_c,edit_driver_year_c,edit_driver_phone_c,edit_driver_about_c;
     private Button b_driver_cancel_c,b_driver_save_c;
