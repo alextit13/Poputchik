@@ -101,11 +101,17 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".activities.person_rooms.EditCompanionProfile"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".activities.DetailViewTravel"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activities.ZayavkiToMyTravels"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activities.MyTravelsCompanion"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
-        <activity android:name=".activities.ZayavkiToMyTravels"
+        <activity android:name=".activities.Reviews"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
     </application>
 
