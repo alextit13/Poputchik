@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.poputchic.android.R;
 import com.poputchic.android.activities.MainListActivity;
 import com.poputchic.android.classes.Data;
+import com.poputchic.android.classes.VARIABLES_CLASS;
 import com.poputchic.android.classes.classes.Companion;
 import com.poputchic.android.classes.classes.Driver;
 import com.poputchic.android.classes.classes.Travel;
@@ -161,7 +163,8 @@ public class TravelAdapter extends BaseAdapter{
                         .setPositiveButton("Ок", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 //the user wants to leave - so dismiss the dialog and exit
-                                addMeToTravel(t);
+                                checkSingelton(t);
+
                                 dialog.dismiss();
                             }
                         }).setNegativeButton("Нет", new DialogInterface.OnClickListener() {
@@ -175,10 +178,33 @@ public class TravelAdapter extends BaseAdapter{
         });
     }
 
+    private void checkSingelton(final Travel t) {
+        FirebaseDatabase.getInstance().getReference().child("zayavki").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                boolean check = true;
+                for (DataSnapshot data : dataSnapshot.getChildren()){
+                    //Log.d(VARIABLES_CLASS.LOG_TAG,"boolean = " + check);
+                    if (data.getValue(Zayavka.class).getCompanion().equals(companion.getDate_create())){
+                        check = false;
+                    }
+                }
+                if (check){
+                    addMeToTravel(t);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     private void addMeToTravel(Travel t) {
         if (t.getCompanion()<t.getPlaces()){
             Zayavka z = new Zayavka(new Date().getTime()+"",t.getDriver_create()+"",companion.getDate_create()+""
-            ,t.getDriver_create()+"");
+            ,t.getTime_create()+"");
             FirebaseDatabase.getInstance().getReference().child("zayavki").child(z.getDateCreate()+"").setValue(z);
 
             int comp = t.getCompanion();

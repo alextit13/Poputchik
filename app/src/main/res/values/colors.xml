@@ -12,4 +12,6 @@
 
     <color name="yallou">#ffeb3b</color>
     <color name="yallou_100">#d7c100</color>
+    <color name="red">#ff7a7a</color>
+    <color name="green">#8eff7a</color>
 </resources>
