@@ -182,7 +182,24 @@ public class ZayavkaAdapter extends BaseAdapter{
         button_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                new AlertDialog.Builder(ctx)
+                        .setTitle("Отказ")
+                        .setMessage("Вы действительно хотите взять этого попутчика в поездку?")
+                        .setPositiveButton("ДА", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                //the user wants to leave - so dismiss the dialog and exit
+                                FirebaseDatabase.getInstance().getReference().child("complete_travels").child(t.getTime_create())
+                                        .setValue(z.getCompanion()+"");
 
+                                Toast.makeText(ctx, "Кандидат одобрен!", Toast.LENGTH_SHORT).show();
+                            }
+                        }).setNegativeButton("НЕТ", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                })
+                        .show();
             }
         });
     }
