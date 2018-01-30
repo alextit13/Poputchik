@@ -40,4 +40,9 @@
     <string name="zayavki">Заявки</string>
     <string name="my_z">Мои заявки</string>
     <string name="you_go_to_travel">Вас одобрили как попутчика:</string>
+    <string name="add_review">Оставить отзыв</string>
+    <string name="set_rating">Поставить оценку</string>
+    <string name="finish_travel">Поездка окончена</string>
+    <string name="rat">Оцените водителя!</string>
+    <string name="rew">Оставьте отзыв</string>
 </resources>

@@ -42,7 +42,7 @@ public class TravelAdapter extends BaseAdapter{
     ArrayList<Travel> objects;
 
     TextView tv_date,d_tv_from,d_tv_to,d_tv_about,places,
-            name_driver_and_year,car,rating_driver,review_driver,finish_travels,number;
+            name_driver_and_year,car,rating_driver,review_driver,finish_travels,number,review_driver_c;
     CircleImageView circleImageView;
     ImageView add_to_company;
     Companion companion;
@@ -117,6 +117,8 @@ public class TravelAdapter extends BaseAdapter{
         return view;
     }
 
+    int reviews = 0;
+
     private void takeDriver(String dateCreate){
         FirebaseDatabase.getInstance().getReference().child("users").child("drivers").child(dateCreate)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
@@ -132,6 +134,20 @@ public class TravelAdapter extends BaseAdapter{
                         if (driver.getImage_path()!=null){
                             Picasso.with(ctx).load(driver.getImage_path()+"").resize(70,70).into(circleImageView);}
                         if (driver.getNumberPhone()!=null){number.setText(driver.getNumberPhone());}
+
+                        FirebaseDatabase.getInstance().getReference().child("reviews").child(driver.getDate_create()+"")
+                                .addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        reviews = (int) dataSnapshot.getChildrenCount();
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
+                        if (driver!=null){review_driver_c.setText(reviews+"");}
                     }
 
                     @Override
@@ -144,6 +160,7 @@ public class TravelAdapter extends BaseAdapter{
     private void init(View v) {
         back = (RelativeLayout) v.findViewById(R.id.back);
         tv_date = (TextView) v.findViewById(R.id.tv_date);
+        review_driver_c = (TextView) v.findViewById(R.id.review_driver_c);
         d_tv_from = (TextView) v.findViewById(R.id.d_tv_from);
         d_tv_to = (TextView) v.findViewById(R.id.d_tv_to);
         d_tv_about = (TextView) v.findViewById(R.id.d_tv_about);

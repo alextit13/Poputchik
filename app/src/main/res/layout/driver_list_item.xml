@@ -112,9 +112,6 @@
 
     </LinearLayout>
 
-
-
-
     <View
         android:layout_below="@id/linear_about_driver"
         android:layout_marginStart="20dp"
