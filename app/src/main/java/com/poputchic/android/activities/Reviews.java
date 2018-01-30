@@ -56,6 +56,7 @@ public class Reviews extends AppCompatActivity {
                     new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
+                            list.clear();
                             for (DataSnapshot data : dataSnapshot.getChildren()){
                                 list.add(data.getValue(Review.class));
                             }

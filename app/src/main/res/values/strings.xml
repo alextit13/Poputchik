@@ -39,4 +39,5 @@
     <string name="travel">Поездка</string>
     <string name="zayavki">Заявки</string>
     <string name="my_z">Мои заявки</string>
+    <string name="you_go_to_travel">Вас одобрили как попутчика:</string>
 </resources>

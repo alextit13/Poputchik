@@ -3,6 +3,7 @@ package com.poputchic.android.reg_and_sign;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +16,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.poputchic.android.R;
 import com.poputchic.android.activities.MainListActivity;
 import com.poputchic.android.classes.Data;
+import com.poputchic.android.classes.VARIABLES_CLASS;
 import com.poputchic.android.classes.classes.Companion;
 import com.poputchic.android.classes.classes.Driver;
 
@@ -90,8 +92,10 @@ public class SignIn extends Activity {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     for (DataSnapshot data : dataSnapshot.getChildren()){
+
                         if (data.getValue(Driver.class).getEmail().equals(b_et_email.getText().toString())
                                 &&data.getValue(Driver.class).getPassword().equals(b_et_password.getText().toString())){
+                            Log.d(VARIABLES_CLASS.LOG_TAG,"dr = " + data.getValue(Driver.class));
                             driver = data.getValue(Driver.class);
                             goToIntent();
                         }

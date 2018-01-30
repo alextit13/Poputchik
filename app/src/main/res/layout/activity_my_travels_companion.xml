@@ -36,9 +36,10 @@
         android:layout_marginTop="40dp"
         android:layout_below="@id/toolbar_my_travels"
         android:layout_centerHorizontal="true"
-        android:textSize="40sp"
+        android:textSize="30sp"
+        android:textAlignment="center"
         android:textColor="@color/black_100"
-        android:text="@string/my_z"
+        android:text="@string/you_go_to_travel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <ListView

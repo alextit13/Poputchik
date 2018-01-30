@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.poputchic.android.R;
 import com.poputchic.android.activities.MainListActivity;
 import com.poputchic.android.classes.Data;
+import com.poputchic.android.classes.VARIABLES_CLASS;
 import com.poputchic.android.classes.classes.Companion;
 import com.poputchic.android.classes.classes.Driver;
 import com.poputchic.android.classes.classes.Travel;
@@ -43,6 +45,8 @@ public class ZayavkaAdapter extends BaseAdapter{
     Driver driver;
     Companion companion;
     Travel t;
+    int num;
+    Zayavka zayavka;
 
     public ZayavkaAdapter(){
 
@@ -79,7 +83,7 @@ public class ZayavkaAdapter extends BaseAdapter{
         }
 
         Zayavka z = getProduct(position);
-
+        Log.d(VARIABLES_CLASS.LOG_TAG,"p = " + position);
         init(view);
         getCompanion(z);
 
@@ -123,6 +127,7 @@ public class ZayavkaAdapter extends BaseAdapter{
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+                        zayavka = z;
                         t = dataSnapshot.getValue(Travel.class);
 
                         travel_from.setText(t.getFrom());
@@ -188,9 +193,8 @@ public class ZayavkaAdapter extends BaseAdapter{
                         .setPositiveButton("ДА", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 //the user wants to leave - so dismiss the dialog and exit
-                                FirebaseDatabase.getInstance().getReference().child("complete_travels").child(t.getCompanion()+"")
-                                        .child(companion.getDate_create()+"")
-                                        .setValue(z.getCompanion()+"");
+                                getNumCompanions(t);
+
 
                                 Toast.makeText(ctx, "Кандидат одобрен!", Toast.LENGTH_SHORT).show();
 
@@ -204,6 +208,34 @@ public class ZayavkaAdapter extends BaseAdapter{
                         .show();
             }
         });
+    }
+
+    private void getNumCompanions(final Travel t) {
+
+        FirebaseDatabase.getInstance().getReference().child("travels").child(t.getTime_create()+"")
+                .child("companion").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                num = dataSnapshot.getValue(Integer.class);
+                completeCompanionToFirebase(num,t);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void completeCompanionToFirebase(int n,Travel t) {
+        n++;
+        FirebaseDatabase.getInstance().getReference().child("travels").child(t.getTime_create()+"").child("companion").setValue(n);
+        FirebaseDatabase.getInstance().getReference().child("travels_complete_companion")
+                .child(t.getTime_create()+"")
+                .child(n+"")
+                .setValue(companion.getDate_create()+"");
+
+        FirebaseDatabase.getInstance().getReference().child("zayavki").child(zayavka.getDateCreate()+"").removeValue();
     }
 
     // товар по позиции

@@ -81,36 +81,6 @@ public class AddTravel extends Activity {
     }
 
     void getLocation(){
-        /*MyTracker tracker=new MyTracker(this);
-//        Log.d(VARIABLES_CLASS.LOG_TAG,"tracker.getLatitude() = " + tracker.getLatitude());
-//        Log.d(VARIABLES_CLASS.LOG_TAG,"tracker.getLongitude() = " + tracker.getLongitude());
-//        Log.d(VARIABLES_CLASS.LOG_TAG,"tracker.getLocation() = " + tracker.getLocation());
-
-        defaultLocation = tracker.getLocation()+"";
-
-        double lat = tracker.getLatitude();
-        double lon = tracker.getLongitude();
-
-        Log.d(VARIABLES_CLASS.LOG_TAG,"defaultLocation = " + defaultLocation);
-        e_et_pointer_adress_1.setText("Координаты отправления: " + lat+", "+lon);
-
-        *//*System.out.println(tracker.getLatitude());
-        System.out.println(tracker.getLongitude());
-        System.out.println(tracker.getLocation());
-        System.out.println(tracker.address);
-        System.out.println(tracker.cityName);
-        System.out.println(tracker.state);
-        System.out.println(tracker.countryName);
-        System.out.println(tracker.countryCode);
-        System.out.println(tracker.ipAddress);
-        System.out.println(tracker.macAddress);*//*
-
-        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-
-
-        *//*Log.d(VARIABLES_CLASS.LOG_TAG,"lat = " + lat);
-        Log.d(VARIABLES_CLASS.LOG_TAG,"lon = " + lon);
-        */
 
 
     }

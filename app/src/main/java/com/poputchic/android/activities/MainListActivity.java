@@ -108,11 +108,10 @@ public class MainListActivity extends Activity {
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+                        listTravesl.clear();
                         for (DataSnapshot data : dataSnapshot.getChildren()) {
-
                             listTravesl.add(data.getValue(Travel.class));
                         }
-                        listTravesl = deleteTwosItemsInMainList(listTravesl);
                         main_list_progress_bar.setVisibility(View.INVISIBLE);
                         travelsAdapter(listTravesl);
                     }
@@ -122,14 +121,6 @@ public class MainListActivity extends Activity {
 
                     }
                 });
-    }
-
-    private ArrayList<Travel> deleteTwosItemsInMainList(ArrayList<Travel> LT) {
-        HashSet<Travel> hashSet = new HashSet<Travel>();
-        hashSet.addAll(LT);
-        LT.clear();
-        LT.addAll(hashSet);
-        return LT;
     }
 
     private void travelsAdapter(ArrayList<Travel> LDR) {
