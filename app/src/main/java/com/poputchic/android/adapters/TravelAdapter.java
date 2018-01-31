@@ -4,12 +4,16 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.os.Build;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -183,15 +187,21 @@ public class TravelAdapter extends BaseAdapter{
 
     public void clicker(final Travel t){
         add_to_company.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View v) {
                 new AlertDialog.Builder(ctx)
                         .setTitle("Поездка")
                         .setMessage("Отправиться с этим водителем?")
+                        .setView(R.layout.dialog_item_cost)
                         .setPositiveButton("Ок", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 //the user wants to leave - so dismiss the dialog and exit
-                                checkSingelton(t);
+                                String cost = "0";
+                                EditText edit = (EditText) ((AlertDialog) dialog).findViewById(R.id.e_cost);
+                                cost = edit.getText().toString();
+                                Log.d(VARIABLES_CLASS.LOG_TAG,"cost = " + cost);
+                                checkSingelton(t,cost);
 
                                 dialog.dismiss();
                             }
@@ -206,7 +216,7 @@ public class TravelAdapter extends BaseAdapter{
         });
     }
 
-    private void checkSingelton(final Travel t) {
+    private void checkSingelton(final Travel t, final String cost) {
         FirebaseDatabase.getInstance().getReference().child("zayavki").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -218,7 +228,7 @@ public class TravelAdapter extends BaseAdapter{
                     }
                 }
                 if (check){
-                    addMeToTravel(t);
+                    addMeToTravel(t,cost);
                 }
             }
 
@@ -229,9 +239,9 @@ public class TravelAdapter extends BaseAdapter{
         });
     }
 
-    private void addMeToTravel(Travel t) {
+    private void addMeToTravel(Travel t,String cost) {
         if (t.getCompanion()<t.getPlaces()){
-            Zayavka z = new Zayavka(new Date().getTime()+"",t.getDriver_create()+"",companion.getDate_create()+""
+            Zayavka z = new Zayavka(cost,new Date().getTime()+"",t.getDriver_create()+"",companion.getDate_create()+""
             ,t.getTime_create()+"");
             FirebaseDatabase.getInstance().getReference().child("zayavki").child(z.getDateCreate()+"").setValue(z);
         }else{

@@ -7,15 +7,25 @@ public class Zayavka implements Serializable{
     String driver;
     String companion;
     String travel;
+    String cost;
 
     public Zayavka() {
     }
 
-    public Zayavka(String dateCreate, String driver, String companion, String travel) {
+    public Zayavka(String cost, String dateCreate, String driver, String companion, String travel) {
+        this.cost = cost;
         this.dateCreate = dateCreate;
         this.driver = driver;
         this.companion = companion;
         this.travel = travel;
+    }
+
+    public String getCost() {
+        return cost;
+    }
+
+    public void setCost(String cost) {
+        this.cost = cost;
     }
 
     public String getDateCreate() {

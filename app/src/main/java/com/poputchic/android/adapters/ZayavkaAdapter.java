@@ -37,7 +37,7 @@ public class ZayavkaAdapter extends BaseAdapter{
     LayoutInflater lInflater;
     ArrayList<Zayavka> objects;
 
-    TextView name_companion,about_driver,phone_driver,travel_from,travel_to;
+    TextView name_companion,about_driver,phone_driver,travel_from,travel_to,cost;
 
     CircleImageView image_driver;
     Button button_cancel,button_ok;
@@ -132,6 +132,7 @@ public class ZayavkaAdapter extends BaseAdapter{
 
                         travel_from.setText(t.getFrom());
                         travel_to.setText(t.getTo());
+                        cost.setText(z.getCost()+" .p");
                     }
 
                     @Override
@@ -149,6 +150,7 @@ public class ZayavkaAdapter extends BaseAdapter{
         phone_driver = (TextView) v.findViewById(R.id.phone_driver);
         travel_from = (TextView) v.findViewById(R.id.travel_from);
         travel_to = (TextView) v.findViewById(R.id.travel_to);
+        cost = (TextView) v.findViewById(R.id.cost);
 
 
         image_driver = (CircleImageView) v.findViewById(R.id.image_driver);
