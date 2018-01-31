@@ -1,20 +1,40 @@
 package com.poputchic.android.adapters;
 
+import android.content.Context;
 import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import com.poputchic.android.classes.classes.Travel;
+
+import java.util.ArrayList;
+
 public class RewiewAdapter extends BaseAdapter{
 
-    @Override
-    public int getCount() {
-        return 0;
+    Context ctx;
+    LayoutInflater lInflater;
+    ArrayList<String> list;
+
+    public RewiewAdapter() {
+
+    }
+
+    public RewiewAdapter(Context ctx, LayoutInflater lInflater, ArrayList<String> list) {
+        this.ctx = ctx;
+        this.lInflater = lInflater;
+        this.list = list;
     }
 
     @Override
-    public Object getItem(int position) {
-        return null;
+    public int getCount() {
+        return list.size();
+    }
+
+    @Override
+    public String getItem(int position) {
+        return list.get(position);
     }
 
     @Override

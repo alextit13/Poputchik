@@ -94,26 +94,27 @@ public class TravelAdapter extends BaseAdapter{
 
         init(view);
 
-        if (t.getTime_create()!=null){
-            String d = "";
-            Date date = new Date(Long.parseLong(t.getTime_create()));
-            DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.LONG,  Locale.getDefault());
-            d = dateFormat.format(date);
-            tv_date.setText(d);
-        }
-        if (t.getFrom()!=null){d_tv_from.setText(t.getFrom());}
-        if (t.getTo()!=null){d_tv_to.setText(t.getTo());}
-        if (t.getAbout_travel()!=null){d_tv_about.setText(t.getAbout_travel());}
-        if (t.getPlaces()!=0){places.setText("Свободно мест: "+(t.getPlaces() - t.getCompanion()));}
-        if (swich==1){
-            add_to_company.setVisibility(View.INVISIBLE);
-            places.setVisibility(View.INVISIBLE);
-            back.setBackgroundColor(Color.parseColor("#FFC8FFBE"));
-        }
+        if (t!=null){
+            if (t.getTime_create()!=null){
+                String d = "";
+                Date date = new Date(Long.parseLong(t.getTime_create()));
+                DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.LONG,  Locale.getDefault());
+                d = dateFormat.format(date);
+                tv_date.setText(d);
+            }
+            if (t.getFrom()!=null){d_tv_from.setText(t.getFrom());}
+            if (t.getTo()!=null){d_tv_to.setText(t.getTo());}
+            if (t.getAbout_travel()!=null){d_tv_about.setText(t.getAbout_travel());}
+            if (t.getPlaces()!=0){places.setText("Свободно мест: "+(t.getPlaces() - t.getCompanion()));}
+            if (swich==1){
+                add_to_company.setVisibility(View.INVISIBLE);
+                places.setVisibility(View.INVISIBLE);
+                back.setBackgroundColor(Color.parseColor("#FFC8FFBE"));
+            }
 
-        takeDriver(t.getDriver_create());
-        clicker(t);
-
+            takeDriver(t.getDriver_create());
+            clicker(t);
+        }
         return view;
     }
 

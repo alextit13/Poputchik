@@ -2,15 +2,36 @@ package com.poputchic.android.activities;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.poputchic.android.R;
+import com.poputchic.android.adapters.RewiewAdapter;
 import com.poputchic.android.classes.classes.Companion;
+import com.poputchic.android.classes.classes.Driver;
 import com.poputchic.android.classes.classes.Travel;
+import com.squareup.picasso.Picasso;
+
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DetailViewTravel extends Activity {
 
     private Companion companion;
     private Travel travel;
+    private ListView list_review_about_driver;
+    private TextView text_driver;
+    private ImageView face_driver;
+    private Driver driver;
+    private List<String>listReviews = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,9 +39,63 @@ public class DetailViewTravel extends Activity {
         setContentView(R.layout.activity_detail_view_travel);
 
         init();
+        completeViews();
+    }
+
+    private void completeViews() {
+        FirebaseDatabase.getInstance().getReference().child("users").child("drivers").child(travel.getDriver_create())
+                .addValueEventListener(
+                        new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                driver = dataSnapshot.getValue(Driver.class);
+                                goTocomplete(driver);
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        }
+                );
+    }
+
+    private void goTocomplete(Driver D) {
+        text_driver.setText(D.getName()+"");
+        Picasso.with(DetailViewTravel.this).load(D.getImage_path()).into(face_driver);
+
+        FirebaseDatabase.getInstance().getReference().child("reviews").child(driver.getDate_create()+"")
+                .addValueEventListener(
+                        new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                for (DataSnapshot data : dataSnapshot.getChildren()){
+                                    listReviews.add(data.getValue(String.class));
+                                }
+                                toAdapter(listReviews);
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        }
+                );
+
+    }
+
+    private void toAdapter(List<String> LR) {
+        ArrayAdapter adapter = new ArrayAdapter(DetailViewTravel.this,android.R.layout.simple_list_item_1,
+                LR);
+        list_review_about_driver.setAdapter(adapter);
+
     }
 
     private void init() {
-
+        face_driver = (ImageView) findViewById(R.id.face_driver);
+        companion = (Companion) getIntent().getSerializableExtra("companion");
+        travel = (Travel) getIntent().getSerializableExtra("travel");
+        list_review_about_driver = (ListView) findViewById(R.id.list_review_about_driver);
+        text_driver = (TextView) findViewById(R.id.text_driver);
     }
 }
