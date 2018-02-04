@@ -42,6 +42,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class TravelAdapter extends BaseAdapter{
 
     Context ctx;
+    boolean check = true;
     LayoutInflater lInflater;
     ArrayList<Travel> objects;
 
@@ -52,10 +53,12 @@ public class TravelAdapter extends BaseAdapter{
     Companion companion;
     int swich = 0;
     RelativeLayout back;
-
+    Driver driver;
+    ArrayList<Driver>lisrDRVR;
+/*
     public TravelAdapter(){
 
-    }
+    }*/
 
     public TravelAdapter(Context context, ArrayList<Travel> products, Companion c) {
         ctx = context;
@@ -63,6 +66,15 @@ public class TravelAdapter extends BaseAdapter{
         lInflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         companion = c;
     }
+
+    public TravelAdapter(Context context, ArrayList<Travel> products, Companion c,ArrayList<Driver> lisrDrivers) {
+        lisrDRVR = lisrDrivers;
+        ctx = context;
+        objects = products;
+        lInflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        companion = c;
+    }
+
     public TravelAdapter(Context context, ArrayList<Travel> products, Companion c,int requestCode_swich) {
         swich = requestCode_swich;
         ctx = context;
@@ -90,7 +102,7 @@ public class TravelAdapter extends BaseAdapter{
     public View getView(int position, View convertView, ViewGroup parent) {
         // используем созданные, но не используемые view
         View view = convertView;
-        if (view == null) {
+        if (convertView == null) {
             view = lInflater.inflate(R.layout.driver_list_item, parent, false);
         }
 
@@ -115,21 +127,35 @@ public class TravelAdapter extends BaseAdapter{
                 places.setVisibility(View.INVISIBLE);
                 back.setBackgroundColor(Color.parseColor("#FFC8FFBE"));
             }
-
-            takeDriver(t.getDriver_create());
-            clicker(t);
         }
+        Log.d(VARIABLES_CLASS.LOG_TAG,"1");
+        takeDriver(position);
+        Log.d(VARIABLES_CLASS.LOG_TAG,"4");
+        clicker(t);
         return view;
     }
 
     int reviews = 0;
 
-    private void takeDriver(String dateCreate){
-        FirebaseDatabase.getInstance().getReference().child("users").child("drivers").child(dateCreate)
+    private void takeDriver(int position){
+        if (lisrDRVR!=null&&!lisrDRVR.isEmpty()){
+            driver = lisrDRVR.get(position);
+            if (driver.getName()!=null&&driver.getYear()!=0){name_driver_and_year.setText(driver.getName()+", "+driver.getYear());}
+            if (driver.getName_car()!=null&&driver.getYear_car()!=null){car.setText(driver.getName_car()+", "+ driver.getYear_car());}
+            if (driver.getRating()!=null){rating_driver.setText(driver.getRating()+"");}
+            if (driver.getRewiews()!=null){review_driver.setText(driver.getRewiews().size()+"");}
+            //if (driver.)
+            if (driver.getImage_path()!=null){
+                Picasso.with(ctx).load(driver.getImage_path()+"").resize(70,70).into(circleImageView);}
+        }
+
+        /*driver = null;
+        FirebaseDatabase.getInstance().getReference().child("users").child("drivers").child(dateCreate+"")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        Driver driver = dataSnapshot.getValue(Driver.class);
+                        driver = dataSnapshot.getValue(Driver.class);
+                        Log.d(VARIABLES_CLASS.LOG_TAG,"2");
                         //Log.d(VARIABLES_CLASS.LOG_TAG,"driver = " + driver);
                         if (driver.getName()!=null&&driver.getYear()!=0){name_driver_and_year.setText(driver.getName()+", "+driver.getYear());}
                         if (driver.getName_car()!=null&&driver.getYear_car()!=null){car.setText(driver.getName_car()+", "+ driver.getYear_car());}
@@ -153,13 +179,14 @@ public class TravelAdapter extends BaseAdapter{
                                     }
                                 });
                         if (driver!=null){review_driver_c.setText(reviews+"");}
+                        Log.d(VARIABLES_CLASS.LOG_TAG,"3");
                     }
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
 
                     }
-                });
+                });*/
     }
 
     private void init(View v) {
@@ -190,37 +217,41 @@ public class TravelAdapter extends BaseAdapter{
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View v) {
+                RelativeLayout.LayoutParams mRparams = new RelativeLayout
+                        .LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                final EditText myEditText = new EditText(ctx);
+                myEditText.setLayoutParams(mRparams);
                 new AlertDialog.Builder(ctx)
                         .setTitle("Поездка")
+                        .setView(myEditText)
                         .setMessage("Отправиться с этим водителем?")
-                        .setView(R.layout.dialog_item_cost)
-                        .setPositiveButton("Ок", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int whichButton) {
-                                //the user wants to leave - so dismiss the dialog and exit
+                        .setPositiveButton("Да", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
                                 String cost = "0";
-                                EditText edit = (EditText) ((AlertDialog) dialog).findViewById(R.id.e_cost);
-                                cost = edit.getText().toString();
+                                cost = myEditText.getText().toString();
                                 Log.d(VARIABLES_CLASS.LOG_TAG,"cost = " + cost);
-                                checkSingelton(t,cost);
-
+                                //checkSingelton(t,cost);
+                                addMeToTravel(t,cost);
+                            }
+                        })
+                        .setNegativeButton("Нет", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();
                             }
-                        }).setNegativeButton("Нет", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                    }
-                })
+                        })
                         .show();
             }
         });
     }
 
-    private void checkSingelton(final Travel t, final String cost) {
+    private boolean checkSingelton(final Travel t, final String cost) {
+
         FirebaseDatabase.getInstance().getReference().child("zayavki").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                boolean check = true;
+
                 for (DataSnapshot data : dataSnapshot.getChildren()){
                     //Log.d(VARIABLES_CLASS.LOG_TAG,"boolean = " + check);
                     if (data.getValue(Zayavka.class).getCompanion().equals(companion.getDate_create())){
@@ -228,8 +259,9 @@ public class TravelAdapter extends BaseAdapter{
                     }
                 }
                 if (check){
-                    addMeToTravel(t,cost);
+
                 }
+
             }
 
             @Override
@@ -237,13 +269,18 @@ public class TravelAdapter extends BaseAdapter{
 
             }
         });
+        return check;
     }
 
     private void addMeToTravel(Travel t,String cost) {
         if (t.getCompanion()<t.getPlaces()){
             Zayavka z = new Zayavka(cost,new Date().getTime()+"",t.getDriver_create()+"",companion.getDate_create()+""
             ,t.getTime_create()+"");
-            FirebaseDatabase.getInstance().getReference().child("zayavki").child(z.getDateCreate()+"").setValue(z);
+            if(checkSingelton(t,cost)){
+                FirebaseDatabase.getInstance().getReference().child("zayavki").child(z.getDateCreate()+"").setValue(z);
+            }else{
+                Toast.makeText(ctx, "Вы уже подали заявку на данную поездку!", Toast.LENGTH_SHORT).show();
+            }
         }else{
             Toast.makeText(ctx, "Свободных мест больше нет!", Toast.LENGTH_SHORT).show();
 

@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -23,6 +24,7 @@ import com.poputchic.android.activities.person_rooms.PersonRoomDriver;
 import com.poputchic.android.activities.person_rooms.my_travels.MyTravels;
 import com.poputchic.android.adapters.TravelAdapter;
 import com.poputchic.android.classes.Data;
+import com.poputchic.android.classes.VARIABLES_CLASS;
 import com.poputchic.android.classes.classes.Companion;
 import com.poputchic.android.classes.classes.Driver;
 import com.poputchic.android.classes.classes.Travel;
@@ -42,6 +44,8 @@ public class MainListActivity extends Activity {
 
     private RelativeLayout main_list_container;
     private ProgressBar main_list_progress_bar;
+    private TravelAdapter adapter;
+    private ArrayList listDrivers;
 
 
     @Override
@@ -104,27 +108,63 @@ public class MainListActivity extends Activity {
 
     private void takeAndStartWithListTravels() {
         listTravesl = new ArrayList<>();
-        FirebaseDatabase.getInstance().getReference().child("travels")
-                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        listTravesl.clear();
-                        for (DataSnapshot data : dataSnapshot.getChildren()) {
-                            listTravesl.add(data.getValue(Travel.class));
+        listDrivers = new ArrayList<>();
+        try {
+            FirebaseDatabase.getInstance().getReference().child("travels")
+                    .addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            listTravesl.clear();
+                            for (DataSnapshot data : dataSnapshot.getChildren()) {
+                                listTravesl.add(data.getValue(Travel.class));
+                            }
+                            takeDrivers();
                         }
-                        main_list_progress_bar.setVisibility(View.INVISIBLE);
-                        travelsAdapter(listTravesl);
-                    }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
 
-                    }
-                });
+                        }
+                    });
+        }catch (Exception e){
+
+        }
     }
 
-    private void travelsAdapter(ArrayList<Travel> LDR) {
-        TravelAdapter adapter = new TravelAdapter(this, LDR, companion);
+    private void takeDrivers() {
+        listDrivers.clear();
+        for (int i = 0; i<listTravesl.size();i++){
+            FirebaseDatabase.getInstance().getReference().child("users")
+                    .child("drivers")
+                    .child(listTravesl.get(i).getDriver_create()+"")
+                    .addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            listDrivers.add(dataSnapshot.getValue(Driver.class));
+
+                            //
+                            main_list_progress_bar.setVisibility(View.INVISIBLE);
+                            if (listDrivers.size() == listTravesl.size()){
+                                Log.d(VARIABLES_CLASS.LOG_TAG,"goIIIING = " + listDrivers.size());
+                                travelsAdapter(listTravesl,listDrivers);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            Log.d(VARIABLES_CLASS.LOG_TAG,"LDdatabaseErrorR");
+                        }
+                    });
+        }
+    }
+
+    private void travelsAdapter(ArrayList<Travel> LDR,ArrayList<Driver> LDRDrivers) {
+        //Log.d(VARIABLES_CLASS.LOG_TAG,"LDR = "+LDR.size());
+        if (adapter==null){
+            adapter = new TravelAdapter(this, LDR, companion,LDRDrivers);
+        }else{
+            adapter.notifyDataSetChanged();
+        }
         b_main_list.setAdapter(adapter);
     }
 

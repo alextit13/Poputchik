@@ -56,7 +56,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 try {
                     addresses = geocoder.getFromLocation(sydney[0].latitude, sydney[0].longitude, 1);
-                    Log.d(VARIABLES_CLASS.LOG_TAG,"address = " + addresses.get(0));
+                    //Log.d(VARIABLES_CLASS.LOG_TAG,"address = " + addresses.get(0));
                 } catch (IOException e) {
                     //Log...
                 }
