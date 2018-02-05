@@ -4,14 +4,19 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -49,6 +54,7 @@ public class MainListActivity extends Activity {
     private TravelAdapter adapter;
     private ArrayList listDrivers;
     private ArrayList<ZayavkaFromCompanion> listZayavkiFromCompanions = new ArrayList<>();
+    int rating = 0;
 
 
     @Override
@@ -62,11 +68,15 @@ public class MainListActivity extends Activity {
         main_list_progress_bar = (ProgressBar) findViewById(R.id.main_list_progress_bar);
         main_list_progress_bar.setVisibility(View.VISIBLE);
         b_main_list = (ListView) findViewById(R.id.b_main_list);
+        Log.d(VARIABLES_CLASS.LOG_TAG,"click");
         b_main_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
                 if (companion != null) {
                     clickPosition(position);
+                }if (driver!=null){
+                    addClicker();
                 }
             }
         });
@@ -117,7 +127,7 @@ public class MainListActivity extends Activity {
                         for (DataSnapshot data : dataSnapshot.getChildren()){
                             listZayavkiFromCompanions.add(data.getValue(ZayavkaFromCompanion.class));
                         }
-                        Log.d(VARIABLES_CLASS.LOG_TAG,"listZayavkiFromCompanions = " + listZayavkiFromCompanions.size());
+
                         main_list_progress_bar.setVisibility(View.INVISIBLE);
                         completeAdapter(listZayavkiFromCompanions);
                     }
@@ -132,6 +142,96 @@ public class MainListActivity extends Activity {
     private void completeAdapter(ArrayList<ZayavkaFromCompanion> LZFC) {
         LZFCAdapter adapter = new LZFCAdapter(MainListActivity.this,LZFC,driver);
         b_main_list.setAdapter(adapter);
+    }
+
+    private void addClicker() {
+
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(MainListActivity.this);
+// ...Irrelevant code for customizing the buttons and title
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.rating_and_review, null);
+        dialogBuilder.setView(dialogView);
+
+        final EditText review_RAR = (EditText) dialogView.findViewById(R.id.review_RAR);
+        Button save_RAR = (Button) dialogView.findViewById(R.id.save_RAR);
+        Button cancel_RAR = (Button) dialogView.findViewById(R.id.cancel_RAR);
+        final TextView r_RAR_1 = (TextView) dialogView.findViewById(R.id.r_RAR_1);
+        final TextView r_RAR_2 = (TextView) dialogView.findViewById(R.id.r_RAR_2);
+        final TextView r_RAR_3 = (TextView) dialogView.findViewById(R.id.r_RAR_3);
+        final TextView r_RAR_4 = (TextView) dialogView.findViewById(R.id.r_RAR_4);
+        final TextView r_RAR_5 = (TextView) dialogView.findViewById(R.id.r_RAR_5);
+        r_RAR_1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                rating = 1;
+                r_RAR_1.setBackgroundColor(Color.parseColor("#d7c100"));
+                r_RAR_2.setBackgroundColor(Color.parseColor("#ffeb3b"));
+                r_RAR_3.setBackgroundColor(Color.parseColor("#ffeb3b"));
+                r_RAR_4.setBackgroundColor(Color.parseColor("#ffeb3b"));
+                r_RAR_5.setBackgroundColor(Color.parseColor("#ffeb3b"));
+            }
+        });
+        r_RAR_2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                rating = 2;
+                r_RAR_1.setBackgroundColor(Color.parseColor("#ffeb3b"));
+                r_RAR_2.setBackgroundColor(Color.parseColor("#d7c100"));
+                r_RAR_3.setBackgroundColor(Color.parseColor("#ffeb3b"));
+                r_RAR_4.setBackgroundColor(Color.parseColor("#ffeb3b"));
+                r_RAR_5.setBackgroundColor(Color.parseColor("#ffeb3b"));
+            }
+        });
+        r_RAR_3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                rating = 3;
+                r_RAR_1.setBackgroundColor(Color.parseColor("#ffeb3b"));
+                r_RAR_2.setBackgroundColor(Color.parseColor("#ffeb3b"));
+                r_RAR_3.setBackgroundColor(Color.parseColor("#d7c100"));
+                r_RAR_4.setBackgroundColor(Color.parseColor("#ffeb3b"));
+                r_RAR_5.setBackgroundColor(Color.parseColor("#ffeb3b"));
+            }
+        });
+        r_RAR_4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                rating = 4;
+                r_RAR_1.setBackgroundColor(Color.parseColor("#ffeb3b"));
+                r_RAR_2.setBackgroundColor(Color.parseColor("#ffeb3b"));
+                r_RAR_3.setBackgroundColor(Color.parseColor("#ffeb3b"));
+                r_RAR_4.setBackgroundColor(Color.parseColor("#d7c100"));
+                r_RAR_5.setBackgroundColor(Color.parseColor("#ffeb3b"));
+            }
+        });
+        r_RAR_5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                rating = 5;
+                r_RAR_1.setBackgroundColor(Color.parseColor("#ffeb3b"));
+                r_RAR_2.setBackgroundColor(Color.parseColor("#ffeb3b"));
+                r_RAR_3.setBackgroundColor(Color.parseColor("#ffeb3b"));
+                r_RAR_4.setBackgroundColor(Color.parseColor("#ffeb3b"));
+                r_RAR_5.setBackgroundColor(Color.parseColor("#d7c100"));
+            }
+        });
+
+
+        final AlertDialog alertDialog = dialogBuilder.create();
+        cancel_RAR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+            }
+        });
+        save_RAR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+                save(review_RAR.getText().toString());
+            }
+        });
+        alertDialog.show();
     }
 
     private void takeAndStartWithListTravels() {
@@ -190,6 +290,11 @@ public class MainListActivity extends Activity {
         Log.d(VARIABLES_CLASS.LOG_TAG,"LDR = "+LDR.size());
         adapter = new TravelAdapter(this, LDR, companion,LDRDrivers);
         b_main_list.setAdapter(adapter);
+
+    }
+
+    private void save(String s) {
+
     }
 
     public void click(View view) {
@@ -289,4 +394,8 @@ public class MainListActivity extends Activity {
         })
                 .show();
     }
+
+
+
+
 }
