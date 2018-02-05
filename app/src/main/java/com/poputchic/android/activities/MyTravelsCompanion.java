@@ -26,6 +26,7 @@ import com.poputchic.android.classes.VARIABLES_CLASS;
 import com.poputchic.android.classes.classes.Companion;
 import com.poputchic.android.classes.classes.Travel;
 import com.poputchic.android.classes.classes.Zayavka;
+import com.poputchic.android.classes.classes.ZayavkaFromCompanion;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -70,7 +71,7 @@ public class MyTravelsCompanion extends Activity {
                                             for (DataSnapshot d : dataSnapshot.getChildren()){
                                                 if (d.getValue(String.class).equals(companion.getDate_create()+"")){
                                                     listStrings.add(data.getKey()+"");
-                                                    Log.d(VARIABLES_CLASS.LOG_TAG,"LS = " + data.getKey());
+
                                                     getZayavkiFromFirebase(listStrings);
                                                 }
                                             }
@@ -102,7 +103,8 @@ public class MyTravelsCompanion extends Activity {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 listMyZ.add(dataSnapshot.getValue(Travel.class));
-                                goToAdapter();
+                                takeAnotherZayavki();
+
                             }
 
                             @Override
@@ -113,6 +115,28 @@ public class MyTravelsCompanion extends Activity {
                 );
             }
         }
+    }
+
+    private void takeAnotherZayavki() {
+        FirebaseDatabase.getInstance().getReference().child("complete_travels_with_zay_from_comp").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot data : dataSnapshot.getChildren()){
+                    Travel travel = new Travel(0,
+                            0,data.getValue(ZayavkaFromCompanion.class).getFrom_location()+"",
+                            data.getValue(ZayavkaFromCompanion.class).getTo_location()+"",
+                            "0","0",data.getValue(ZayavkaFromCompanion.class).getDriver()+""
+                    ,"",data.getValue(ZayavkaFromCompanion.class).getDate()+"");
+                    listMyZ.add(travel);
+                }
+                goToAdapter();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void goToAdapter() {

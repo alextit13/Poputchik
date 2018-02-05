@@ -22,12 +22,14 @@ import com.poputchic.android.R;
 import com.poputchic.android.activities.person_rooms.PersonRoomCompanion;
 import com.poputchic.android.activities.person_rooms.PersonRoomDriver;
 import com.poputchic.android.activities.person_rooms.my_travels.MyTravels;
+import com.poputchic.android.adapters.LZFCAdapter;
 import com.poputchic.android.adapters.TravelAdapter;
 import com.poputchic.android.classes.Data;
 import com.poputchic.android.classes.VARIABLES_CLASS;
 import com.poputchic.android.classes.classes.Companion;
 import com.poputchic.android.classes.classes.Driver;
 import com.poputchic.android.classes.classes.Travel;
+import com.poputchic.android.classes.classes.ZayavkaFromCompanion;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -46,6 +48,7 @@ public class MainListActivity extends Activity {
     private ProgressBar main_list_progress_bar;
     private TravelAdapter adapter;
     private ArrayList listDrivers;
+    private ArrayList<ZayavkaFromCompanion> listZayavkiFromCompanions = new ArrayList<>();
 
 
     @Override
@@ -97,12 +100,38 @@ public class MainListActivity extends Activity {
         if (driver != null) {
             // вошел водитель
             data.saveSharedPreferenceDRIVER(driver);
-            takeAndStartWithListTravels();
+            takeZayavkiFromCompanions();
         } else if (companion != null) {
             // вошел пользователь
             data.saveSharedPreferenceCOMPANION(companion);
             takeAndStartWithListTravels();
         }
+    }
+
+    private void takeZayavkiFromCompanions() {
+        FirebaseDatabase.getInstance().getReference().child("zayavki_from_companoins")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        listZayavkiFromCompanions.clear();
+                        for (DataSnapshot data : dataSnapshot.getChildren()){
+                            listZayavkiFromCompanions.add(data.getValue(ZayavkaFromCompanion.class));
+                        }
+                        Log.d(VARIABLES_CLASS.LOG_TAG,"listZayavkiFromCompanions = " + listZayavkiFromCompanions.size());
+                        main_list_progress_bar.setVisibility(View.INVISIBLE);
+                        completeAdapter(listZayavkiFromCompanions);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+    }
+
+    private void completeAdapter(ArrayList<ZayavkaFromCompanion> LZFC) {
+        LZFCAdapter adapter = new LZFCAdapter(MainListActivity.this,LZFC,driver);
+        b_main_list.setAdapter(adapter);
     }
 
     private void takeAndStartWithListTravels() {

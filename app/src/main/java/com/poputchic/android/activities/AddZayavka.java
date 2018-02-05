@@ -209,7 +209,7 @@ public class AddZayavka extends Activity {
     private void createZayavka() {
         createAdresses();
         if (adress_from!=null||adress_to!=null){
-            ZayavkaFromCompanion ZFC = new ZayavkaFromCompanion(new Date().getTime()+"",adress_from,adress_to,e_b_time_start.getText().toString()
+            ZayavkaFromCompanion ZFC = new ZayavkaFromCompanion(null,new Date().getTime()+"",adress_from,adress_to,e_b_time_start.getText().toString()
             ,e_b_time_finish.getText().toString(),e_about.getText().toString(),companion.getDate_create()+"");
             pushToFirebase(ZFC);
         }else{

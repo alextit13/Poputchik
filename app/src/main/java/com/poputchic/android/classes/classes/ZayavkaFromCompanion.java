@@ -10,11 +10,13 @@ public class ZayavkaFromCompanion implements Serializable{
     String to_time;
     String price;
     String companion;
+    String driver;
 
     public ZayavkaFromCompanion() {
     }
 
-    public ZayavkaFromCompanion(String date, String from_location, String to_location, String from_time, String to_time, String price, String companion) {
+    public ZayavkaFromCompanion(String driver, String date, String from_location, String to_location, String from_time, String to_time, String price, String companion) {
+        this.driver = driver;
         this.date = date;
         this.from_location = from_location;
         this.to_location = to_location;
@@ -22,6 +24,14 @@ public class ZayavkaFromCompanion implements Serializable{
         this.to_time = to_time;
         this.price = price;
         this.companion = companion;
+    }
+
+    public String getDriver() {
+        return driver;
+    }
+
+    public void setDriver(String driver) {
+        this.driver = driver;
     }
 
     public String getDate() {
