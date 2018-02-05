@@ -117,7 +117,7 @@
         android:drawableLeft="@drawable/ok"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="Принять"
+        android:text="Взять попутчика"
         android:textColor="@color/black_50"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

@@ -3,6 +3,8 @@ package com.poputchic.android.activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -10,10 +12,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.poputchic.android.R;
+import com.poputchic.android.activities.reviewsActivities.RewiewsDrivers;
+import com.poputchic.android.adapters.CompanionAdapter;
+import com.poputchic.android.adapters.DriversAdapter;
 import com.poputchic.android.adapters.RewiewAdapter;
 import com.poputchic.android.classes.classes.Companion;
 import com.poputchic.android.classes.classes.Driver;
 import com.poputchic.android.classes.classes.Review;
+import com.poputchic.android.classes.classes.Travel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +28,10 @@ public class Reviews extends AppCompatActivity {
 
     //private Companion companion;
     private Driver driver;
-    private ListView list_review;
-    private ArrayList<Companion>list = new ArrayList<>();
+    private Companion companion;
+    private ListView list;
+    private ArrayList<Companion>listCompanions = new ArrayList<>();
+    private ArrayList<Driver>listDrivers = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,30 +41,64 @@ public class Reviews extends AppCompatActivity {
     }
 
     private void init() {
-        list_review = (ListView) findViewById(R.id.list_review);
+        list = (ListView) findViewById(R.id.list_review);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                click(position);
+            }
+        });
         Intent intent = getIntent();
         try {
             driver = (Driver) intent.getSerializableExtra("driver");
-            //companion = (Companion) intent.getSerializableExtra("companion");
+            companion = (Companion) intent.getSerializableExtra("companion");
         }catch (Exception e){
             //Log...
         }
 
-        getList();
+        if (driver!=null){
+            getListCompanions(driver);
+        }else if (companion!=null){
+            getListDrivers(companion);
+        }
     }
 
-    private void getList() {
-        if (driver!=null){
+    private void click(final int p) {
+        if (companion!=null){
+            getListCompanions(null);
             FirebaseDatabase.getInstance().getReference().child("users")
                     .child("companion").addValueEventListener(
                     new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            list.clear();
+                            listCompanions.clear();
                             for (DataSnapshot data : dataSnapshot.getChildren()){
-                                list.add(data.getValue(Companion.class));
+                                listCompanions.add(data.getValue(Companion.class));
                             }
-                            goToAdapter(list);
+                            Intent intent = new Intent(Reviews.this, RewiewsDrivers.class);
+                            intent.putExtra("companion", listCompanions.get(p));
+                            startActivity(intent);
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    }
+            );
+        }else if (driver!=null){
+            FirebaseDatabase.getInstance().getReference().child("users")
+                    .child("drivers").addValueEventListener(
+                    new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            listDrivers.clear();
+                            for (DataSnapshot data : dataSnapshot.getChildren()){
+                                listDrivers.add(data.getValue(Driver.class));
+                            }
+                            Intent intent = new Intent(Reviews.this, RewiewsDrivers.class);
+                            intent.putExtra("driver", listDrivers.get(p));
+                            startActivity(intent);
                         }
 
                         @Override
@@ -66,29 +108,61 @@ public class Reviews extends AppCompatActivity {
                     }
             );
         }
-        /*if (companion!=null){
-            FirebaseDatabase.getInstance().getReference().child("reviews")
-                    .child("companions").child(companion.getDate_create()).addValueEventListener(
-                    new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            for (DataSnapshot dat0a : dataSnapshot.getChildren()){
-                                list.add(data.getValue(Review.class));
-                            }
-                            goToAdapter(list);
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    }
-            );
-        }*/
     }
 
-    private void goToAdapter(ArrayList<Companion>list) {
-        RewiewAdapter adapter = new RewiewAdapter();
-        list_review.setAdapter(adapter);
+    private void getListCompanions(final Driver D) {
+        FirebaseDatabase.getInstance().getReference().child("users")
+                .child("companion").addValueEventListener(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        listCompanions.clear();
+                        for (DataSnapshot data : dataSnapshot.getChildren()){
+                            listCompanions.add(data.getValue(Companion.class));
+                        }
+                        if (D!=null){
+                            goToAdapterCompanions(listCompanions);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                }
+        );
+    }
+
+    private void getListDrivers(final Companion c) {
+        FirebaseDatabase.getInstance().getReference().child("users")
+                .child("drivers").addValueEventListener(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        listDrivers.clear();
+                        for (DataSnapshot data : dataSnapshot.getChildren()){
+                            listDrivers.add(data.getValue(Driver.class));
+                        }
+                        if (c != null) {
+                            goToAdapterDrivers(listDrivers);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                }
+        );
+    }
+
+    private void goToAdapterCompanions(ArrayList<Companion> C) {
+        CompanionAdapter adapter = new CompanionAdapter(Reviews.this,C);
+        list.setAdapter(adapter);
+    }
+
+    private void goToAdapterDrivers(ArrayList<Driver>L) {
+        DriversAdapter adapter = new DriversAdapter(Reviews.this,L);
+        list.setAdapter(adapter);
     }
 }

@@ -98,7 +98,7 @@
             android:layout_height="match_parent"/>
         <ImageView
             android:onClick="click"
-            android:src="@drawable/icon_menu_1"
+            android:src="@drawable/list"
             android:layout_weight="1"
             android:id="@+id/b_menu_5"
             android:layout_width="match_parent"

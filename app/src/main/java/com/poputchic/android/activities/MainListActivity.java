@@ -394,8 +394,4 @@ public class MainListActivity extends Activity {
         })
                 .show();
     }
-
-
-
-
 }

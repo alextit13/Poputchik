@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.poputchic.android.activities.reviewsActivities.RewiewsDrivers">
+    <ListView
+        android:layout_above="@+id/add_rev_edit_text"
+        android:layout_margin="3dp"
+        android:id="@+id/list_reviews_drivers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </ListView>
+    <Button
+        android:layout_alignParentBottom="true"
+        android:id="@+id/btn_add_rev"
+        android:text="@string/add_review"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:hint="@string/add_review"
+        android:layout_above="@id/btn_add_rev"
+        android:id="@+id/add_rev_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</RelativeLayout>

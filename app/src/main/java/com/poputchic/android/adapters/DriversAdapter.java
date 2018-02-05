@@ -16,20 +16,20 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class CompanionAdapter extends BaseAdapter{
+public class DriversAdapter extends BaseAdapter{
 
     Context ctx;
     LayoutInflater lInflater;
-    ArrayList<Companion> objects;
+    ArrayList<Driver> objects;
 
     ImageView list_comp_image;
-    TextView list_comp_name,list_comp_about,list_comp_years;
+    TextView list_comp_name,list_comp_about,list_comp_years,list_comp_num_review;
 
-    public CompanionAdapter(){
+    public DriversAdapter(){
 
     }
 
-    public CompanionAdapter(Context context, ArrayList<Companion> products) {
+    public DriversAdapter(Context context, ArrayList<Driver> products) {
         ctx = context;
         objects = products;
         lInflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -60,7 +60,7 @@ public class CompanionAdapter extends BaseAdapter{
 
         }
 
-        Companion c = getProduct(position);
+        Driver c = getProduct(position);
 
         // заполняем View в пункте списка данными из товаров: наименование, цена
         // и картинка
@@ -87,13 +87,7 @@ public class CompanionAdapter extends BaseAdapter{
     }
 
     // товар по позиции
-    Companion getProduct(int position) {
-        return ((Companion) getItem(position));
-    }
-
-    @Nullable
-    @Override
-    public CharSequence[] getAutofillOptions() {
-        return new CharSequence[0];
+    Driver getProduct(int position) {
+        return ((Driver) getItem(position));
     }
 }

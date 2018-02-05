@@ -3,6 +3,7 @@ package com.poputchic.android.activities;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.graphics.Color;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -267,6 +268,8 @@ public class MyTravelsCompanion extends Activity {
     }
 
     private void save(String review) {
+        Log.d(VARIABLES_CLASS.LOG_TAG,"listMyZ = " + listMyZ.size());
+        Log.d(VARIABLES_CLASS.LOG_TAG,"clickItem = " + clickItem);
         FirebaseDatabase.getInstance().getReference().child("complete_travel").child(listMyZ.get(clickItem).getTime_create()+"")
                 .setValue(listMyZ.get(clickItem));
         if (review!=null&&!review.equals("")){
