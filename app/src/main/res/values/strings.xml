@@ -45,4 +45,8 @@
     <string name="finish_travel">Поездка окончена</string>
     <string name="rat">Оцените водителя!</string>
     <string name="rew">Оставьте отзыв</string>
+    <string name="add_review_all">Здесь Вы можете посмотреть и оставить отзывы о пользователях!</string>
+    <string name="add_travel_companion">Нужно подвезти!</string>
+    <string name="second_data">Дополнительные данные</string>
+    <string name="cost">Укажите цену</string>
 </resources>

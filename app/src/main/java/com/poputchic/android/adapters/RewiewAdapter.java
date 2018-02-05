@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import com.poputchic.android.classes.classes.Companion;
 import com.poputchic.android.classes.classes.Travel;
 
 import java.util.ArrayList;
@@ -15,13 +16,13 @@ public class RewiewAdapter extends BaseAdapter{
 
     Context ctx;
     LayoutInflater lInflater;
-    ArrayList<String> list;
+    ArrayList<Companion> list;
 
     public RewiewAdapter() {
 
     }
 
-    public RewiewAdapter(Context ctx, LayoutInflater lInflater, ArrayList<String> list) {
+    public RewiewAdapter(Context ctx, LayoutInflater lInflater, ArrayList<Companion> list) {
         this.ctx = ctx;
         this.lInflater = lInflater;
         this.list = list;
@@ -33,7 +34,7 @@ public class RewiewAdapter extends BaseAdapter{
     }
 
     @Override
-    public String getItem(int position) {
+    public Companion getItem(int position) {
         return list.get(position);
     }
 

@@ -20,10 +20,10 @@ import java.util.List;
 
 public class Reviews extends AppCompatActivity {
 
-    private Companion companion;
+    //private Companion companion;
     private Driver driver;
     private ListView list_review;
-    private List<Review>list = new ArrayList<>();
+    private ArrayList<Companion>list = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,28 +37,24 @@ public class Reviews extends AppCompatActivity {
         Intent intent = getIntent();
         try {
             driver = (Driver) intent.getSerializableExtra("driver");
-            companion = (Companion) intent.getSerializableExtra("companion");
+            //companion = (Companion) intent.getSerializableExtra("companion");
         }catch (Exception e){
             //Log...
         }
-        if (driver!=null){
-            // вошел водитель
-        }else if (companion!=null){
-            //вошел пользователь
-        }
+
         getList();
     }
 
     private void getList() {
         if (driver!=null){
-            FirebaseDatabase.getInstance().getReference().child("reviews")
-                    .child("drivers").child(driver.getDate_create()).addValueEventListener(
+            FirebaseDatabase.getInstance().getReference().child("users")
+                    .child("companion").addValueEventListener(
                     new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             list.clear();
                             for (DataSnapshot data : dataSnapshot.getChildren()){
-                                list.add(data.getValue(Review.class));
+                                list.add(data.getValue(Companion.class));
                             }
                             goToAdapter(list);
                         }
@@ -70,13 +66,13 @@ public class Reviews extends AppCompatActivity {
                     }
             );
         }
-        if (companion!=null){
+        /*if (companion!=null){
             FirebaseDatabase.getInstance().getReference().child("reviews")
                     .child("companions").child(companion.getDate_create()).addValueEventListener(
                     new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            for (DataSnapshot data : dataSnapshot.getChildren()){
+                            for (DataSnapshot dat0a : dataSnapshot.getChildren()){
                                 list.add(data.getValue(Review.class));
                             }
                             goToAdapter(list);
@@ -88,10 +84,11 @@ public class Reviews extends AppCompatActivity {
                         }
                     }
             );
-        }
+        }*/
     }
 
-    private void goToAdapter(List<Review>list) {
+    private void goToAdapter(ArrayList<Companion>list) {
         RewiewAdapter adapter = new RewiewAdapter();
+        list_review.setAdapter(adapter);
     }
 }

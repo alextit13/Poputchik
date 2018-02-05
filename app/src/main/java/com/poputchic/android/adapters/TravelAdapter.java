@@ -138,8 +138,10 @@ public class TravelAdapter extends BaseAdapter{
     int reviews = 0;
 
     private void takeDriver(int position){
+        Log.d(VARIABLES_CLASS.LOG_TAG,"position = " + position);
         if (lisrDRVR!=null&&!lisrDRVR.isEmpty()){
             driver = lisrDRVR.get(position);
+            Log.d(VARIABLES_CLASS.LOG_TAG,"driver = " + driver);
             if (driver.getName()!=null&&driver.getYear()!=0){name_driver_and_year.setText(driver.getName()+", "+driver.getYear());}
             if (driver.getName_car()!=null&&driver.getYear_car()!=null){car.setText(driver.getName_car()+", "+ driver.getYear_car());}
             if (driver.getRating()!=null){rating_driver.setText(driver.getRating()+"");}
@@ -148,45 +150,6 @@ public class TravelAdapter extends BaseAdapter{
             if (driver.getImage_path()!=null){
                 Picasso.with(ctx).load(driver.getImage_path()+"").resize(70,70).into(circleImageView);}
         }
-
-        /*driver = null;
-        FirebaseDatabase.getInstance().getReference().child("users").child("drivers").child(dateCreate+"")
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        driver = dataSnapshot.getValue(Driver.class);
-                        Log.d(VARIABLES_CLASS.LOG_TAG,"2");
-                        //Log.d(VARIABLES_CLASS.LOG_TAG,"driver = " + driver);
-                        if (driver.getName()!=null&&driver.getYear()!=0){name_driver_and_year.setText(driver.getName()+", "+driver.getYear());}
-                        if (driver.getName_car()!=null&&driver.getYear_car()!=null){car.setText(driver.getName_car()+", "+ driver.getYear_car());}
-                        if (driver.getRating()!=null){rating_driver.setText(driver.getRating()+"");}
-                        if (driver.getRewiews()!=null){review_driver.setText(driver.getRewiews().size()+"");}
-                        //if (driver.)
-                        if (driver.getImage_path()!=null){
-                            Picasso.with(ctx).load(driver.getImage_path()+"").resize(70,70).into(circleImageView);}
-                        if (driver.getNumberPhone()!=null){number.setText(driver.getNumberPhone());}
-
-                        FirebaseDatabase.getInstance().getReference().child("reviews").child(driver.getDate_create()+"")
-                                .addValueEventListener(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(DataSnapshot dataSnapshot) {
-                                        reviews = (int) dataSnapshot.getChildrenCount();
-                                    }
-
-                                    @Override
-                                    public void onCancelled(DatabaseError databaseError) {
-
-                                    }
-                                });
-                        if (driver!=null){review_driver_c.setText(reviews+"");}
-                        Log.d(VARIABLES_CLASS.LOG_TAG,"3");
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });*/
     }
 
     private void init(View v) {
@@ -220,11 +183,12 @@ public class TravelAdapter extends BaseAdapter{
                 RelativeLayout.LayoutParams mRparams = new RelativeLayout
                         .LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 final EditText myEditText = new EditText(ctx);
+
                 myEditText.setLayoutParams(mRparams);
                 new AlertDialog.Builder(ctx)
                         .setTitle("Поездка")
                         .setView(myEditText)
-                        .setMessage("Отправиться с этим водителем?")
+                        .setMessage("Отправиться с этим водителем? \n\n\n Предложите свою цену, p.:")
                         .setPositiveButton("Да", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {

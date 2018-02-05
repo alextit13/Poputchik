@@ -88,7 +88,6 @@ public class MainListActivity extends Activity {
             driver = data.getDriverData();
             companion = data.getCompanionData();*/
             Intent intent = getIntent();
-
             driver = (Driver) intent.getSerializableExtra("driver");
             companion = (Companion) intent.getSerializableExtra("companion");
         } catch (Exception e) {
@@ -159,12 +158,8 @@ public class MainListActivity extends Activity {
     }
 
     private void travelsAdapter(ArrayList<Travel> LDR,ArrayList<Driver> LDRDrivers) {
-        //Log.d(VARIABLES_CLASS.LOG_TAG,"LDR = "+LDR.size());
-        if (adapter==null){
-            adapter = new TravelAdapter(this, LDR, companion,LDRDrivers);
-        }else{
-            adapter.notifyDataSetChanged();
-        }
+        Log.d(VARIABLES_CLASS.LOG_TAG,"LDR = "+LDR.size());
+        adapter = new TravelAdapter(this, LDR, companion,LDRDrivers);
         b_main_list.setAdapter(adapter);
     }
 
@@ -189,7 +184,7 @@ public class MainListActivity extends Activity {
                 if (driver != null) {
                     addTravel();
                 } else if (companion != null) {
-
+                    addZayavka(companion);
                 }
                 break;
             case R.id.b_menu_4:
@@ -217,6 +212,12 @@ public class MainListActivity extends Activity {
                 break;
 
         }
+    }
+
+    private void addZayavka(Companion C) {
+        Intent intent = new Intent(MainListActivity.this, AddZayavka.class);
+        intent.putExtra("companion", C);
+        startActivity(intent);
     }
 
     private void goToPrivateRoomCompanion(Companion CO) {
