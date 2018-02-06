@@ -1,6 +1,8 @@
 package com.poputchic.android.classes.enums;
 
 public enum Cities {
+
+    ВСЕ,
     Абакан,
     Азов,
     Александров,
@@ -319,5 +321,6 @@ public enum Cities {
                        Юрга,
                Якутск,
                Ялта,
-               Ярославль
+               Ярославль;
+
 }

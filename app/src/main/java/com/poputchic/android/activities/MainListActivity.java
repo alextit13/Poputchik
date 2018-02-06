@@ -37,7 +37,7 @@ import com.poputchic.android.find_fragments.FindFragment;
 
 import java.util.ArrayList;
 
-public class MainListActivity extends Activity {
+public class MainListActivity extends Activity implements FindFragment.EditNameDialogListener{
 
     private ListView b_main_list;
     private ImageView b_menu_1, b_menu_2, b_menu_3, b_menu_4, b_menu_5, b_iv_find;
@@ -51,6 +51,8 @@ public class MainListActivity extends Activity {
     private ArrayList listDrivers;
     private ArrayList<ZayavkaFromCompanion> listZayavkiFromCompanions = new ArrayList<>();
     int rating = 0;
+    private String city = "";
+    private boolean changeCity = false;
 
 
     @Override
@@ -77,7 +79,9 @@ public class MainListActivity extends Activity {
             public void onClick(View v) {
                 FindFragment fFrag = new FindFragment();
                 fFrag.FindFragment(MainListActivity.this);
+                fFrag.setTargetFragment(fFrag,11);
                 fFrag.show(getFragmentManager(),"frag");
+
             }
         });
         selectUser();
@@ -94,11 +98,6 @@ public class MainListActivity extends Activity {
         });
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.d(VARIABLES_CLASS.LOG_TAG,"requestCode = " + requestCode + ", resultCode = " + resultCode);
-    }
-
     private void clickPosition(int p) {
         Intent intent = new Intent(MainListActivity.this, DetailViewTravel.class);
         intent.putExtra("companion", companion);
@@ -108,9 +107,6 @@ public class MainListActivity extends Activity {
 
     private void selectUser() {
         try {
-            /*Data data = new Data(MainListActivity.this);
-            driver = data.getDriverData();
-            companion = data.getCompanionData();*/
             Intent intent = getIntent();
             driver = (Driver) intent.getSerializableExtra("driver");
             companion = (Companion) intent.getSerializableExtra("companion");
@@ -136,7 +132,17 @@ public class MainListActivity extends Activity {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         listZayavkiFromCompanions.clear();
                         for (DataSnapshot data : dataSnapshot.getChildren()){
-                            listZayavkiFromCompanions.add(data.getValue(ZayavkaFromCompanion.class));
+                            if (!city.equals("")&&data.getValue(ZayavkaFromCompanion.class).getFrom_location().contains(city)) {
+                                listZayavkiFromCompanions.add(data.getValue(ZayavkaFromCompanion.class));
+                            }else if (city.equals("")){
+                                listZayavkiFromCompanions.add(data.getValue(ZayavkaFromCompanion.class));
+                            }else if (city.equals("ВСЕ")){
+                                listZayavkiFromCompanions.add(data.getValue(ZayavkaFromCompanion.class));
+                            }
+                        }
+
+                        if (listZayavkiFromCompanions.size()==0){
+                            Toast.makeText(MainListActivity.this, "Ничего не найдено!", Toast.LENGTH_SHORT).show();
                         }
 
                         main_list_progress_bar.setVisibility(View.INVISIBLE);
@@ -248,14 +254,30 @@ public class MainListActivity extends Activity {
     private void takeAndStartWithListTravels() {
         listTravesl = new ArrayList<>();
         listDrivers = new ArrayList<>();
+        Log.d(VARIABLES_CLASS.LOG_TAG, "city = " + city);
         try {
+            Log.d(VARIABLES_CLASS.LOG_TAG, "city_1 = " + city);
             FirebaseDatabase.getInstance().getReference().child("travels")
                     .addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             listTravesl.clear();
+                            Log.d(VARIABLES_CLASS.LOG_TAG, "city_2 = " + city);
                             for (DataSnapshot data : dataSnapshot.getChildren()) {
-                                listTravesl.add(data.getValue(Travel.class));
+                                Log.d(VARIABLES_CLASS.LOG_TAG, "city_3 = " + city);
+                                if (!city.equals("")&&data.getValue(Travel.class).getFrom().contains(city)){
+                                    Log.d(VARIABLES_CLASS.LOG_TAG, "city_4 = " + city);
+                                    listTravesl.add(data.getValue(Travel.class));
+                                }else if (city.equals("")){
+                                    Log.d(VARIABLES_CLASS.LOG_TAG, "city_5 = " + city);
+                                    listTravesl.add(data.getValue(Travel.class));
+                                }else if (city.equals("ВСЕ")){
+                                    listTravesl.add(data.getValue(Travel.class));
+                                }
+
+                            }
+                            if (listTravesl.size()==0){
+                                Toast.makeText(MainListActivity.this, "Ничего не найдено!", Toast.LENGTH_SHORT).show();
                             }
                             takeDrivers();
                         }
@@ -284,7 +306,7 @@ public class MainListActivity extends Activity {
                             //
                             main_list_progress_bar.setVisibility(View.INVISIBLE);
                             if (listDrivers.size() == listTravesl.size()){
-                                Log.d(VARIABLES_CLASS.LOG_TAG,"goIIIING = " + listDrivers.size());
+                                //Log.d(VARIABLES_CLASS.LOG_TAG,"goIIIING = " + listDrivers.size());
                                 travelsAdapter(listTravesl,listDrivers);
                             }
                         }
@@ -404,5 +426,20 @@ public class MainListActivity extends Activity {
             }
         })
                 .show();
+    }
+
+    @Override
+    public void onFinishEditDialog(String inputText) {
+        //Log.d(VARIABLES_CLASS.LOG_TAG, "inputText = " + inputText);
+        city = inputText;
+        if (driver!=null){
+            //Log.d(VARIABLES_CLASS.LOG_TAG, "takeZayavkiFromCompanions_1");
+            takeZayavkiFromCompanions();
+            //Log.d(VARIABLES_CLASS.LOG_TAG, "takeZayavkiFromCompanions_2");
+        }else if (companion!=null){
+            //Log.d(VARIABLES_CLASS.LOG_TAG, "takeAndStartWithListTravels_1");
+            takeAndStartWithListTravels();
+            //Log.d(VARIABLES_CLASS.LOG_TAG, "takeAndStartWithListTravels_2");
+        }
     }
 }
