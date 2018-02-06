@@ -123,7 +123,6 @@
         <activity
             android:name=".admin.AdminActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
-        <activity android:name=".activities.find.FindActivity"></activity>
     </application>
 
 </manifest>

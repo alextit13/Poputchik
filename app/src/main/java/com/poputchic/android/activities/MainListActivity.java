@@ -10,13 +10,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,12 +22,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.gson.Gson;
 import com.poputchic.android.R;
-import com.poputchic.android.activities.find.FindActivity;
 import com.poputchic.android.activities.person_rooms.PersonRoomCompanion;
 import com.poputchic.android.activities.person_rooms.PersonRoomDriver;
-import com.poputchic.android.activities.person_rooms.my_travels.MyTravels;
 import com.poputchic.android.adapters.LZFCAdapter;
 import com.poputchic.android.adapters.TravelAdapter;
 import com.poputchic.android.classes.Data;
@@ -38,9 +33,9 @@ import com.poputchic.android.classes.classes.Companion;
 import com.poputchic.android.classes.classes.Driver;
 import com.poputchic.android.classes.classes.Travel;
 import com.poputchic.android.classes.classes.ZayavkaFromCompanion;
+import com.poputchic.android.find_fragments.FindFragment;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
 public class MainListActivity extends Activity {
 
@@ -80,29 +75,9 @@ public class MainListActivity extends Activity {
         b_iv_find.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainListActivity.this, FindActivity.class);
-                ArrayList <String> list = new ArrayList<>();
-                if (driver!=null){
-                    // заявки от пользователей
-
-                    for (int i = 0; i<listZayavkiFromCompanions.size();i++){
-                        Gson gson = new Gson();
-                        String jsonInString = gson.toJson(listZayavkiFromCompanions.get(i));
-                        list.add(jsonInString);
-                    }
-                    intent.putStringArrayListExtra("list",list);
-                    startActivityForResult(intent,18);
-
-                }else if (companion!=null){
-                    // travels
-                    for (int i = 0; i<listTravesl.size();i++){
-                        Gson gson = new Gson();
-                        String jsonInString = gson.toJson(listTravesl.get(i));
-                        list.add(jsonInString);
-                    }
-                    intent.putStringArrayListExtra("list",list);
-                    startActivityForResult(intent,18);
-                }
+                FindFragment fFrag = new FindFragment();
+                fFrag.FindFragment(MainListActivity.this);
+                fFrag.show(getFragmentManager(),"frag");
             }
         });
         selectUser();
