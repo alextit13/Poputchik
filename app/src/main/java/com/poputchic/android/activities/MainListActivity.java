@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -23,7 +24,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 import com.poputchic.android.R;
+import com.poputchic.android.activities.find.FindActivity;
 import com.poputchic.android.activities.person_rooms.PersonRoomCompanion;
 import com.poputchic.android.activities.person_rooms.PersonRoomDriver;
 import com.poputchic.android.activities.person_rooms.my_travels.MyTravels;
@@ -42,14 +45,12 @@ import java.util.HashSet;
 public class MainListActivity extends Activity {
 
     private ListView b_main_list;
-    private ImageView b_menu_1, b_menu_2, b_menu_3, b_menu_4, b_menu_5;
+    private ImageView b_menu_1, b_menu_2, b_menu_3, b_menu_4, b_menu_5, b_iv_find;
     private Driver driver;
     private Companion companion;
 
-    private ArrayList<Companion> listCompanions;
     private ArrayList<Travel> listTravesl;
 
-    private RelativeLayout main_list_container;
     private ProgressBar main_list_progress_bar;
     private TravelAdapter adapter;
     private ArrayList listDrivers;
@@ -75,6 +76,35 @@ public class MainListActivity extends Activity {
         b_menu_3 = (ImageView) findViewById(R.id.b_menu_3);
         b_menu_4 = (ImageView) findViewById(R.id.b_menu_4);
         b_menu_5 = (ImageView) findViewById(R.id.b_menu_5);
+        b_iv_find = (ImageView) findViewById(R.id.b_iv_find);
+        b_iv_find.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainListActivity.this, FindActivity.class);
+                ArrayList <String> list = new ArrayList<>();
+                if (driver!=null){
+                    // заявки от пользователей
+
+                    for (int i = 0; i<listZayavkiFromCompanions.size();i++){
+                        Gson gson = new Gson();
+                        String jsonInString = gson.toJson(listZayavkiFromCompanions.get(i));
+                        list.add(jsonInString);
+                    }
+                    intent.putStringArrayListExtra("list",list);
+                    startActivityForResult(intent,18);
+
+                }else if (companion!=null){
+                    // travels
+                    for (int i = 0; i<listTravesl.size();i++){
+                        Gson gson = new Gson();
+                        String jsonInString = gson.toJson(listTravesl.get(i));
+                        list.add(jsonInString);
+                    }
+                    intent.putStringArrayListExtra("list",list);
+                    startActivityForResult(intent,18);
+                }
+            }
+        });
         selectUser();
         b_main_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -87,6 +117,11 @@ public class MainListActivity extends Activity {
                 }
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d(VARIABLES_CLASS.LOG_TAG,"requestCode = " + requestCode + ", resultCode = " + resultCode);
     }
 
     private void clickPosition(int p) {

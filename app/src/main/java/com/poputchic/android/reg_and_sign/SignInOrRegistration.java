@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.ProgressBar;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -20,6 +23,8 @@ public class SignInOrRegistration extends Activity {
     private Button     c_b_sign_in,c_b_registration;
     private Driver driver;
     private Companion companion;
+    private FrameLayout container_s_o_r;
+    private ProgressBar progress_bar_sign_or_reg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +36,9 @@ public class SignInOrRegistration extends Activity {
     private void init(){
         c_b_sign_in = (Button) findViewById(R.id.c_b_sign_in);
         c_b_registration = (Button) findViewById(R.id.c_b_registration);
+        container_s_o_r = (FrameLayout) findViewById(R.id.container_s_o_r);
+        progress_bar_sign_or_reg = (ProgressBar) findViewById(R.id.progress_bar_sign_or_reg);
+        progress_bar_sign_or_reg.setVisibility(View.VISIBLE);
         checkSavedData();
     }
 
@@ -47,10 +55,16 @@ public class SignInOrRegistration extends Activity {
             if (!D.equals("")||!C.equals("")){
                 if (!D.equals("")){
                     createDriver(D);
+                }else{
+                    progress_bar_sign_or_reg.setVisibility(View.INVISIBLE);
                 }
                 if (!C.equals("")){
                     createCompanion(C);
+                }else{
+                    progress_bar_sign_or_reg.setVisibility(View.INVISIBLE);
                 }
+            }else{
+                progress_bar_sign_or_reg.setVisibility(View.INVISIBLE);
             }
 
         }catch (Exception e){

@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,6 +27,7 @@ public class SignIn extends Activity {
     private EditText    b_et_email,b_et_password;
     private Button      b_b_sign_in;
     private ImageView   b_iv_back;
+    private ProgressBar pb_sign_in;
 
     private Driver driver;
     private Companion companion;
@@ -39,6 +41,8 @@ public class SignIn extends Activity {
     }
 
     private void init(){
+        pb_sign_in = (ProgressBar) findViewById(R.id.pb_sign_in);
+        pb_sign_in.setVisibility(View.INVISIBLE);
         b_et_email = (EditText) findViewById(R.id.b_et_email);
         b_et_password = (EditText) findViewById(R.id.b_et_password);
 
@@ -50,6 +54,7 @@ public class SignIn extends Activity {
         switch (view.getId()){
             case R.id.b_b_sign_in:
                 // sign in
+                pb_sign_in.setVisibility(View.VISIBLE);
                 signIn();
                 break;
             case R.id.b_iv_back:
