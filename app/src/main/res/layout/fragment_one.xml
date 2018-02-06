@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <ListView
+        android:layout_margin="3dp"
+        android:layout_weight="1"
+        android:id="@+id/list_one_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </ListView>
+    <TextView
+        android:layout_margin="3dp"
+        android:id="@+id/tv_one_user"
+        android:text="@string/choice_one_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:textSize="16sp"
+            android:layout_weight="1"
+            android:layout_margin="4dp"
+            android:id="@+id/et_one_user_message"
+            android:hint="@string/message_one_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <Button
+            android:textSize="12sp"
+            android:text="@string/send"
+            android:id="@+id/btn_send_one_user"
+            android:layout_weight="3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </TableRow>
+</LinearLayout>

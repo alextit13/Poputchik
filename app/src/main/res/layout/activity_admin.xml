@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".admin.AdminActivity">
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_margin="3dp"
+        android:layout_above="@id/tr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </FrameLayout>
+    <TableRow
+        android:id="@+id/tr"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/btn_message_one_user"
+            android:onClick="clickAdmin"
+            android:text="@string/message_one_user"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_weight="1"/>
+        <Button
+            android:id="@+id/btn_message_all_users"
+            android:onClick="clickAdmin"
+            android:text="@string/message_all_users"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_weight="1"/>
+    </TableRow>
+</RelativeLayout>

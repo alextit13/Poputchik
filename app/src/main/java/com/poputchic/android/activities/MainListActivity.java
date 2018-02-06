@@ -68,24 +68,25 @@ public class MainListActivity extends Activity {
         main_list_progress_bar = (ProgressBar) findViewById(R.id.main_list_progress_bar);
         main_list_progress_bar.setVisibility(View.VISIBLE);
         b_main_list = (ListView) findViewById(R.id.b_main_list);
-        Log.d(VARIABLES_CLASS.LOG_TAG,"click");
-        b_main_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        //Log.d(VARIABLES_CLASS.LOG_TAG,"click");
 
-                if (companion != null) {
-                    clickPosition(position);
-                }if (driver!=null){
-                    addClicker();
-                }
-            }
-        });
         b_menu_1 = (ImageView) findViewById(R.id.b_menu_1);
         b_menu_2 = (ImageView) findViewById(R.id.b_menu_2);
         b_menu_3 = (ImageView) findViewById(R.id.b_menu_3);
         b_menu_4 = (ImageView) findViewById(R.id.b_menu_4);
         b_menu_5 = (ImageView) findViewById(R.id.b_menu_5);
         selectUser();
+        b_main_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                if (companion != null) {
+                    clickPosition(position);
+                }if (driver != null){
+                    addClicker();
+                }
+            }
+        });
     }
 
     private void clickPosition(int p) {

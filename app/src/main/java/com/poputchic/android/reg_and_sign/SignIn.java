@@ -15,6 +15,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.poputchic.android.R;
 import com.poputchic.android.activities.MainListActivity;
+import com.poputchic.android.admin.AdminActivity;
 import com.poputchic.android.classes.Data;
 import com.poputchic.android.classes.VARIABLES_CLASS;
 import com.poputchic.android.classes.classes.Companion;
@@ -62,9 +63,23 @@ public class SignIn extends Activity {
     private void signIn() {
         //Log.d(VARIABLES_CLASS.LOG_TAG,"1");
         if (checkCompleteFields()){
+            if (b_et_email.getText().toString().equals("admin@admin.com")&&
+                    b_et_password.getText().toString().equals("admin")){
+                // sign admin
+                Intent intent = new Intent(SignIn.this, AdminActivity.class);
+                startActivity(intent);
+            }
+            if (b_et_email.getText().toString().equals("admin@admin.com")
+                    &&b_et_password.getText().toString().equals("admin")){
+                connectAdmin();
+            }
             driver = getDataDriver();
             companion = getDataCompanion();
         }
+    }
+
+    private void connectAdmin() {
+
     }
 
     private void cleanData() {

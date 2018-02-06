@@ -49,4 +49,9 @@
     <string name="add_travel_companion">Нужно подвезти!</string>
     <string name="second_data">Дополнительные данные</string>
     <string name="cost">Укажите цену</string>
+    <string name="message_one_user">Сообщение одному пользователю</string>
+    <string name="message_all_users">Сообщение всем разработчикам</string>
+    <string name="choice_one_user">Выберите пользователя</string>
+    <string name="send">Отправить</string>
+    <string name="message_all_user">Сообщение всем пользователям</string>
 </resources>
