@@ -54,4 +54,6 @@
     <string name="choice_one_user">Выберите пользователя</string>
     <string name="send">Отправить</string>
     <string name="message_all_user">Сообщение всем пользователям</string>
+    <string name="understand">Понятно!</string>
+    <string name="message_from_admin">Сообщение от администрации</string>
 </resources>

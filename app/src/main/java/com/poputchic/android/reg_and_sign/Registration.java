@@ -102,7 +102,7 @@ public class Registration extends Activity {
                     && a_et_password.getText().toString().equals(a_et_password_confirm.getText()
             .toString())&&!a_et_name.getText().toString().equals("")){
                 ((ProgressBar) findViewById(R.id.a_pb)).setVisibility(View.VISIBLE);
-                driver = new Driver("0000 0000 0000 0000","Обо мне",new Date().getTime()+"",25,
+                driver = new Driver("Номер банковской карты","Обо мне",new Date().getTime()+"",25,
                         "http://www.clker.com/cliparts/B/R/Y/m/P/e/blank-profile-hi.png","0",
                         a_et_email.getText().toString(),a_et_password.getText().toString()
                         ,a_et_name.getText().toString(),"Авто","1",a_et_number_of_phone

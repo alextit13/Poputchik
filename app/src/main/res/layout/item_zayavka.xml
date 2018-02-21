@@ -65,7 +65,7 @@
         android:textSize="22sp"
         android:lines="1"
         android:textColor="@color/black_100"
-        tools:text="Поездка"
+        android:text="Поездка"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

@@ -63,6 +63,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Intent intent = new Intent();
                 try {
                     if (addresses!=null&&!addresses.get(0).equals("")){
+                        intent.putExtra("city",  addresses.get(0).getLocality());
                         intent.putExtra("adress", addresses.get(0).getAddressLine(0));
                     }
                 }catch (Exception e){

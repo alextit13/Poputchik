@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Poputchik.iml" filepath="$PROJECT_DIR$/.idea/Poputchik.iml" />
-      <module fileurl="file://$PROJECT_DIR$/PoputchikNew.iml" filepath="$PROJECT_DIR$/PoputchikNew.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Poputchik.iml" filepath="$PROJECT_DIR$/Poputchik.iml" />
+      <module fileurl="file://D:\disk_C\ANDROID\ANDROIN_PROJECTS\Poputchik\.idea\Poputchik.iml" filepath="D:\disk_C\ANDROID\ANDROIN_PROJECTS\Poputchik\.idea\Poputchik.iml" />
       <module fileurl="file://D:\disk_C\ANDROID\ANDROIN_PROJECTS\Poputchik\PoputchikNew.iml" filepath="D:\disk_C\ANDROID\ANDROIN_PROJECTS\Poputchik\PoputchikNew.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>

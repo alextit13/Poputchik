@@ -34,25 +34,22 @@ import com.poputchic.android.classes.classes.Driver;
 import com.poputchic.android.classes.classes.Travel;
 import com.poputchic.android.classes.classes.ZayavkaFromCompanion;
 import com.poputchic.android.find_fragments.FindFragment;
+import com.poputchic.android.find_fragments.MessageFragment;
 
 import java.util.ArrayList;
 
 public class MainListActivity extends Activity implements FindFragment.EditNameDialogListener{
 
     private ListView b_main_list;
-    private ImageView b_menu_1, b_menu_2, b_menu_3, b_menu_4, b_menu_5, b_iv_find;
+    private ImageView b_menu_1, b_menu_2, b_menu_3, b_menu_4, b_menu_5, b_iv_find,message_from_admin;
     private Driver driver;
     private Companion companion;
-
     private ArrayList<Travel> listTravesl;
-
     private ProgressBar main_list_progress_bar;
     private TravelAdapter adapter;
     private ArrayList listDrivers;
-    private ArrayList<ZayavkaFromCompanion> listZayavkiFromCompanions = new ArrayList<>();
     int rating = 0;
     private String city = "";
-    private boolean changeCity = false;
 
 
     @Override
@@ -68,6 +65,7 @@ public class MainListActivity extends Activity implements FindFragment.EditNameD
         b_main_list = (ListView) findViewById(R.id.b_main_list);
         //Log.d(VARIABLES_CLASS.LOG_TAG,"click");
 
+        message_from_admin = (ImageView) findViewById(R.id.message_from_admin);
         b_menu_1 = (ImageView) findViewById(R.id.b_menu_1);
         b_menu_2 = (ImageView) findViewById(R.id.b_menu_2);
         b_menu_3 = (ImageView) findViewById(R.id.b_menu_3);
@@ -96,6 +94,24 @@ public class MainListActivity extends Activity implements FindFragment.EditNameD
                 }
             }
         });
+        message_from_admin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String date = "";
+                if (companion!=null){
+                     date = companion.getDate_create()+"";
+                }else if (driver!=null){
+                    date = driver.getDate_create()+"";
+                }
+                showDialogMessageFromAdmin(date);
+            }
+        });
+    }
+
+    private void showDialogMessageFromAdmin(String date) {
+        MessageFragment fFrag = new MessageFragment();
+        fFrag.FindFragment(MainListActivity.this,date);
+        fFrag.show(getFragmentManager(),"fragMes");
     }
 
     private void clickPosition(int p) {
@@ -127,38 +143,54 @@ public class MainListActivity extends Activity implements FindFragment.EditNameD
 
     private void takeZayavkiFromCompanions() {
         FirebaseDatabase.getInstance().getReference().child("zayavki_from_companoins")
-                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        listZayavkiFromCompanions.clear();
-                        for (DataSnapshot data : dataSnapshot.getChildren()){
-                            if (!city.equals("")&&data.getValue(ZayavkaFromCompanion.class).getFrom_location().contains(city)) {
-                                listZayavkiFromCompanions.add(data.getValue(ZayavkaFromCompanion.class));
-                            }else if (city.equals("")){
-                                listZayavkiFromCompanions.add(data.getValue(ZayavkaFromCompanion.class));
-                            }else if (city.equals("ВСЕ")){
-                                listZayavkiFromCompanions.add(data.getValue(ZayavkaFromCompanion.class));
+                .addValueEventListener(
+                        new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                ArrayList<ZayavkaFromCompanion>list = new ArrayList<>();
+                                for (DataSnapshot data : dataSnapshot.getChildren()){
+                                    list.add(data.getValue(ZayavkaFromCompanion.class));
+                                }
+
+                                getListCompanions(list);
+                                //completeAdapter(list);
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
                             }
                         }
-
-                        if (listZayavkiFromCompanions.size()==0){
-                            Toast.makeText(MainListActivity.this, "Ничего не найдено!", Toast.LENGTH_SHORT).show();
-                        }
-
-                        main_list_progress_bar.setVisibility(View.INVISIBLE);
-                        completeAdapter(listZayavkiFromCompanions);
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
+                );
     }
 
-    private void completeAdapter(ArrayList<ZayavkaFromCompanion> LZFC) {
-        LZFCAdapter adapter = new LZFCAdapter(MainListActivity.this,LZFC,driver);
+    private void getListCompanions(final ArrayList<ZayavkaFromCompanion> list) {
+        final ArrayList<Companion>listCompanions = new ArrayList<>();
+        for (int i = 0; i<list.size();i++){
+            FirebaseDatabase.getInstance().getReference().child("users").child("companion").child(list.get(i).getCompanion()+"")
+                    .addValueEventListener(
+                            new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    listCompanions.add(dataSnapshot.getValue(Companion.class));
+                                    if (listCompanions.size()==list.size()){
+                                        completeAdapter(list,listCompanions);
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            }
+                    );
+        }
+    }
+
+    private void completeAdapter(ArrayList<ZayavkaFromCompanion> LZFC,ArrayList<Companion>listComp) {
+        LZFCAdapter adapter = new LZFCAdapter(MainListActivity.this,LZFC,driver,listComp);
         b_main_list.setAdapter(adapter);
+        main_list_progress_bar.setVisibility(View.INVISIBLE);
     }
 
     private void addClicker() {
@@ -335,10 +367,8 @@ public class MainListActivity extends Activity implements FindFragment.EditNameD
             case R.id.b_menu_1:
                 // private room
                 if (driver != null) {
-                    Toast.makeText(MainListActivity.this, "Личный кабинет драйвер", Toast.LENGTH_SHORT).show();
                     goToPrivateRoomDriver(driver);
                 } else if (companion != null) {
-                    Toast.makeText(MainListActivity.this, "Личный кабинет компаньон", Toast.LENGTH_SHORT).show();
                     goToPrivateRoomCompanion(companion);
                 }
                 break;
@@ -355,13 +385,17 @@ public class MainListActivity extends Activity implements FindFragment.EditNameD
                 }
                 break;
             case R.id.b_menu_4:
-                if (driver != null) {
+                /*if (driver != null) {
                     Intent intent = new Intent(MainListActivity.this, ZayavkiToMyTravels.class);
                     intent.putExtra("driver", driver);
                     startActivity(intent);
-                } else if (companion != null) {
+                } else*/ if (companion != null) {
                     Intent intent = new Intent(MainListActivity.this, MyTravelsCompanion.class);
                     intent.putExtra("companion", companion);
+                    startActivity(intent);
+                }else if (driver!=null){
+                    Intent intent = new Intent(MainListActivity.this, MyTravelsCompanion.class);
+                    intent.putExtra("driver", driver);
                     startActivity(intent);
                 }
                 // ?

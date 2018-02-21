@@ -30,10 +30,12 @@ public class SignInOrRegistration extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in_or_registration);
+
         init();
     }
 
     private void init(){
+
         c_b_sign_in = (Button) findViewById(R.id.c_b_sign_in);
         c_b_registration = (Button) findViewById(R.id.c_b_registration);
         container_s_o_r = (FrameLayout) findViewById(R.id.container_s_o_r);

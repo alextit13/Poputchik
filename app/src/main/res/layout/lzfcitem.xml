@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+    android:id="@+id/main_container_hint"
     android:orientation="vertical"
     android:background="@android:drawable/dialog_holo_light_frame"
     android:layout_margin="6dp"
@@ -110,15 +111,31 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <Button
-        android:id="@+id/button_ok_L"
-        android:layout_margin="3dp"
-        android:background="@color/green"
-        android:drawableLeft="@drawable/ok"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:text="Взять попутчика"
-        android:textColor="@color/black_50"
+    <TableRow
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/button_ok_hide"
+            android:layout_margin="3dp"
+            android:background="@color/red"
+            android:drawableLeft="@drawable/close"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Скрыть"
+            android:textColor="@color/black_50"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/button_ok_L"
+            android:layout_margin="3dp"
+            android:background="@color/green"
+            android:drawableLeft="@drawable/ok"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Взять попутчика"
+            android:textColor="@color/black_50"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </TableRow>
+
 </LinearLayout>

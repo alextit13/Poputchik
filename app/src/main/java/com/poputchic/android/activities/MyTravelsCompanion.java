@@ -17,18 +17,23 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.poputchic.android.R;
 import com.poputchic.android.adapters.TravelAdapter;
+import com.poputchic.android.adapters.ZayavkaCompletedAdapter;
 import com.poputchic.android.classes.VARIABLES_CLASS;
 import com.poputchic.android.classes.classes.Companion;
+import com.poputchic.android.classes.classes.Driver;
 import com.poputchic.android.classes.classes.Travel;
 import com.poputchic.android.classes.classes.Zayavka;
 import com.poputchic.android.classes.classes.ZayavkaFromCompanion;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -36,11 +41,13 @@ import java.util.List;
 public class MyTravelsCompanion extends Activity {
 
     private ImageView back_button_my_travels;
+    private TextView logo_my_travels;
     private ListView list_my_z;
     private ArrayList<String>listStrings = new ArrayList<>();
-    private ArrayList<Travel> listMyZ = new ArrayList<>();
+    private ArrayList<ZayavkaFromCompanion> listMyZ = new ArrayList<>();
     private Object list;
     private Companion companion;
+    private Driver driver;
     private int rating = 0;
     private int clickItem = 0;
 
@@ -52,60 +59,41 @@ public class MyTravelsCompanion extends Activity {
     }
 
     private void init() {
-        companion = (Companion) getIntent().getSerializableExtra("companion");
+        logo_my_travels = (TextView) findViewById(R.id.logo_my_travels);
+        try {
+            driver = (Driver) getIntent().getSerializableExtra("driver");
+            companion = (Companion) getIntent().getSerializableExtra("companion");
+        }catch (Exception e){
+            // Log ...
+        }
+
         back_button_my_travels = (ImageView) findViewById(R.id.back_button_my_travels);
         list_my_z = (ListView) findViewById(R.id.list_my_z);
-        getList();
+
+        //Log.d("log_user","d = " + driver.getDate_create() + ", c = " + companion.getDate_create());
+        if (companion!=null){
+            getList();
+        }else if (driver!=null){
+            logo_my_travels.setText("Ваши попутчики:");
+            getListForDriver();
+        }
+
     }
 
-    public void getList() {
-        FirebaseDatabase.getInstance().getReference().child("travels_complete_companion").addValueEventListener(
-                new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        for (final DataSnapshot data : dataSnapshot.getChildren()){
-
-                            FirebaseDatabase.getInstance().getReference().child("travels_complete_companion").child(data.getKey()+"").addValueEventListener(
-                                    new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(DataSnapshot dataSnapshot) {
-                                            for (DataSnapshot d : dataSnapshot.getChildren()){
-                                                if (d.getValue(String.class).equals(companion.getDate_create()+"")){
-                                                    listStrings.add(data.getKey()+"");
-
-                                                    getZayavkiFromFirebase(listStrings);
-                                                }
-                                            }
-                                        }
-
-                                        @Override
-                                        public void onCancelled(DatabaseError databaseError) {
-
-                                        }
-                                    }
-                            );
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                }
-        );
-    }
-
-    private void getZayavkiFromFirebase(ArrayList<String> LS) {
-        Log.d(VARIABLES_CLASS.LOG_TAG,"size = " + LS.size());
-        if (!LS.isEmpty()){
-            for (int i = 0; i<LS.size();i++){
-                FirebaseDatabase.getInstance().getReference().child("travels").child(LS.get(i)).addListenerForSingleValueEvent(
+    private void getListForDriver() {
+        final ArrayList<ZayavkaFromCompanion>listZayavriFromCompanion = new ArrayList<>();
+        FirebaseDatabase.getInstance().getReference().child("complete_travels_with_zay_from_comp")
+                .addValueEventListener(
                         new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
-                                listMyZ.add(dataSnapshot.getValue(Travel.class));
-                                takeAnotherZayavki();
-
+                                for (DataSnapshot data : dataSnapshot.getChildren()){
+                                    if (data.getValue(ZayavkaFromCompanion.class).getDriver().equals(driver.getDate_create())){
+                                        listZayavriFromCompanion.add(data.getValue(ZayavkaFromCompanion.class));
+                                    }
+                                }
+                                Log.d("log_user","list = " + listZayavriFromCompanion.size());
+                                goToAdapter(listZayavriFromCompanion);
                             }
 
                             @Override
@@ -114,35 +102,35 @@ public class MyTravelsCompanion extends Activity {
                             }
                         }
                 );
-            }
-        }
     }
 
-    private void takeAnotherZayavki() {
-        FirebaseDatabase.getInstance().getReference().child("complete_travels_with_zay_from_comp").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot data : dataSnapshot.getChildren()){
-                    Travel travel = new Travel(0,
-                            0,data.getValue(ZayavkaFromCompanion.class).getFrom_location()+"",
-                            data.getValue(ZayavkaFromCompanion.class).getTo_location()+"",
-                            "0","0",data.getValue(ZayavkaFromCompanion.class).getDriver()+""
-                    ,"",data.getValue(ZayavkaFromCompanion.class).getDate()+"");
-                    listMyZ.add(travel);
-                }
-                goToAdapter();
-            }
+    public void getList() {
+        FirebaseDatabase.getInstance().getReference().child("complete_travels_with_zay_from_comp")
+                .addValueEventListener(
+                        new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                for (DataSnapshot data : dataSnapshot.getChildren()){
+                                    if (data.getValue(ZayavkaFromCompanion.class).getCompanion().equals(companion.getDate_create())){
+                                        listMyZ.add(data.getValue(ZayavkaFromCompanion.class));
+                                    }
+                                    Log.d(VARIABLES_CLASS.LOG_TAG,"list size = " + listMyZ.size());
+                                    goToAdapter(listMyZ);
+                                }
+                            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
 
-            }
-        });
+                            }
+                        }
+                );
     }
 
-    private void goToAdapter() {
-        if (!listMyZ.isEmpty()){
-            TravelAdapter adapter = new TravelAdapter(MyTravelsCompanion.this,listMyZ,companion,1);
+    private void goToAdapter(final ArrayList<ZayavkaFromCompanion>listResult) {
+        if (!listResult.isEmpty()){
+
+            ZayavkaCompletedAdapter adapter = new ZayavkaCompletedAdapter(MyTravelsCompanion.this,listResult);
             list_my_z.setAdapter(adapter);
             list_my_z.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -169,13 +157,32 @@ public class MyTravelsCompanion extends Activity {
                     button_finish.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            newDialogRatingAndRewiew(j);
+                            if (driver==null){
+                                newDialogRatingAndRewiew(j);
+                            }else if (companion==null){
+                                cancelTravel(j,listResult);
+                            }
                         }
                     });
                     alertDialog.show();
                 }
             });
         }
+    }
+
+    private void cancelTravel(int num_click, ArrayList<ZayavkaFromCompanion>L) {
+        FirebaseDatabase.getInstance().getReference().child("complete_travels_with_zay_from_comp")
+                .child(L.get(num_click).getDate())
+                .removeValue()
+                .addOnCompleteListener(
+                        new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Toast.makeText(MyTravelsCompanion.this, "Поездка окончена", Toast.LENGTH_SHORT).show();
+                                finish();
+                            }
+                        }
+                );
     }
 
     private void newDialogRatingAndRewiew(final int i) {
@@ -268,9 +275,7 @@ public class MyTravelsCompanion extends Activity {
     }
 
     private void save(String review) {
-        Log.d(VARIABLES_CLASS.LOG_TAG,"listMyZ = " + listMyZ.size());
-        Log.d(VARIABLES_CLASS.LOG_TAG,"clickItem = " + clickItem);
-        FirebaseDatabase.getInstance().getReference().child("complete_travel").child(listMyZ.get(clickItem).getTime_create()+"")
+        /*FirebaseDatabase.getInstance().getReference().child("complete_travel").child(listMyZ.get(clickItem).getTime_create()+"")
                 .setValue(listMyZ.get(clickItem));
         if (review!=null&&!review.equals("")){
             FirebaseDatabase.getInstance().getReference().child("reviews").child(listMyZ.get(clickItem).getDriver_create()+"")
@@ -282,6 +287,6 @@ public class MyTravelsCompanion extends Activity {
                 .child("rating")
                 .setValue(rating+"");
 
-        Toast.makeText(this, "Поездка завершена!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Поездка завершена!", Toast.LENGTH_SHORT).show();*/
     }
 }

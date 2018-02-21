@@ -8,6 +8,9 @@ import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -24,10 +27,17 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.poputchic.android.R;
 import com.poputchic.android.classes.VARIABLES_CLASS;
 import com.poputchic.android.classes.classes.Companion;
@@ -38,9 +48,12 @@ import com.poputchic.android.classes.classes.ZayavkaFromCompanion;
 import com.poputchic.android.classes.enums.Cities;
 import com.poputchic.android.map.MapsActivity;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class AddZayavka extends Activity {
 
@@ -50,10 +63,11 @@ public class AddZayavka extends Activity {
     //private Driver driver;
 
     private String defaultLocation = "";
+    private FusedLocationProviderClient mFusedLocationClient;
 
     private ProgressBar f_pb_;
     private EditText  e_et_pointer_adress_2, e_about,e_et_from,e_et_pointer_adress_1,e_et_to;
-    private Button e_b_time_start, e_b_time_finish, e_b_cancel, e_b_go, e_b_date, b_onMap_start, b_onMap_finish;
+    private Button e_b_time_start, e_b_cancel, e_b_go, e_b_date, b_onMap_start, b_onMap_finish;
 
     int DIALOG_TIME = 1;
     int myHour = 14;
@@ -76,7 +90,43 @@ public class AddZayavka extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_zayavka);
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         init();
+
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }else{
+            mFusedLocationClient.getLastLocation()
+                    .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                        @Override
+                        public void onSuccess(Location location) {
+                            // Got last known location. In some rare situations this can be null.
+                            if (location != null) {
+                                // Logic to handle location object
+                                //Log.d(VARIABLES_CLASS.LOG_TAG,"location = " + location);
+                                Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+                                List<Address> addresses = null;
+                                try {
+                                    addresses = geocoder.getFromLocation(
+                                            location.getLatitude(),
+                                            location.getLongitude(),
+                                            // In this sample, get just a single address.
+                                            1);
+                                } catch (IOException e) {
+
+                                }
+                                if (addresses!=null){
+                                    System.out.println(Arrays.asList(addresses.get(0).getAddressLine(0)));
+                                    e_et_pointer_adress_1.setText(addresses.get(0).getAddressLine(0));
+                                    e_et_from.setText(addresses.get(0).getLocality());
+                                }
+                            }
+                        }
+                    });
+        }
     }
 
     void getLocation(){
@@ -117,7 +167,6 @@ public class AddZayavka extends Activity {
         e_et_pointer_adress_2 = (EditText) findViewById(R.id.e_et_pointer_adress_2_z);
 
         e_b_time_start = (Button) findViewById(R.id.e_b_time_start_z);
-        e_b_time_finish = (Button) findViewById(R.id.e_b_time_finish_z);
         e_b_cancel = (Button) findViewById(R.id.e_b_cancel_z);
         e_b_go = (Button) findViewById(R.id.e_b_go_z);
 
@@ -157,12 +206,6 @@ public class AddZayavka extends Activity {
             @Override
             public void onClick(View view) {
                 clickTime(e_b_time_start);
-            }
-        });
-        e_b_time_finish.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                clickTime(e_b_time_finish);
             }
         });
         e_b_cancel.setOnClickListener(new View.OnClickListener() {
@@ -208,9 +251,11 @@ public class AddZayavka extends Activity {
 
     private void createZayavka() {
         createAdresses();
-        if (adress_from!=null||adress_to!=null){
-            ZayavkaFromCompanion ZFC = new ZayavkaFromCompanion(null,new Date().getTime()+"",adress_from,adress_to,e_b_time_start.getText().toString()
-            ,e_b_time_finish.getText().toString(),e_about.getText().toString(),companion.getDate_create()+"");
+        if (adress_from!=null||adress_to!=null&&!e_et_from.getText().toString().equals("")
+                &&!e_et_to.getText().toString().equals("")){
+            ZayavkaFromCompanion ZFC = new ZayavkaFromCompanion(null,new Date().getTime()+"",adress_from+", "+e_et_from.getText().toString()
+                    ,adress_to+", " + e_et_to.getText().toString(),e_b_time_start.getText().toString()
+            ,"0",e_about.getText().toString(),companion.getDate_create()+"");
             pushToFirebase(ZFC);
         }else{
             f_pb_.setVisibility(View.INVISIBLE);
@@ -222,13 +267,15 @@ public class AddZayavka extends Activity {
     private void pushToFirebase(ZayavkaFromCompanion z) {
         FirebaseDatabase.getInstance().getReference().child("zayavki_from_companoins").child(z.getDate()+"")
                 .setValue(z).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                Snackbar.make(e_b_go,"Поездка успешно создана!",Snackbar.LENGTH_LONG).show();
-                finish();
-            }
-        });
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Snackbar.make(e_b_go,"Поездка успешно создана!",Snackbar.LENGTH_LONG).show();
+                        finish();
+                    }
+                });
     }
+
+
 
     private void createAdresses() {
         if (!b_onMap_start.getText().toString().equals("Карта")){
@@ -286,11 +333,17 @@ public class AddZayavka extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        String city = "";
+        city = data.getStringExtra("city");
         if (requestCode==1){
             // start point
             adress_from = data.getStringExtra("adress");
+
             if (data.getStringExtra("adress")!=null){
-                b_onMap_start.setText(adress_from);
+                e_et_from.setText(city);
+                e_et_pointer_adress_1.setText(adress_from);
+
+                //e_et_pointer_adress_1.setText(adress_from);
             }
 
             //Log.d(VARIABLES_CLASS.LOG_TAG,"req = " +  data.getParcelableExtra("coor"));
@@ -298,7 +351,9 @@ public class AddZayavka extends Activity {
             // finish point
             adress_to = data.getStringExtra("adress");
             if (data.getStringExtra("adress")!=null){
-                b_onMap_finish.setText(adress_to);
+                e_et_to.setText(city);
+                e_et_pointer_adress_2.setText(adress_to);
+                //e_et_pointer_adress_2.setText(adress_to);
             }
             //Log.d(VARIABLES_CLASS.LOG_TAG,"req = " +  data.getParcelableExtra("coor"));
         }
@@ -323,10 +378,6 @@ public class AddZayavka extends Activity {
                     case R.id.e_b_time_start_z:
                         // ...
                         e_b_time_start.setText(i + "." + i1);
-                        break;
-                    case R.id.e_b_time_finish_z:
-                        //
-                        e_b_time_finish.setText(i + "." + i1);
                         break;
                     default:
                         break;

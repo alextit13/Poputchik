@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
+import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.os.Bundle;
@@ -25,9 +26,17 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TimePicker;
+import android.widget.Toast;
+
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.poputchic.android.R;
 import com.poputchic.android.classes.VARIABLES_CLASS;
 import com.poputchic.android.classes.classes.Driver;
@@ -47,41 +56,62 @@ public class AddTravel extends Activity {
 
     private static final int REQUEST_CODE_PERMISSION = 2;
     String mPermission = Manifest.permission.ACCESS_FINE_LOCATION;
-
     private Driver driver;
-
-    private String defaultLocation = "";
-
     private ProgressBar f_pb_;
     private AutoCompleteTextView e_et_from, e_et_to;
     private EditText e_et_pointer_adress_1, e_et_pointer_adress_2, e_about, e_how_many_peoples;
-    private Button e_b_time_start, e_b_time_finish, e_b_cancel, e_b_go, e_b_date, b_onMap_start, b_onMap_finish;
-
-    int DIALOG_TIME = 1;
-    int myHour = 14;
-    int myMinute = 35;
-
-    int DIALOG_DATE = 2;
-    int myYear = 2011;
-    int myMonth = 02;
-    int myDay = 03;
-
+    private Button e_b_time_start, e_b_cancel, e_b_go, e_b_date, b_onMap_start, b_onMap_finish;
     private String adress_from;
     private String adress_to;
-
     private List<Cities> listCities;
-
     private FrameLayout add_container;
+    private FusedLocationProviderClient mFusedLocationClient;
+    int num = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_travel);
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
         init();
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }else{
+            mFusedLocationClient.getLastLocation()
+                    .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                        @Override
+                        public void onSuccess(Location location) {
+                            // Got last known location. In some rare situations this can be null.
+                            if (location != null) {
+                                // Logic to handle location object
+                                //Log.d(VARIABLES_CLASS.LOG_TAG,"location = " + location);
+                                Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+                                List<Address> addresses = null;
+                                try {
+                                    addresses = geocoder.getFromLocation(
+                                            location.getLatitude(),
+                                            location.getLongitude(),
+                                            // In this sample, get just a single address.
+                                            1);
+                                } catch (IOException e) {
+
+                                }
+                                if (addresses!=null){
+                                    e_et_from.setText(addresses.get(0).getLocality());
+                                    e_et_pointer_adress_1.setText(addresses.get(0).getAddressLine(0));
+                                    //e_et_from.setText(addresses.get(0).getAddressLine(0)+"");
+                                }
+                            }
+                        }
+                    });
+        }
     }
 
     void getLocation(){
-
 
     }
 
@@ -119,7 +149,6 @@ public class AddTravel extends Activity {
         e_how_many_peoples = (EditText) findViewById(R.id.e_how_many_peoples);
 
         e_b_time_start = (Button) findViewById(R.id.e_b_time_start);
-        e_b_time_finish = (Button) findViewById(R.id.e_b_time_finish);
         e_b_cancel = (Button) findViewById(R.id.e_b_cancel);
         e_b_go = (Button) findViewById(R.id.e_b_go);
 
@@ -132,8 +161,6 @@ public class AddTravel extends Activity {
     }
 
     private void takeCoordinates() {
-
-
         try {
             if (ActivityCompat.checkSelfPermission(this, mPermission)
                     != MockPackageManager.PERMISSION_GRANTED) {
@@ -161,12 +188,6 @@ public class AddTravel extends Activity {
             @Override
             public void onClick(View view) {
                 clickTime(e_b_time_start);
-            }
-        });
-        e_b_time_finish.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                clickTime(e_b_time_finish);
             }
         });
         e_b_cancel.setOnClickListener(new View.OnClickListener() {
@@ -215,10 +236,11 @@ public class AddTravel extends Activity {
         if (adress_from!=null||adress_to!=null){
             Travel travel = new Travel(0,Integer.parseInt(e_how_many_peoples.getText().toString())
                     ,adress_from,adress_to,e_b_time_start.getText().toString()
-                    ,e_b_time_finish.getText().toString(),driver.getDate_create()+"",e_about.getText().toString(),new Date().getTime()+"");
+                    ,"0",driver.getDate_create()+"",e_about.getText().toString(),new Date().getTime()+"");
             f_pb_.setVisibility(View.VISIBLE);
             add_container.setAlpha(.3f);
-            pushToFirebase(travel);
+            //pushToFirebase(travel);
+            getNumZayavka(travel);
         }else{
             f_pb_.setVisibility(View.INVISIBLE);
             add_container.setAlpha(1f);
@@ -235,22 +257,51 @@ public class AddTravel extends Activity {
                 finish();
             }
         });
+
+    }
+
+    private void getNumZayavka(final Travel t) {
+        FirebaseDatabase.getInstance().getReference().child("travels")
+                .addValueEventListener(
+                        new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                for (DataSnapshot data : dataSnapshot.getChildren()){
+                                    if (data.getValue(Travel.class).getDriver_create().equals(driver.getDate_create())){
+                                        num++;
+                                    }
+                                }
+                                if (num+1<=2){
+                                    pushToFirebase(t);
+                                }else{
+                                    f_pb_.setVisibility(View.INVISIBLE);
+                                    add_container.setAlpha(1f);
+                                    Toast.makeText(AddTravel.this, "В работе уже две поездки!", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        }
+                );
     }
 
     private void createAdresses() {
         if (!b_onMap_start.getText().toString().equals("Карта")){
             // если на кнопке адрес
-            Log.d(VARIABLES_CLASS.LOG_TAG,"11");
+            //Log.d(VARIABLES_CLASS.LOG_TAG,"11");
             adress_from = b_onMap_start.getText().toString();
         }else if (!e_et_from.getText().toString().equals("")&&
                 !e_et_pointer_adress_1.getText().toString().equals("")) {
-            Log.d(VARIABLES_CLASS.LOG_TAG,"12");
+            //Log.d(VARIABLES_CLASS.LOG_TAG,"12");
             {
-                Log.d(VARIABLES_CLASS.LOG_TAG,"13");
+                //Log.d(VARIABLES_CLASS.LOG_TAG,"13");
                 adress_from = e_et_from.getText().toString() + "," + e_et_pointer_adress_1.getText().toString();
             }
         }else{
-            Log.d(VARIABLES_CLASS.LOG_TAG,"4");
+            //Log.d(VARIABLES_CLASS.LOG_TAG,"4");
             Snackbar.make(e_b_go,"Заполните все поля",Snackbar.LENGTH_LONG).show();
             f_pb_.setVisibility(View.INVISIBLE);
             add_container.setAlpha(1f);
@@ -296,18 +347,34 @@ public class AddTravel extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode==1){
             // start point
-            adress_from = data.getStringExtra("adress");
-            if (data.getStringExtra("adress")!=null){
-                b_onMap_start.setText(adress_from);
+            try {
+                String city = "";
+                city = data.getStringExtra("city");
+                adress_from = data.getStringExtra("adress");
+                if (data.getStringExtra("adress")!=null){
+                    e_et_from.setText(city);
+                    e_et_pointer_adress_1.setText(adress_from);
+                }
+            }catch (Exception e){
+
             }
 
-            //Log.d(VARIABLES_CLASS.LOG_TAG,"req = " +  data.getParcelableExtra("coor"));
         }else if (requestCode==2){
             // finish point
-            adress_to = data.getStringExtra("adress");
-            if (data.getStringExtra("adress")!=null){
-                b_onMap_finish.setText(adress_to);
+            try {
+                adress_to = data.getStringExtra("adress");
+                String city = "";
+                city = data.getStringExtra("city");
+
+                if (data.getStringExtra("adress")!=null){
+                    e_et_pointer_adress_2.setText(adress_to);
+                    e_et_to.setText(city);
+                    //e_et_pointer_adress_2.setText(adress_to);
+                }
+            }catch (Exception e){
+
             }
+
             //Log.d(VARIABLES_CLASS.LOG_TAG,"req = " +  data.getParcelableExtra("coor"));
         }
         //Log.d(VARIABLES_CLASS.LOG_TAG,"req = " +  requestCode);
@@ -331,10 +398,6 @@ public class AddTravel extends Activity {
                     case R.id.e_b_time_start:
                         // ...
                         e_b_time_start.setText(i + "." + i1);
-                        break;
-                    case R.id.e_b_time_finish:
-                        //
-                        e_b_time_finish.setText(i + "." + i1);
                         break;
                     default:
                         break;

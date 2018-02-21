@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.poputchic.android.reg_and_sign.Registration;
+import com.poputchic.android.reg_and_sign.SignInOrRegistration;
 
 public class SplashScreen extends Activity {
 
@@ -22,8 +23,8 @@ public class SplashScreen extends Activity {
             @Override
             public void run() {
                 try {
-                    Thread.sleep(3000);
-                    Intent intent = new Intent(SplashScreen.this, Registration.class);
+                    Thread.sleep(2000);
+                    Intent intent = new Intent(SplashScreen.this, SignInOrRegistration.class);
                     startActivity(intent);
                 } catch (InterruptedException e) {
                     e.printStackTrace();

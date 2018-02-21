@@ -14,6 +14,7 @@ import com.poputchic.android.adapters.ZayavkaAdapter;
 import com.poputchic.android.classes.VARIABLES_CLASS;
 import com.poputchic.android.classes.classes.Driver;
 import com.poputchic.android.classes.classes.Zayavka;
+import com.poputchic.android.classes.classes.ZayavkaFromCompanion;
 
 import java.util.ArrayList;
 
@@ -44,7 +45,14 @@ public class ZayavkiToMyTravels extends Activity {
                     }
                 }
                 Log.d(VARIABLES_CLASS.LOG_TAG,"size list = " + list_zayavka.size());
-                goToadapter(list_zayavka);
+
+                /***
+                 *
+                 * goToadapter(list_zayavka);
+                 * **/
+                takeAnotherZayavki(list_zayavka);
+
+
 
             }
 
@@ -53,6 +61,32 @@ public class ZayavkiToMyTravels extends Activity {
 
             }
         });
+    }
+
+    private void takeAnotherZayavki(final ArrayList<Zayavka> LZ) {
+        final ArrayList<ZayavkaFromCompanion>list = new ArrayList<>();
+        FirebaseDatabase.getInstance().getReference().child("complete_travels_with_zay_from_comp")
+                .addValueEventListener(
+                        new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                for (DataSnapshot data : dataSnapshot.getChildren()){
+                                    list.add(data.getValue(ZayavkaFromCompanion.class));
+                                }
+                                Log.d(VARIABLES_CLASS.LOG_TAG,"listSize = " + list.size());
+                                sortArray(list,LZ);
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        }
+                );
+    }
+
+    private void sortArray(ArrayList<ZayavkaFromCompanion> list, ArrayList<Zayavka> lz) {
+
     }
 
     private void goToadapter(ArrayList<Zayavka> LZ) {

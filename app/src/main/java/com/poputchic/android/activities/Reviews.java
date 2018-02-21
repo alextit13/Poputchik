@@ -1,5 +1,6 @@
 package com.poputchic.android.activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,7 +25,7 @@ import com.poputchic.android.classes.classes.Travel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Reviews extends AppCompatActivity {
+public class Reviews extends Activity {
 
     //private Companion companion;
     private Driver driver;
@@ -77,6 +78,7 @@ public class Reviews extends AppCompatActivity {
                             }
                             Intent intent = new Intent(Reviews.this, RewiewsDrivers.class);
                             intent.putExtra("companion", listCompanions.get(p));
+                            intent.putExtra("companion_I", companion);
                             startActivity(intent);
                         }
 
@@ -98,6 +100,7 @@ public class Reviews extends AppCompatActivity {
                             }
                             Intent intent = new Intent(Reviews.this, RewiewsDrivers.class);
                             intent.putExtra("driver", listDrivers.get(p));
+                            intent.putExtra("driver_I", driver);
                             startActivity(intent);
                         }
 
