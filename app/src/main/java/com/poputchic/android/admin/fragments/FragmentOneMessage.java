@@ -24,6 +24,7 @@ import com.poputchic.android.classes.classes.Companion;
 import com.poputchic.android.classes.classes.Driver;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class FragmentOneMessage extends Fragment{
 
@@ -57,7 +58,7 @@ public class FragmentOneMessage extends Fragment{
 
     private void send() {
         if (!editText.getText().toString().equals("")){
-            FirebaseDatabase.getInstance().getReference().child("message_admin").child(listDates.get(user))
+            FirebaseDatabase.getInstance().getReference().child("message_admin").child(listDates.get(user)).child(new Date().getTime()+"")
                     .setValue(editText.getText().toString());
             editText.setText("");
             Toast.makeText(context, "Сообщение отправлено", Toast.LENGTH_SHORT).show();
@@ -107,15 +108,12 @@ public class FragmentOneMessage extends Fragment{
     }
 
     private void completeList() {
-        final ArrayAdapter adapter = new ArrayAdapter(context,android.R.layout.simple_list_item_1,list);
+        ArrayAdapter adapter = new ArrayAdapter(context,android.R.layout.simple_list_item_1,list);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                for (int i = 0;i<list.size();i++){
-                    listView.getChildAt(i).setBackgroundColor(Color.WHITE);
-                }
                 view.setBackgroundColor(Color.YELLOW);
                 user = position;
             }

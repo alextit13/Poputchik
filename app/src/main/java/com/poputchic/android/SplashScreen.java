@@ -23,7 +23,7 @@ public class SplashScreen extends Activity {
             @Override
             public void run() {
                 try {
-                    Thread.sleep(2000);
+                    Thread.sleep(0000);
                     Intent intent = new Intent(SplashScreen.this, SignInOrRegistration.class);
                     startActivity(intent);
                 } catch (InterruptedException e) {

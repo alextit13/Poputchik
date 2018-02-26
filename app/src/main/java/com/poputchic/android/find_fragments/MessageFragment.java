@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -34,6 +35,7 @@ public class MessageFragment extends DialogFragment{
     Context ctx;
     String message;
     String date = "";
+    String messages = "";
 
     public void FindFragment(Context context,String d){
         ctx = context;
@@ -45,19 +47,34 @@ public class MessageFragment extends DialogFragment{
         final View v = inflater.inflate(R.layout.fragment_message, null);
 
         FirebaseDatabase.getInstance().getReference().child("message_admin")
-                .child(date+"").addValueEventListener(new ValueEventListener() {
+                .child(date+"").addChildEventListener(new ChildEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                message = dataSnapshot.getValue(String.class);
-                if (message!=null&&
-                        !message.equals(""))
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Log.d("child_listener","onChildAdded = " + dataSnapshot.exists());
+                messages += dataSnapshot.getValue(String.class) + "\n";
                 ((TextView)v.findViewById(R.id.message_text))
-                        .setText(message);
+                        .setText(messages);
+
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                Log.d("child_listener","onChildChanged = " + dataSnapshot + ", s = " + s);
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                Log.d("child_listener","onChildRemoved = " + dataSnapshot);
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                Log.d("child_listener","onChildMoved = " + dataSnapshot + ", s = " + s);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                Log.d("child_listener","databaseError = " + databaseError);
             }
         });
         ((Button)v.findViewById(R.id.cancel_btn))
@@ -72,4 +89,14 @@ public class MessageFragment extends DialogFragment{
         //getTargetFragment().onActivityResult(getTargetRequestCode(),);
         return v;
     }
+
+    /***
+     * message = dataSnapshot.getValue(String.class);
+     if (message!=null&&
+     !message.equals(""))
+     ((TextView)v.findViewById(R.id.message_text))
+     .setText(message);
+     *
+     * */
+
 }

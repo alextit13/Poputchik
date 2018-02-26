@@ -27,7 +27,6 @@ import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TimePicker;
 import android.widget.Toast;
-
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -43,9 +42,6 @@ import com.poputchic.android.classes.classes.Driver;
 import com.poputchic.android.classes.classes.Travel;
 import com.poputchic.android.classes.enums.Cities;
 import com.poputchic.android.map.MapsActivity;
-
-import org.ankit.gpslibrary.MyTracker;
-
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Date;
@@ -111,16 +107,12 @@ public class AddTravel extends Activity {
         }
     }
 
-    void getLocation(){
-
-    }
-
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
             case REQUEST_CODE_PERMISSION:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    getLocation();
+
                 } else {
                     System.out.println("permission denied!");
                 }
@@ -169,7 +161,7 @@ public class AddTravel extends Activity {
                         REQUEST_CODE_PERMISSION);
             }else{
                 //read location
-                getLocation();
+                //getLocation();
             }
         } catch (Exception e) {
             e.printStackTrace();
