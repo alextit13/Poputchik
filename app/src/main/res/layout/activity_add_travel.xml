@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
+    android:background="@drawable/background"
     android:id="@+id/add_container"
     android:layout_gravity="center"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -22,7 +23,9 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:textSize="25sp"
+                android:id="@+id/create_voyage"
+                android:textSize="20sp"
+                android:fontFamily="@font/comforta_light"
                 android:textColor="@color/black_100"
                 android:gravity="center"
                 android:text="@string/add_travel"
@@ -40,11 +43,13 @@
                     android:layout_height="wrap_content">
                     <AutoCompleteTextView
                         android:id="@+id/e_et_from"
+                        android:fontFamily="@font/comforta_light"
                         android:hint="@string/from"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
                     <EditText
+                        android:fontFamily="@font/comforta_light"
                         android:id="@+id/e_et_pointer_adress_1"
                         android:hint="@string/adress_from"
                         android:layout_width="match_parent"
@@ -53,6 +58,7 @@
 
                 <Button
                     android:background="@color/yallou"
+                    android:fontFamily="@font/comforta_light"
                     android:text="@string/map"
                     android:id="@+id/b_onMap_start"
                     android:layout_gravity="center"
@@ -81,12 +87,14 @@
                     android:layout_height="wrap_content">
                     <AutoCompleteTextView
                         android:id="@+id/e_et_to"
+                        android:fontFamily="@font/comforta_light"
                         android:hint="@string/to"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
                     <EditText
                         android:id="@+id/e_et_pointer_adress_2"
+                        android:fontFamily="@font/comforta_light"
                         android:hint="@string/adress_from"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
@@ -96,6 +104,7 @@
                     android:background="@color/yallou"
                     android:text="@string/map"
                     android:id="@+id/b_onMap_finish"
+                    android:fontFamily="@font/comforta_light"
                     android:layout_gravity="center"
                     android:layout_weight="3"
                     android:layout_width="match_parent"
@@ -111,6 +120,7 @@
 
             <Button
                 android:text="@string/date"
+                android:fontFamily="@font/comforta_light"
                 android:background="@android:drawable/dialog_holo_light_frame"
                 android:id="@+id/e_b_date"
                 android:layout_width="match_parent"
@@ -122,6 +132,7 @@
 
                 <Button
                     android:layout_margin="2dp"
+                    android:fontFamily="@font/comforta_light"
                     android:background="@color/yallou"
                     android:text="@string/time_start"
                     android:id="@+id/e_b_time_start"
@@ -132,6 +143,7 @@
 
             <EditText
                 android:inputType="number"
+                android:fontFamily="@font/comforta_light"
                 android:id="@+id/e_how_many_peoples"
                 android:hint="@string/how_many_people"
                 android:layout_width="match_parent"
@@ -139,6 +151,7 @@
 
             <EditText
                 android:id="@+id/e_about"
+                android:fontFamily="@font/comforta_light"
                 android:hint="@string/about"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -151,6 +164,7 @@
                 <Button
                     android:background="@android:drawable/dialog_holo_light_frame"
                     android:text="@string/cancel"
+                    android:fontFamily="@font/comforta_light"
                     android:id="@+id/e_b_cancel"
                     android:layout_weight="1"
                     android:layout_width="match_parent"
@@ -159,6 +173,7 @@
                 <Button
                     android:background="@android:drawable/dialog_holo_light_frame"
                     android:text="@string/save"
+                    android:fontFamily="@font/comforta_light"
                     android:id="@+id/e_b_go"
                     android:layout_weight="1"
                     android:layout_width="match_parent"

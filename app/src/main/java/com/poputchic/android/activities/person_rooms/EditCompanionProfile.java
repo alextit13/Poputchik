@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.FirebaseDatabase;
+import com.poputchic.android.FontsDriver;
 import com.poputchic.android.R;
 import com.poputchic.android.classes.classes.Companion;
 
@@ -32,8 +33,21 @@ public class EditCompanionProfile extends Activity {
         setContentView(R.layout.activity_edit_companion_profile);
 
         init();
+
+        changeFonts(); // изменение шрифта вьюх
+
         clicker();
         completeViews();
+    }
+
+    private void changeFonts() {
+        FontsDriver.changeFontToComfort(this,edit_driver_name_c);
+        FontsDriver.changeFontToComfort(this,edit_driver_email_c);
+        FontsDriver.changeFontToComfort(this,edit_driver_year_c);
+        FontsDriver.changeFontToComfort(this,edit_driver_phone_c);
+        FontsDriver.changeFontToComfort(this,edit_driver_about_c);
+        FontsDriver.changeFontToComfort(this,b_driver_cancel_c);
+        FontsDriver.changeFontToComfort(this,b_driver_save_c);
     }
 
     private void completeViews() {

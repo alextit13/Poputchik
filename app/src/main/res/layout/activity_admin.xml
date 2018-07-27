@@ -20,6 +20,7 @@
         android:layout_height="wrap_content">
         <Button
             android:id="@+id/btn_message_one_user"
+            android:fontFamily="@font/comforta_light"
             android:onClick="clickAdmin"
             android:text="@string/message_one_user"
             android:layout_height="wrap_content"
@@ -27,6 +28,7 @@
             android:layout_weight="1"/>
         <Button
             android:id="@+id/btn_message_all_users"
+            android:fontFamily="@font/comforta_light"
             android:onClick="clickAdmin"
             android:text="@string/message_all_users"
             android:layout_height="wrap_content"

@@ -1,16 +1,11 @@
 package com.poputchic.android.classes;
 
-import android.app.Application;
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.poputchic.android.activities.MainListActivity;
 import com.poputchic.android.classes.classes.Companion;
 import com.poputchic.android.classes.classes.Driver;
-import com.poputchic.android.reg_and_sign.SignInOrRegistration;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

@@ -25,7 +25,7 @@
             <TextView
                 android:layout_marginStart="9dp"
                 android:layout_marginTop="4dp"
-                android:textSize="21sp"
+                android:textSize="20sp"
                 android:textColor="@color/black_100"
                 tools:text="Игорь Иванов,36"
                 android:layout_width="wrap_content"
@@ -33,6 +33,7 @@
             <TextView
                 android:layout_marginStart="26dp"
                 tools:text="BMW 3-Series 2015"
+                android:textSize="16sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TableRow
@@ -44,7 +45,7 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"/>
                 <TextView
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:layout_gravity="center"
                     tools:text="4.6"
                     android:id="@+id/item_rating"
@@ -58,7 +59,7 @@
                     android:layout_height="28dp"/>
                 <TextView
                     android:layout_marginEnd="2dp"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     tools:text="7"
                     android:layout_gravity="center"
                     android:id="@+id/item_review"
@@ -78,7 +79,7 @@
         <TextView
             android:layout_marginTop="3dp"
             android:layout_gravity="top|center"
-            android:textSize="18sp"
+            android:textSize="16sp"
             tools:text="2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -103,7 +104,7 @@
                 android:layout_weight="10"
                 android:textColor="@color/black_50"
                 android:gravity="top|center"
-                android:textSize="19sp"
+                android:textSize="16sp"
                 tools:text="Тула\nул.Ленина, 65\n 12:00"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
@@ -117,7 +118,7 @@
                 android:layout_weight="10"
                 android:textColor="@color/black_50"
                 android:gravity="top|center"
-                android:textSize="19sp"
+                android:textSize="16sp"
                 tools:text="Москва\nул.Пушкина, 39\n 15:00"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>

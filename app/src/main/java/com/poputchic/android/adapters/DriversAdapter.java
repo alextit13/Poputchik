@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.poputchic.android.FontsDriver;
 import com.poputchic.android.R;
 import com.poputchic.android.classes.classes.Companion;
 import com.poputchic.android.classes.classes.Driver;
@@ -83,7 +84,12 @@ public class DriversAdapter extends BaseAdapter{
         list_comp_image = (ImageView) v.findViewById(R.id.list_comp_image);
         list_comp_name = (TextView) v.findViewById(R.id.list_comp_name);
         list_comp_about = (TextView) v.findViewById(R.id.list_comp_about);
+        changeFonts(list_comp_about,list_comp_name);
+    }
 
+    private void changeFonts(TextView list_comp_about, TextView list_comp_name) {
+        FontsDriver.changeFontToComfort(ctx,list_comp_about);
+        FontsDriver.changeFontToComfort(ctx,list_comp_name);
     }
 
     // товар по позиции

@@ -24,6 +24,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.poputchic.android.FontsDriver;
 import com.poputchic.android.R;
 import com.poputchic.android.classes.VARIABLES_CLASS;
 import com.poputchic.android.classes.classes.Companion;
@@ -154,6 +155,7 @@ public class TravelAdapter extends BaseAdapter{
 
     private void init(View v) {
         back = (RelativeLayout) v.findViewById(R.id.back);
+
         tv_date = (TextView) v.findViewById(R.id.tv_date);
         review_driver_c = (TextView) v.findViewById(R.id.review_driver_c);
         d_tv_from = (TextView) v.findViewById(R.id.d_tv_from);
@@ -173,6 +175,27 @@ public class TravelAdapter extends BaseAdapter{
             add_to_company.setVisibility(View.INVISIBLE);
         }
         number = (TextView) v.findViewById(R.id.number_c);
+
+        changeFonts(tv_date,review_driver,review_driver_c,d_tv_about,d_tv_from,d_tv_to,places,name_driver_and_year,
+                car,rating_driver,review_driver,finish_travels);
+    }
+
+    private void changeFonts(TextView tv_date, TextView review_driver, TextView review_driver_c,
+                             TextView d_tv_about, TextView d_tv_from, TextView d_tv_to, TextView places,
+                             TextView name_driver_and_year, TextView car, TextView rating_driver,
+                             TextView review_driver1, TextView finish_travels) {
+        FontsDriver.changeFontToComfort(ctx,tv_date);
+        FontsDriver.changeFontToComfort(ctx,review_driver);
+        FontsDriver.changeFontToComfort(ctx,review_driver_c);
+        FontsDriver.changeFontToComfort(ctx,d_tv_about);
+        FontsDriver.changeFontToComfort(ctx,d_tv_from);
+        FontsDriver.changeFontToComfort(ctx,d_tv_to);
+        FontsDriver.changeFontToComfort(ctx,places);
+        FontsDriver.changeFontToComfort(ctx,name_driver_and_year);
+        FontsDriver.changeFontToComfort(ctx,car);
+        FontsDriver.changeFontToComfort(ctx,rating_driver);
+        FontsDriver.changeFontToComfort(ctx,review_driver1);
+        FontsDriver.changeFontToComfort(ctx,finish_travels);
     }
 
     public void clicker(final Travel t){

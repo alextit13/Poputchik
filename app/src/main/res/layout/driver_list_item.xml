@@ -33,6 +33,7 @@
                 android:textColor="@color/black_100"
                 android:lines="1"
                 android:gravity="center"
+                android:fontFamily="@font/comforta_regular"
                 tools:text="Иванов Иван, 35 лет"
                 android:id="@+id/name_driver_and_year_c"
                 android:layout_width="match_parent"
@@ -41,12 +42,16 @@
                 android:gravity="center"
                 android:layout_gravity="center"
                 android:lines="1"
+                android:textSize="16sp"
+                android:fontFamily="@font/comforta_light"
                 tools:text="BMW 3-Series 2014"
                 android:id="@+id/car_c"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <TextView
                 android:gravity="center"
+                android:textSize="16sp"
+                android:fontFamily="@font/comforta_light"
                 android:layout_gravity="center"
                 android:lines="1"
                 tools:text="+89734375"
@@ -64,9 +69,11 @@
                     android:layout_height="40dp" />
                 <TextView
                     android:textColor="@color/black_50"
+                    android:fontFamily="@font/comforta_light"
                     android:textAlignment="center"
                     android:layout_gravity="center"
                     tools:text="4.3"
+                    android:textSize="16sp"
                     android:id="@+id/rating_driver_c"
                     android:layout_width="60dp"
                     android:layout_height="wrap_content" />
@@ -76,6 +83,8 @@
                     android:layout_width="35dp"
                     android:layout_height="35dp" />
                 <TextView
+                    android:textSize="16sp"
+                    android:fontFamily="@font/comforta_light"
                     android:textColor="@color/black_50"
                     android:textAlignment="center"
                     android:layout_gravity="center"
@@ -99,11 +108,12 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp" />
             <TextView
-                android:textSize="18dp"
-                android:textColor="@color/black_100"
+                android:textSize="16sp"
+                android:textColor="@color/black_10"
                 android:gravity="center"
                 android:layout_gravity="center"
                 android:lines="1"
+                android:fontFamily="@font/comforta_regular"
                 tools:text="5"
                 android:id="@+id/finish_travels"
                 android:layout_width="match_parent"
@@ -125,7 +135,8 @@
 
     <TextView
         tools:text="25 января 2018"
-        android:textSize="24sp"
+        android:textSize="20sp"
+        android:fontFamily="@font/comforta_light"
         android:textColor="@color/black_100"
         android:textAlignment="center"
         android:layout_below="@id/spacer_1"
@@ -138,6 +149,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
+            android:fontFamily="@font/comforta_light"
             android:layout_margin="3dp"
             tools:text="Минск"
             android:textSize="16sp"
@@ -153,6 +165,7 @@
             android:layout_width="50dp"
             android:layout_height="wrap_content"/>
         <TextView
+            android:fontFamily="@font/comforta_light"
             android:layout_margin="3dp"
             tools:text="Москва"
             android:textSize="16sp"
@@ -175,20 +188,25 @@
     <TextView
         android:textColor="@color/yallou_100"
         tools:text="Свободно мест: 3/3"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginStart="20dp"
         android:textAlignment="viewStart"
+        android:textSize="14sp"
         android:id="@+id/places"
+        android:fontFamily="@font/comforta_regular"
         android:layout_below="@id/spacer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <TextView
-        android:layout_margin="3dp"
-        android:textSize="18sp"
+        android:layout_margin="20dp"
+        android:textSize="16sp"
         android:textColor="@color/black_50"
         android:textAlignment="center"
         tools:text="Выезд от станции метро Восток..."
         android:layout_below="@id/places"
         android:id="@+id/d_tv_about"
+        android:fontFamily="@font/comforta_light"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <ImageView

@@ -25,6 +25,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.poputchic.android.FontsDriver;
 import com.poputchic.android.R;
 import com.poputchic.android.activities.person_rooms.my_travels.MyFinishesTravels;
 import com.poputchic.android.classes.classes.Companion;
@@ -57,6 +58,16 @@ public class PersonRoomCompanion extends Activity {
         setContentView(R.layout.activity_person_room_companion);
 
         init();
+        changeFonts(); // изменяем шрифты вьюх
+    }
+
+    private void changeFonts() {
+        FontsDriver.changeFontToComfort(this,(TextView)findViewById(R.id.activity_person_room_companion_label));
+        FontsDriver.changeFontToComfort(this,pr_tv_name_c);
+        FontsDriver.changeFontToComfort(this,pr_tv_years_c);
+        FontsDriver.changeFontToComfort(this,pr_tv_email_c);
+        FontsDriver.changeFontToComfort(this,pr_tv_number_phone_c);
+        FontsDriver.changeFontToComfort(this,pr_tv_about_c);
     }
 
     private void init() {

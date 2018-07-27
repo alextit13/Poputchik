@@ -19,6 +19,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.poputchic.android.FontsDriver;
 import com.poputchic.android.R;
 import com.poputchic.android.classes.VARIABLES_CLASS;
 import com.poputchic.android.classes.enums.Cities;
@@ -50,7 +51,6 @@ public class MessageFragment extends DialogFragment{
                 .child(date+"").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Log.d("child_listener","onChildAdded = " + dataSnapshot.exists());
                 messages += dataSnapshot.getValue(String.class) + "\n";
                 ((TextView)v.findViewById(R.id.message_text))
                         .setText(messages);
@@ -87,7 +87,14 @@ public class MessageFragment extends DialogFragment{
                         }
                 );
         //getTargetFragment().onActivityResult(getTargetRequestCode(),);
+        changeFonts(v);
         return v;
+    }
+
+    private void changeFonts(View v) {
+        FontsDriver.changeFontToComfort(ctx,(TextView) v.findViewById(R.id.mesage_from_administration));
+        FontsDriver.changeFontToComfort(ctx,(TextView) v.findViewById(R.id.message_text));
+        FontsDriver.changeFontToComfort(ctx,(Button) v.findViewById(R.id.cancel_btn));
     }
 
     /***

@@ -4,17 +4,21 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.poputchic.android.FontsDriver;
 import com.poputchic.android.R;
 import com.poputchic.android.adapters.ZayavkaAdapter;
 import com.poputchic.android.classes.VARIABLES_CLASS;
 import com.poputchic.android.classes.classes.Driver;
 import com.poputchic.android.classes.classes.Zayavka;
 import com.poputchic.android.classes.classes.ZayavkaFromCompanion;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -31,6 +35,12 @@ public class ZayavkiToMyTravels extends Activity {
 
         init();
         takeList();
+        changeFonts();
+    }
+
+    private void changeFonts() {
+        FontsDriver.changeFontToComfort(this,(TextView)findViewById(R.id.activity_zayavki_to_my_travels_logo));
+        FontsDriver.changeFontToComfort(this,(TextView)findViewById(R.id.logo_my_travels));
     }
 
     private void takeList() {

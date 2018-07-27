@@ -10,11 +10,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.poputchic.android.FontsDriver;
 import com.poputchic.android.R;
 import com.poputchic.android.activities.AddTravel;
 import com.poputchic.android.adapters.TravelAdapter;
@@ -37,10 +39,16 @@ public class MyTravels extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_travels);
         init();
+        changeFonts(); // изменение шрифта вьюх
         takeDriver();
         clicker();
         completeList();
     }
+
+    private void changeFonts() {
+        FontsDriver.changeFontToComfort(this,(TextView)findViewById(R.id.activity_my_travels_label));
+        FontsDriver.changeFontToComfort(this,(TextView)findViewById(R.id.logo_my_travels));
+    } // изменяем шрифты вьюх
 
     private void takeDriver() {
         driver = (Driver) getIntent().getSerializableExtra("driver");

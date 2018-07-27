@@ -18,6 +18,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.poputchic.android.FontsDriver;
 import com.poputchic.android.R;
 import com.poputchic.android.classes.VARIABLES_CLASS;
 import com.poputchic.android.classes.classes.Companion;
@@ -45,10 +46,6 @@ public class ZayavkaCompletedAdapter extends BaseAdapter{
     Companion companion;
     String number = "";
     GettingDriver gettingDriver = null;
-
-    public ZayavkaCompletedAdapter(){
-
-    }
 
     public ZayavkaCompletedAdapter(Context context, ArrayList<ZayavkaFromCompanion> products) {
         ctx = context;
@@ -114,6 +111,7 @@ public class ZayavkaCompletedAdapter extends BaseAdapter{
                         }
                 );
 
+        changeFonts(view);
 
         // заполняем View в пункте списка данными из товаров: наименование, цена
         // и картинка
@@ -121,23 +119,14 @@ public class ZayavkaCompletedAdapter extends BaseAdapter{
         return v;
     }
 
-    private void completeViews(ZayavkaFromCompanion z) {
-        name_companion.setText(companion.getName());
-        about_driver.setText(companion.getAbout());
-        phone_driver.setText(companion.getPhone());
-    }
-
-
-    private Travel getTravel(final Zayavka z){
-
-        return null;
-    }
-
-    public void clicker(final Zayavka z){
-
-    }
-
-    private void getNumCompanions(final Travel t) {
+    private void changeFonts(View view) {
+        FontsDriver.changeFontToComfort(ctx,(TextView) view.findViewById(R.id.name_driver_and_year_c));
+        FontsDriver.changeFontToComfort(ctx,(TextView) view.findViewById(R.id.car_c));
+        FontsDriver.changeFontToComfort(ctx,(TextView) view.findViewById(R.id.tv_date));
+        FontsDriver.changeFontToComfort(ctx,(TextView) view.findViewById(R.id.d_tv_from));
+        FontsDriver.changeFontToComfort(ctx,(TextView) view.findViewById(R.id.d_tv_to));
+        FontsDriver.changeFontToComfort(ctx,(TextView) view.findViewById(R.id.places));
+        FontsDriver.changeFontToComfort(ctx,(TextView) view.findViewById(R.id.d_tv_about));
     }
 
     // товар по позиции

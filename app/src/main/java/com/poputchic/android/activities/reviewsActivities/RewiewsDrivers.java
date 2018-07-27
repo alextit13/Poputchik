@@ -1,6 +1,7 @@
 package com.poputchic.android.activities.reviewsActivities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +14,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.poputchic.android.FontsDriver;
 import com.poputchic.android.R;
 import com.poputchic.android.classes.VARIABLES_CLASS;
 import com.poputchic.android.classes.classes.Companion;
@@ -23,11 +25,9 @@ import java.util.Date;
 
 public class RewiewsDrivers extends Activity {
 
-    private ArrayList <String> list = new ArrayList();
-    private Companion companion_I; // я
-    private Companion companion_about; // о ком отзыв
-    private Driver driver_I; // я
-    private Driver driver_about; // о ком отзыв
+    private ArrayList<String> list = new ArrayList<String>();
+    private Companion companion_I,companion_about;
+    private Driver driver_I,driver_about;
     private ListView listView;
     private Button buttonAdd;
     private EditText add_rev_edit_text;
@@ -36,6 +36,19 @@ public class RewiewsDrivers extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rewiews_drivers);
+        initViews(); // инициализируем поля
+        changeFonts(); // изменяем шрифты во вьюхах
+        takeDataFromIntent(getIntent()); // забираем данные из интента
+        hintButtonAndEditText();
+        checkDriverOrCompanion(); // кто вошел драйвер или попутчик
+    }
+
+    private void changeFonts() {
+        FontsDriver.changeFontToComfort(this,buttonAdd);
+        FontsDriver.changeFontToComfort(this,add_rev_edit_text);
+    } // изменяем шрифты во вьюхах
+
+    private void initViews() {
         add_rev_edit_text = (EditText) findViewById(R.id.add_rev_edit_text);
         listView = (ListView) findViewById(R.id.list_reviews_drivers);
         buttonAdd = (Button) findViewById(R.id.btn_add_rev);
@@ -45,7 +58,9 @@ public class RewiewsDrivers extends Activity {
                 addRev();
             }
         });
+    } // инициализируем поля
 
+    private void takeDataFromIntent(Intent intent) {
         try {
             companion_about = (Companion) getIntent().getSerializableExtra("companion");
             companion_I = (Companion) getIntent().getSerializableExtra("companion_I");
@@ -54,20 +69,9 @@ public class RewiewsDrivers extends Activity {
         }catch (Exception e){
             // Log...
         }
-
-        hintButtonAndEditText();
-
-
-        if (companion_about!=null){
-            takeDataCompanion(companion_about);
-        }else if (driver_about!=null){
-            takeDataDriver(driver_about);
-        }
-    }
+    } // забираем данные из интента
 
     private void hintButtonAndEditText() {
-        Log.d(VARIABLES_CLASS.LOG_TAG,"driver_I = " + driver_I.getEmail());
-        Log.d(VARIABLES_CLASS.LOG_TAG,"driver_about = " + driver_about.getEmail());
         if (companion_about!=null&&companion_I!=null){
             if (companion_about.getEmail().equals(companion_I.getEmail())){
                 buttonAdd.setVisibility(View.INVISIBLE);
@@ -80,9 +84,15 @@ public class RewiewsDrivers extends Activity {
                 add_rev_edit_text.setVisibility(View.INVISIBLE);
             }
         }
-
-
     }
+
+    private void checkDriverOrCompanion(){
+        if (companion_about!=null){
+            takeDataCompanion(companion_about);
+        }else if (driver_about!=null){
+            takeDataDriver(driver_about);
+        }
+    } // кто вошел драйвер или компаньон
 
     private void addRev() {
         if (driver_about!=null&&!add_rev_edit_text.getText().toString().equals("")) {
@@ -102,7 +112,7 @@ public class RewiewsDrivers extends Activity {
 
     private void takeDataDriver(Driver driver) {
         FirebaseDatabase.getInstance().getReference().child("reviews").child(driver.getDate_create()+"")
-                .addValueEventListener(new ValueEventListener() {
+                .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         list.clear();
@@ -120,14 +130,13 @@ public class RewiewsDrivers extends Activity {
     }
 
     private void adapter(ArrayList<String> list) {
-        ArrayAdapter adapter = new ArrayAdapter(RewiewsDrivers.this,android.R.layout.simple_spinner_item
-        ,list);
+        ArrayAdapter adapter = new ArrayAdapter<String>(RewiewsDrivers.this,android.R.layout.simple_spinner_item,list);
         listView.setAdapter(adapter);
     }
 
     private void takeDataCompanion(Companion companion) {
         FirebaseDatabase.getInstance().getReference().child("reviews").child(companion.getDate_create()+"")
-                .addValueEventListener(new ValueEventListener() {
+                .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         list.clear();

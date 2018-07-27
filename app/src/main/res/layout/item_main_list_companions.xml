@@ -15,8 +15,9 @@
         android:layout_height="70dp" />
     <TextView
         android:textColor="@color/black_100"
+        android:fontFamily="@font/comforta_regular"
         android:textAlignment="center"
-        android:textSize="22sp"
+        android:textSize="20sp"
         tools:text="Игорь Николаев"
         android:lines="1"
         android:id="@+id/list_comp_name"
@@ -24,9 +25,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <TextView
+        android:fontFamily="@font/comforta_light"
         android:textAlignment="center"
         tools:text="Я хороший парень и люблю ездить везде"
         android:lines="1"
+        android:textSize="16sp"
         android:id="@+id/list_comp_about"
         android:layout_toRightOf="@id/list_comp_image"
         android:layout_below="@id/list_comp_name"

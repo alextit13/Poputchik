@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+    android:background="@drawable/background"
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -8,14 +9,16 @@
     android:layout_height="match_parent"
     tools:context="com.poputchic.android.activities.Reviews">
     <TextView
+        android:id="@+id/title_activity_reviews"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
+        android:fontFamily="@font/comforta_light"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp"
         android:textColor="@color/black_50"
         android:textStyle="bold"
         android:textAlignment="center"
-        android:textSize="16sp"
+        android:textSize="20sp"
         android:text="@string/add_review_all"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

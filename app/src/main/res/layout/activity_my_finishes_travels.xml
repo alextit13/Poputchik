@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
+    android:background="@drawable/background"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -19,24 +20,27 @@
         android:layout_width="40dp"
         android:layout_height="40dp" />
     <TextView
+        android:id="@+id/activity_my_finishes_travel_label"
         android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true"
         android:textSize="22sp"
+        android:fontFamily="@font/comforta_light"
         android:textColor="@color/yallou"
         android:text="@string/app_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-    <ImageView
-        android:background="@color/yallou"
+    <!--<ImageView
+        android:background="@drawable/background"
         android:layout_below="@id/toolbar_my_travels"
         android:layout_width="match_parent"
-        android:layout_height="240dp" />
+        android:layout_height="240dp" />-->
     <TextView
         android:id="@+id/logo_my_travels"
         android:layout_marginTop="40dp"
         android:layout_below="@id/toolbar_my_travels"
+        android:fontFamily="@font/comforta_light"
         android:layout_centerHorizontal="true"
-        android:textSize="40sp"
+        android:textSize="20sp"
         android:textColor="@color/black_100"
         android:text="@string/my_travels"
         android:layout_width="wrap_content"

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
+    android:background="@drawable/background"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -16,41 +17,49 @@
             android:layout_height="wrap_content">
             <EditText
                 android:id="@+id/edit_driver_name"
+                android:fontFamily="@font/comforta_light"
                 android:hint="@string/name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <EditText
                 android:id="@+id/edit_driver_email"
+                android:fontFamily="@font/comforta_light"
                 android:hint="@string/email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <EditText
                 android:id="@+id/edit_driver_year"
+                android:fontFamily="@font/comforta_light"
                 android:hint="@string/year"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <EditText
                 android:id="@+id/edit_driver_phone"
+                android:fontFamily="@font/comforta_light"
                 android:hint="@string/number_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <EditText
                 android:id="@+id/edit_driver_auto"
+                android:fontFamily="@font/comforta_light"
                 android:hint="@string/car_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <EditText
                 android:id="@+id/edit_driver_auto_year"
+                android:fontFamily="@font/comforta_light"
                 android:hint="@string/car_year"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <EditText
                 android:id="@+id/edit_driver_card"
+                android:fontFamily="@font/comforta_light"
                 android:hint="@string/card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <EditText
                 android:id="@+id/edit_driver_about"
+                android:fontFamily="@font/comforta_light"
                 android:hint="@string/about_me"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -59,6 +68,7 @@
                 android:layout_height="wrap_content">
                 <Button
                     android:id="@+id/b_driver_cancel"
+                    android:fontFamily="@font/comforta_light"
                     android:layout_margin="3dp"
                     android:background="@color/yallou"
                     android:text="@string/cancel"
@@ -67,6 +77,7 @@
                     android:layout_height="wrap_content"/>
                 <Button
                     android:id="@+id/b_driver_save"
+                    android:fontFamily="@font/comforta_light"
                     android:layout_margin="3dp"
                     android:background="@color/yallou"
                     android:text="@string/ok"
@@ -76,6 +87,7 @@
             </TableRow>
             <TextView
                 android:id="@+id/hint_text_rating"
+                android:fontFamily="@font/comforta_light"
                 android:textColor="#060606"
                 android:textSize="8sp"
                 android:layout_width="wrap_content"

@@ -1,11 +1,11 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 27
     defaultConfig {
         applicationId "com.poputchic.android"
         minSdkVersion 21
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -47,5 +47,7 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.2.0'
     compile 'me.iwf.photopicker:PhotoPicker:0.9.12@aar'
     compile 'com.github.ankitdubey021:GPSTracker:1.1'
+    implementation 'com.android.support:cardview-v7:26.1.0'
+    compile 'com.wang.avi:library:2.1.3'
 }
 apply plugin: 'com.google.gms.google-services'

@@ -11,6 +11,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.poputchic.android.FontsDriver;
 import com.poputchic.android.R;
 import com.poputchic.android.adapters.RewiewAdapter;
 import com.poputchic.android.classes.classes.Companion;
@@ -39,7 +40,13 @@ public class DetailViewTravel extends Activity {
         setContentView(R.layout.activity_detail_view_travel);
 
         init();
+        changeFont();
         completeViews();
+    }
+
+    private void changeFont() {
+        FontsDriver.changeFontToComfort(this,(TextView)findViewById(R.id.activity_detail_view_travel_logo));
+        FontsDriver.changeFontToComfort(this,(TextView)findViewById(R.id.reviews_about_users));
     }
 
     private void completeViews() {

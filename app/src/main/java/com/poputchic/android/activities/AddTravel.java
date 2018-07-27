@@ -24,10 +24,12 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.FirebaseDatabase;
+import com.poputchic.android.FontsDriver;
 import com.poputchic.android.R;
 import com.poputchic.android.classes.VARIABLES_CLASS;
 import com.poputchic.android.classes.classes.Driver;
@@ -55,7 +57,7 @@ public class AddTravel extends Activity {
     private ProgressBar f_pb_;
     private AutoCompleteTextView e_et_from, e_et_to;
     private EditText e_et_pointer_adress_1, e_et_pointer_adress_2, e_about, e_how_many_peoples;
-    private Button e_b_time_start, e_b_time_finish, e_b_cancel, e_b_go, e_b_date, b_onMap_start, b_onMap_finish;
+    private Button e_b_time_start, /*e_b_time_finish*/ e_b_cancel, e_b_go, e_b_date, b_onMap_start, b_onMap_finish;
 
     int DIALOG_TIME = 1;
     int myHour = 14;
@@ -78,7 +80,24 @@ public class AddTravel extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_travel);
         init();
+        changeFonts(); // изменяем шрифты на вьюхах
     }
+
+    private void changeFonts() {
+        FontsDriver.changeFontToComfort(this,(TextView)findViewById(R.id.create_voyage));
+        FontsDriver.changeFontToComfort(this,e_et_from);
+        FontsDriver.changeFontToComfort(this,e_et_to);
+        FontsDriver.changeFontToComfort(this,e_et_pointer_adress_1);
+        FontsDriver.changeFontToComfort(this,e_et_pointer_adress_2);
+        FontsDriver.changeFontToComfort(this,e_about);
+        FontsDriver.changeFontToComfort(this,e_how_many_peoples);
+        FontsDriver.changeFontToComfort(this,e_b_time_start);
+        FontsDriver.changeFontToComfort(this,e_b_cancel);
+        FontsDriver.changeFontToComfort(this,e_b_go);
+        FontsDriver.changeFontToComfort(this,e_b_date);
+        FontsDriver.changeFontToComfort(this,b_onMap_start);
+        FontsDriver.changeFontToComfort(this,b_onMap_finish);
+    } // изменяем шрифты на вьюхах
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
@@ -113,7 +132,7 @@ public class AddTravel extends Activity {
         e_how_many_peoples = (EditText) findViewById(R.id.e_how_many_peoples);
 
         e_b_time_start = (Button) findViewById(R.id.e_b_time_start);
-        e_b_time_finish = (Button) findViewById(R.id.e_b_time_finish);
+        //e_b_time_finish = (Button) findViewById(R.id.e_b_time_finish);
         e_b_cancel = (Button) findViewById(R.id.e_b_cancel);
         e_b_go = (Button) findViewById(R.id.e_b_go);
 
@@ -126,8 +145,6 @@ public class AddTravel extends Activity {
     }
 
     private void takeCoordinates() {
-
-
         try {
             if (ActivityCompat.checkSelfPermission(this, mPermission)
                     != MockPackageManager.PERMISSION_GRANTED) {
@@ -156,12 +173,12 @@ public class AddTravel extends Activity {
                 clickTime(e_b_time_start);
             }
         });
-        e_b_time_finish.setOnClickListener(new View.OnClickListener() {
+        /*e_b_time_finish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 clickTime(e_b_time_finish);
             }
-        });
+        });*/
         e_b_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -208,7 +225,7 @@ public class AddTravel extends Activity {
         if (adress_from!=null||adress_to!=null){
             Travel travel = new Travel(0,Integer.parseInt(e_how_many_peoples.getText().toString())
                     ,adress_from,adress_to,e_b_time_start.getText().toString()
-                    ,e_b_time_finish.getText().toString(),driver.getDate_create()+"",e_about.getText().toString(),new Date().getTime()+"");
+                    ,"",driver.getDate_create()+"",e_about.getText().toString(),new Date().getTime()+"");
             f_pb_.setVisibility(View.VISIBLE);
             add_container.setAlpha(.3f);
             pushToFirebase(travel);
@@ -325,10 +342,10 @@ public class AddTravel extends Activity {
                         // ...
                         e_b_time_start.setText(i + "." + i1);
                         break;
-                    case R.id.e_b_time_finish:
+                    /*case R.id.e_b_time_finish:
                         //
                         e_b_time_finish.setText(i + "." + i1);
-                        break;
+                        break;*/
                     default:
                         break;
                 }

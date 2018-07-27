@@ -45,6 +45,7 @@
 
         <activity
             android:name=".SplashScreen"
+            android:noHistory="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -53,8 +54,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".reg_and_sign.Registration"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:name=".activities.reg_and_sign.Registration"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:noHistory="true"/>
         <activity
             android:name=".activities.MainListActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
@@ -65,10 +67,11 @@
             android:name="me.iwf.photopicker.PhotoPagerActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
-            android:name=".reg_and_sign.SignIn"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:name=".activities.reg_and_sign.SignIn"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:noHistory="true"/>
         <activity
-            android:name=".reg_and_sign.SignInOrRegistration"
+            android:name=".activities.reg_and_sign.SignInOrRegistration"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
         </activity>

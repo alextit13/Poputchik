@@ -7,11 +7,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.poputchic.android.FontsDriver;
 import com.poputchic.android.R;
 import com.poputchic.android.activities.reviewsActivities.RewiewsDrivers;
 import com.poputchic.android.adapters.CompanionAdapter;
@@ -39,6 +41,11 @@ public class Reviews extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reviews);
         init();
+        changeFonts();
+    }
+
+    private void changeFonts() {
+        FontsDriver.changeFontToComfort(this,(TextView)findViewById(R.id.title_activity_reviews));
     }
 
     private void init() {
@@ -68,7 +75,7 @@ public class Reviews extends Activity {
         if (companion!=null){
             getListCompanions(null);
             FirebaseDatabase.getInstance().getReference().child("users")
-                    .child("companion").addValueEventListener(
+                    .child("companion").addListenerForSingleValueEvent(
                     new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -90,7 +97,7 @@ public class Reviews extends Activity {
             );
         }else if (driver!=null){
             FirebaseDatabase.getInstance().getReference().child("users")
-                    .child("drivers").addValueEventListener(
+                    .child("drivers").addListenerForSingleValueEvent(
                     new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -115,7 +122,7 @@ public class Reviews extends Activity {
 
     private void getListCompanions(final Driver D) {
         FirebaseDatabase.getInstance().getReference().child("users")
-                .child("companion").addValueEventListener(
+                .child("companion").addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -138,7 +145,7 @@ public class Reviews extends Activity {
 
     private void getListDrivers(final Companion c) {
         FirebaseDatabase.getInstance().getReference().child("users")
-                .child("drivers").addValueEventListener(
+                .child("drivers").addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {

@@ -18,6 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.gson.Gson;
+import com.poputchic.android.FontsDriver;
 import com.poputchic.android.R;
 import com.poputchic.android.classes.VARIABLES_CLASS;
 import com.poputchic.android.classes.classes.Driver;
@@ -41,10 +42,24 @@ public class EditDriverProfile extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_driver_profile);
         init();
+        changeFonts(); // изменение шрифта вьюх
         clicker();
         takeDriver();
         checkAndSaveRating();
     }
+
+    private void changeFonts() {
+        FontsDriver.changeFontToComfort(this,edit_driver_name);
+        FontsDriver.changeFontToComfort(this,edit_driver_email);
+        FontsDriver.changeFontToComfort(this,edit_driver_year);
+        FontsDriver.changeFontToComfort(this,edit_driver_phone);
+        FontsDriver.changeFontToComfort(this,edit_driver_auto);
+        FontsDriver.changeFontToComfort(this,edit_driver_auto_year);
+        FontsDriver.changeFontToComfort(this,edit_driver_card);
+        FontsDriver.changeFontToComfort(this,edit_driver_about);
+        FontsDriver.changeFontToComfort(this,b_driver_save);
+        FontsDriver.changeFontToComfort(this,hint_text_rating);
+    } // изменяем шрифты вьюх
 
     private void takeDriver() {
         try {

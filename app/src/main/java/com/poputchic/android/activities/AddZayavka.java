@@ -26,6 +26,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -38,6 +39,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.poputchic.android.FontsDriver;
 import com.poputchic.android.R;
 import com.poputchic.android.classes.VARIABLES_CLASS;
 import com.poputchic.android.classes.classes.Companion;
@@ -92,6 +94,7 @@ public class AddZayavka extends Activity {
         setContentView(R.layout.activity_add_zayavka);
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         init();
+        changeFonts();
 
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
@@ -127,6 +130,21 @@ public class AddZayavka extends Activity {
                         }
                     });
         }
+    }
+
+    private void changeFonts() {
+        FontsDriver.changeFontToComfort(this,(TextView)findViewById(R.id.activity_add_zayavka_logo));
+        FontsDriver.changeFontToComfort(this,e_et_pointer_adress_2);
+        FontsDriver.changeFontToComfort(this,e_about);
+        FontsDriver.changeFontToComfort(this,e_et_from);
+        FontsDriver.changeFontToComfort(this,e_et_pointer_adress_1);
+        FontsDriver.changeFontToComfort(this,e_et_to);
+        FontsDriver.changeFontToComfort(this,e_b_time_start);
+        FontsDriver.changeFontToComfort(this,e_b_cancel);
+        FontsDriver.changeFontToComfort(this,e_b_go);
+        FontsDriver.changeFontToComfort(this,e_b_date);
+        FontsDriver.changeFontToComfort(this,b_onMap_start);
+        FontsDriver.changeFontToComfort(this,b_onMap_finish);
     }
 
     void getLocation(){

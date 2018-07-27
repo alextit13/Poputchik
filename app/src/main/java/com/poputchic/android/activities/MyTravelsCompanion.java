@@ -23,6 +23,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.poputchic.android.FontsDriver;
 import com.poputchic.android.R;
 import com.poputchic.android.adapters.TravelAdapter;
 import com.poputchic.android.adapters.ZayavkaCompletedAdapter;
@@ -56,6 +57,12 @@ public class MyTravelsCompanion extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_travels_companion);
         init();
+        changeFonts();
+    }
+
+    private void changeFonts() {
+        FontsDriver.changeFontToComfort(this,(TextView)findViewById(R.id.activity_my_travels_companion));
+        FontsDriver.changeFontToComfort(this,(TextView)findViewById(R.id.logo_my_travels));
     }
 
     private void init() {

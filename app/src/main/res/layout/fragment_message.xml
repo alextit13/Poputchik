@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
+    android:background="@drawable/background"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
     <TextView
+        android:id="@+id/mesage_from_administration"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="20dp"
         android:textSize="20sp"
         android:textAllCaps="true"
+        android:fontFamily="@font/comforta_light"
         android:textStyle="bold"
         android:textAlignment="center"
         android:textColor="@color/black_50"
@@ -18,17 +21,20 @@
         android:layout_height="wrap_content" />
     <TextView
         android:layout_margin="3dp"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:id="@+id/message_text"
+        android:fontFamily="@font/comforta_light"
         android:textAlignment="center"
         android:textColor="@color/black_50"
+        android:layout_below="@id/mesage_from_administration"
         tools:text="Привет как дела все хорошо спасибо и другой какой-то текст"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <Button
         android:id="@+id/cancel_btn"
+        android:fontFamily="@font/comforta_light"
         android:text="@string/understand"
-        android:layout_weight="1"
+        android:layout_below="@id/message_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-</LinearLayout>
+</RelativeLayout>

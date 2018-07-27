@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
+    android:background="@drawable/background"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -18,9 +19,11 @@
         android:id="@+id/btn_add_rev"
         android:text="@string/add_review"
         android:layout_width="match_parent"
+        android:fontFamily="@font/comforta_light"
         android:layout_height="wrap_content" />
     <EditText
         android:hint="@string/add_review"
+        android:fontFamily="@font/comforta_light"
         android:layout_above="@id/btn_add_rev"
         android:id="@+id/add_rev_edit_text"
         android:layout_width="match_parent"

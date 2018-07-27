@@ -5,7 +5,9 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v4.content.res.ResourcesCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,10 +24,11 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.poputchic.android.FontsDriver;
 import com.poputchic.android.R;
 import com.poputchic.android.activities.person_rooms.PersonRoomCompanion;
 import com.poputchic.android.activities.person_rooms.PersonRoomDriver;
-import com.poputchic.android.adapters.LZFCAdapter;
+import com.poputchic.android.adapters.LZFC.LZFCAdapter;
 import com.poputchic.android.adapters.TravelAdapter;
 import com.poputchic.android.classes.Data;
 import com.poputchic.android.classes.VARIABLES_CLASS;
@@ -36,6 +39,8 @@ import com.poputchic.android.classes.classes.ZayavkaFromCompanion;
 import com.poputchic.android.find_fragments.FindFragment;
 import com.poputchic.android.find_fragments.MessageFragment;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class MainListActivity extends Activity implements FindFragment.EditNameDialogListener{
@@ -43,6 +48,7 @@ public class MainListActivity extends Activity implements FindFragment.EditNameD
     private ListView b_main_list;
     private ImageView b_menu_1, b_menu_2, b_menu_3, b_menu_4, b_menu_5, b_iv_find,message_from_admin;
     private Driver driver;
+    private ArrayList<Companion>listCompanions = new ArrayList<>();
     private Companion companion;
     private ArrayList<Travel> listTravesl;
     private ProgressBar main_list_progress_bar;
@@ -59,7 +65,15 @@ public class MainListActivity extends Activity implements FindFragment.EditNameD
         init();
     }
 
+    private void changeFont(TextView tv){
+        // именение шрифтов вьюх
+        FontsDriver.changeFontToComfort(this,tv);
+    } // меняем шрифт вьюхи на главном экаране
+
     private void init() {
+
+        changeFont((TextView)findViewById(R.id.main_list_toolbar));
+
         main_list_progress_bar = (ProgressBar) findViewById(R.id.main_list_progress_bar);
         main_list_progress_bar.setVisibility(View.VISIBLE);
         b_main_list = (ListView) findViewById(R.id.b_main_list);
@@ -143,7 +157,7 @@ public class MainListActivity extends Activity implements FindFragment.EditNameD
 
     private void takeZayavkiFromCompanions() {
         FirebaseDatabase.getInstance().getReference().child("zayavki_from_companoins")
-                .addValueEventListener(
+                .addListenerForSingleValueEvent(
                         new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -165,10 +179,10 @@ public class MainListActivity extends Activity implements FindFragment.EditNameD
     }
 
     private void getListCompanions(final ArrayList<ZayavkaFromCompanion> list) {
-        final ArrayList<Companion>listCompanions = new ArrayList<>();
+        listCompanions.clear();
         for (int i = 0; i<list.size();i++){
             FirebaseDatabase.getInstance().getReference().child("users").child("companion").child(list.get(i).getCompanion()+"")
-                    .addValueEventListener(
+                    .addListenerForSingleValueEvent(
                             new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -286,22 +300,22 @@ public class MainListActivity extends Activity implements FindFragment.EditNameD
     private void takeAndStartWithListTravels() {
         listTravesl = new ArrayList<>();
         listDrivers = new ArrayList<>();
-        Log.d(VARIABLES_CLASS.LOG_TAG, "city = " + city);
+
         try {
-            Log.d(VARIABLES_CLASS.LOG_TAG, "city_1 = " + city);
+
             FirebaseDatabase.getInstance().getReference().child("travels")
-                    .addValueEventListener(new ValueEventListener() {
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             listTravesl.clear();
-                            Log.d(VARIABLES_CLASS.LOG_TAG, "city_2 = " + city);
+
                             for (DataSnapshot data : dataSnapshot.getChildren()) {
-                                Log.d(VARIABLES_CLASS.LOG_TAG, "city_3 = " + city);
+
                                 if (!city.equals("")&&data.getValue(Travel.class).getFrom().contains(city)){
-                                    Log.d(VARIABLES_CLASS.LOG_TAG, "city_4 = " + city);
+
                                     listTravesl.add(data.getValue(Travel.class));
                                 }else if (city.equals("")){
-                                    Log.d(VARIABLES_CLASS.LOG_TAG, "city_5 = " + city);
+
                                     listTravesl.add(data.getValue(Travel.class));
                                 }else if (city.equals("ВСЕ")){
                                     listTravesl.add(data.getValue(Travel.class));
@@ -330,7 +344,7 @@ public class MainListActivity extends Activity implements FindFragment.EditNameD
             FirebaseDatabase.getInstance().getReference().child("users")
                     .child("drivers")
                     .child(listTravesl.get(i).getDriver_create()+"")
-                    .addValueEventListener(new ValueEventListener() {
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             listDrivers.add(dataSnapshot.getValue(Driver.class));
@@ -352,7 +366,6 @@ public class MainListActivity extends Activity implements FindFragment.EditNameD
     }
 
     private void travelsAdapter(ArrayList<Travel> LDR,ArrayList<Driver> LDRDrivers) {
-        Log.d(VARIABLES_CLASS.LOG_TAG,"LDR = "+LDR.size());
         adapter = new TravelAdapter(this, LDR, companion,LDRDrivers);
         b_main_list.setAdapter(adapter);
 

@@ -17,6 +17,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.poputchic.android.FontsDriver;
 import com.poputchic.android.R;
 import com.poputchic.android.activities.MainListActivity;
 import com.poputchic.android.classes.Data;
@@ -156,6 +157,20 @@ public class ZayavkaAdapter extends BaseAdapter{
         image_driver = (CircleImageView) v.findViewById(R.id.image_driver);
         button_cancel = (Button) v.findViewById(R.id.button_cancel);
         button_ok = (Button) v.findViewById(R.id.button_ok);
+        changeFonts(name_companion,about_driver,phone_driver,travel_from,travel_to,cost,button_cancel,button_ok);
+    }
+
+    private void changeFonts(TextView tv_date, TextView review_driver, TextView review_driver_c,
+                             TextView d_tv_about, TextView d_tv_from, TextView d_tv_to, TextView places,
+                             TextView name_driver_and_year) {
+        FontsDriver.changeFontToComfort(ctx,tv_date);
+        FontsDriver.changeFontToComfort(ctx,review_driver);
+        FontsDriver.changeFontToComfort(ctx,review_driver_c);
+        FontsDriver.changeFontToComfort(ctx,d_tv_about);
+        FontsDriver.changeFontToComfort(ctx,d_tv_from);
+        FontsDriver.changeFontToComfort(ctx,d_tv_to);
+        FontsDriver.changeFontToComfort(ctx,places);
+        FontsDriver.changeFontToComfort(ctx,name_driver_and_year);
     }
 
     public void clicker(final Zayavka z){

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
+    android:background="@drawable/background"
     android:id="@+id/container_companion_edit"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -17,28 +18,33 @@
             android:layout_height="wrap_content">
             <EditText
                 android:id="@+id/edit_driver_name_c"
+                android:fontFamily="@font/comforta_light"
                 android:hint="@string/name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <EditText
                 android:id="@+id/edit_driver_email_c"
+                android:fontFamily="@font/comforta_light"
                 android:hint="@string/email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <EditText
                 android:id="@+id/edit_driver_year_c"
+                android:fontFamily="@font/comforta_light"
                 android:hint="@string/year"
                 android:inputType="number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <EditText
                 android:id="@+id/edit_driver_phone_c"
+                android:fontFamily="@font/comforta_light"
                 android:hint="@string/number_phone"
                 android:inputType="phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <EditText
                 android:id="@+id/edit_driver_about_c"
+                android:fontFamily="@font/comforta_light"
                 android:hint="@string/about_me"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -47,6 +53,7 @@
                 android:layout_height="wrap_content">
                 <Button
                     android:id="@+id/b_driver_cancel_c"
+                    android:fontFamily="@font/comforta_light"
                     android:layout_margin="3dp"
                     android:background="@color/yallou"
                     android:text="@string/cancel"
@@ -55,6 +62,7 @@
                     android:layout_height="wrap_content"/>
                 <Button
                     android:id="@+id/b_driver_save_c"
+                    android:fontFamily="@font/comforta_light"
                     android:layout_margin="3dp"
                     android:background="@color/yallou"
                     android:text="@string/ok"
