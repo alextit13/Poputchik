@@ -27,6 +27,7 @@ import com.poputchic.android.FontsDriver;
 import com.poputchic.android.R;
 import com.poputchic.android.adapters.TravelAdapter;
 import com.poputchic.android.adapters.ZayavkaCompletedAdapter;
+import com.poputchic.android.bottom_toolbar.BottomToolbarController;
 import com.poputchic.android.classes.VARIABLES_CLASS;
 import com.poputchic.android.classes.classes.Companion;
 import com.poputchic.android.classes.classes.Driver;
@@ -63,6 +64,29 @@ public class MyTravelsCompanion extends Activity {
     private void changeFonts() {
         FontsDriver.changeFontToComfort(this,(TextView)findViewById(R.id.activity_my_travels_companion));
         FontsDriver.changeFontToComfort(this,(TextView)findViewById(R.id.logo_my_travels));
+    }
+
+    public void click(View view) {
+        BottomToolbarController controller = new BottomToolbarController(this);
+        switch (view.getId()) {
+            case R.id.b_menu_1:
+                controller.myProfile(driver,companion);
+                break;
+            case R.id.b_menu_2:
+                finish();
+                //controller.exit();
+                break;
+            case R.id.b_menu_3:
+                controller.addClick(driver,companion);
+                break;
+            case R.id.b_menu_4:
+                //controller.imCompanoin(driver,companion);
+                break;
+            case R.id.b_menu_5:
+                // ?
+                controller.usersList(driver,companion);
+                break;
+        }
     }
 
     private void init() {

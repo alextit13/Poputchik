@@ -35,7 +35,7 @@ public class InitClickers {
         this.driver = d;
     }
 
-    protected void init(Button button_ok_L, Button button_ok_hide){
+    protected void init(View button_ok_L, View button_ok_hide){
         button_ok_L.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

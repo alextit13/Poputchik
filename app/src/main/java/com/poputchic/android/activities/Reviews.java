@@ -19,6 +19,7 @@ import com.poputchic.android.activities.reviewsActivities.RewiewsDrivers;
 import com.poputchic.android.adapters.CompanionAdapter;
 import com.poputchic.android.adapters.DriversAdapter;
 import com.poputchic.android.adapters.RewiewAdapter;
+import com.poputchic.android.bottom_toolbar.BottomToolbarController;
 import com.poputchic.android.classes.classes.Companion;
 import com.poputchic.android.classes.classes.Driver;
 import com.poputchic.android.classes.classes.Review;
@@ -46,6 +47,29 @@ public class Reviews extends Activity {
 
     private void changeFonts() {
         FontsDriver.changeFontToComfort(this,(TextView)findViewById(R.id.title_activity_reviews));
+    }
+
+    public void click(View view) {
+        BottomToolbarController controller = new BottomToolbarController(this);
+        switch (view.getId()) {
+            case R.id.b_menu_1:
+                controller.myProfile(driver,companion);
+                break;
+            case R.id.b_menu_2:
+                //controller.exit();
+                finish();
+                break;
+            case R.id.b_menu_3:
+                controller.addClick(driver,companion);
+                break;
+            case R.id.b_menu_4:
+                controller.imCompanoin(driver,companion);
+                break;
+            case R.id.b_menu_5:
+                // ?
+                //controller.usersList(driver,companion);
+                break;
+        }
     }
 
     private void init() {

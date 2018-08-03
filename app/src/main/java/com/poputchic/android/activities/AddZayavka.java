@@ -41,6 +41,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.poputchic.android.FontsDriver;
 import com.poputchic.android.R;
+import com.poputchic.android.bottom_toolbar.BottomToolbarController;
 import com.poputchic.android.classes.VARIABLES_CLASS;
 import com.poputchic.android.classes.classes.Companion;
 import com.poputchic.android.classes.classes.Driver;
@@ -129,6 +130,29 @@ public class AddZayavka extends Activity {
                             }
                         }
                     });
+        }
+    }
+
+    public void click(View view) {
+        BottomToolbarController controller = new BottomToolbarController(this);
+        switch (view.getId()) {
+            case R.id.b_menu_1:
+                controller.myProfile(null,companion);
+                break;
+            case R.id.b_menu_2:
+                finish();
+                //controller.exit();
+                break;
+            case R.id.b_menu_3:
+                //controller.addClick(null,companion);
+                break;
+            case R.id.b_menu_4:
+                controller.imCompanoin(null,companion);
+                break;
+            case R.id.b_menu_5:
+                // ?
+                controller.usersList(null,companion);
+                break;
         }
     }
 

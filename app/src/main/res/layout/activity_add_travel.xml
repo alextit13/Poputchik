@@ -185,6 +185,57 @@
 
     </ScrollView>
 
+    <TableRow
+        android:id="@+id/bottom_bar"
+        android:layout_gravity="bottom"
+        android:background="#3000"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <ImageView
+            android:onClick="click"
+            android:src="@drawable/my_account"
+            android:layout_weight="1"
+            android:id="@+id/b_menu_1"
+            android:scaleY="0.5"
+            android:scaleX="0.5"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <ImageView
+            android:onClick="click"
+            android:src="@drawable/exit_icon"
+            android:layout_weight="1"
+            android:scaleY="0.5"
+            android:scaleX="0.5"
+            android:id="@+id/b_menu_2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <ImageView
+            android:onClick="click"
+            android:src="@drawable/icon_menu_add"
+            android:layout_weight="1"
+            android:id="@+id/b_menu_3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <ImageView
+            android:onClick="click"
+            android:src="@drawable/my_cars"
+            android:layout_weight="1"
+            android:scaleY="0.5"
+            android:scaleX="0.5"
+            android:id="@+id/b_menu_4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <ImageView
+            android:onClick="click"
+            android:src="@drawable/list"
+            android:layout_weight="1"
+            android:scaleY="0.5"
+            android:scaleX="0.5"
+            android:id="@+id/b_menu_5"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </TableRow>
+
     <ProgressBar
         android:id="@+id/f_pb_"
         android:layout_gravity="center"

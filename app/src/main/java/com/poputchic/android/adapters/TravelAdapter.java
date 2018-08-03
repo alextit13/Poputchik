@@ -129,9 +129,7 @@ public class TravelAdapter extends BaseAdapter{
                 back.setBackgroundColor(Color.parseColor("#FFC8FFBE"));
             }
         }
-        Log.d(VARIABLES_CLASS.LOG_TAG,"1");
         takeDriver(position);
-        Log.d(VARIABLES_CLASS.LOG_TAG,"4");
         clicker(t);
         return view;
     }

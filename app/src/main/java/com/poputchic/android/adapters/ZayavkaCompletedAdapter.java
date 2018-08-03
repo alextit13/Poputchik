@@ -71,10 +71,7 @@ public class ZayavkaCompletedAdapter extends BaseAdapter{
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // используем созданные, но не используемые view
-        View view = convertView;
-        if (view == null) {
-            view = lInflater.inflate(R.layout.complete_zayavka, parent, false);
-        }
+        convertView = lInflater.inflate(R.layout.complete_zayavka, parent, false);
 
         ZayavkaFromCompanion z = getProduct(position);
         //Log.d(VARIABLES_CLASS.LOG_TAG,"p = " + position);
@@ -83,11 +80,11 @@ public class ZayavkaCompletedAdapter extends BaseAdapter{
         SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM");
 
 
-        ((TextView) view.findViewById(R.id.tv_date)).setText(sdf.format(curentDate));
-        ((TextView) view.findViewById(R.id.d_tv_from)).setText(z.getFrom_location());
-        ((TextView) view.findViewById(R.id.d_tv_to)).setText(z.getTo_location());
+        ((TextView) convertView.findViewById(R.id.tv_date)).setText(sdf.format(curentDate));
+        ((TextView) convertView.findViewById(R.id.d_tv_from)).setText(z.getFrom_location());
+        ((TextView) convertView.findViewById(R.id.d_tv_to)).setText(z.getTo_location());
 
-        final View v = view;
+        final View v = convertView;
 
         FirebaseDatabase.getInstance().getReference().child("users").child("drivers").child(z.getDriver())
                 .addListenerForSingleValueEvent(
@@ -111,7 +108,7 @@ public class ZayavkaCompletedAdapter extends BaseAdapter{
                         }
                 );
 
-        changeFonts(view);
+        changeFonts(convertView);
 
         // заполняем View в пункте списка данными из товаров: наименование, цена
         // и картинка

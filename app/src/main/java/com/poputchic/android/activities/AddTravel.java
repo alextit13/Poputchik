@@ -8,6 +8,7 @@ import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.support.annotation.NonNull;
@@ -31,6 +32,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.FirebaseDatabase;
 import com.poputchic.android.FontsDriver;
 import com.poputchic.android.R;
+import com.poputchic.android.bottom_toolbar.BottomToolbarController;
 import com.poputchic.android.classes.VARIABLES_CLASS;
 import com.poputchic.android.classes.classes.Driver;
 import com.poputchic.android.classes.classes.Travel;
@@ -59,15 +61,6 @@ public class AddTravel extends Activity {
     private EditText e_et_pointer_adress_1, e_et_pointer_adress_2, e_about, e_how_many_peoples;
     private Button e_b_time_start, /*e_b_time_finish*/ e_b_cancel, e_b_go, e_b_date, b_onMap_start, b_onMap_finish;
 
-    int DIALOG_TIME = 1;
-    int myHour = 14;
-    int myMinute = 35;
-
-    int DIALOG_DATE = 2;
-    int myYear = 2011;
-    int myMonth = 02;
-    int myDay = 03;
-
     private String adress_from;
     private String adress_to;
 
@@ -81,6 +74,29 @@ public class AddTravel extends Activity {
         setContentView(R.layout.activity_add_travel);
         init();
         changeFonts(); // изменяем шрифты на вьюхах
+    }
+
+    public void click(View view) {
+        BottomToolbarController controller = new BottomToolbarController(this);
+        switch (view.getId()) {
+            case R.id.b_menu_1:
+                controller.myProfile(driver,null);
+                break;
+            case R.id.b_menu_2:
+                //controller.exit();
+                finish();
+                break;
+            case R.id.b_menu_3:
+                //controller.addClick(driver,null);
+                break;
+            case R.id.b_menu_4:
+                controller.imCompanoin(driver,null);
+                break;
+            case R.id.b_menu_5:
+                // ?
+                controller.usersList(driver,null);
+                break;
+        }
     }
 
     private void changeFonts() {

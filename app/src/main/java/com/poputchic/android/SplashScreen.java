@@ -3,13 +3,12 @@ package com.poputchic.android;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.poputchic.android.activities.MainListActivity;
+import com.poputchic.android.activities.main_list.MainListActivity;
 import com.poputchic.android.activities.reg_and_sign.SignInOrRegistration;
 import com.poputchic.android.classes.Data;
 import com.poputchic.android.classes.classes.Companion;
@@ -39,7 +38,7 @@ public class SplashScreen extends Activity {
         // создаем водителя и попутчика
         driver = null;
         companion = null;
-        // создаем две стринги где будет лежать json ки, возможно
+        // создаем две стринги где будет лежать json ки, возможно!
         data = new Data(this);
         new Thread(new Runnable() {
             @Override

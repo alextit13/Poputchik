@@ -11,18 +11,18 @@
         android:id="@+id/toolbar_my_travels"
         android:background="@color/black_100"
         android:layout_width="match_parent"
-        android:layout_height="70dp" />
+        android:layout_height="50dp" />
     <ImageView
         android:id="@+id/back_button_my_travels"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp"
-        android:src="@drawable/icon_left_yellow"
-        android:layout_width="40dp"
-        android:layout_height="40dp" />
+        android:layout_marginTop="10dp"
+        android:src="@drawable/back"
+        android:layout_width="30dp"
+        android:visibility="gone"
+        android:layout_height="30dp" />
     <TextView
         android:id="@+id/activity_my_travels_companion"
         android:fontFamily="@font/comforta_light"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
         android:textSize="22sp"
         android:textColor="@color/yallou"
@@ -58,4 +58,54 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content">
     </ListView>
+    <TableRow
+        android:id="@+id/bottom_bar"
+        android:background="#3000"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <ImageView
+            android:onClick="click"
+            android:src="@drawable/my_account"
+            android:layout_weight="1"
+            android:id="@+id/b_menu_1"
+            android:scaleY="0.5"
+            android:scaleX="0.5"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <ImageView
+            android:onClick="click"
+            android:src="@drawable/exit_icon"
+            android:layout_weight="1"
+            android:scaleY="0.5"
+            android:scaleX="0.5"
+            android:id="@+id/b_menu_2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <ImageView
+            android:onClick="click"
+            android:src="@drawable/icon_menu_add"
+            android:layout_weight="1"
+            android:id="@+id/b_menu_3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <ImageView
+            android:onClick="click"
+            android:src="@drawable/my_cars"
+            android:layout_weight="1"
+            android:scaleY="0.5"
+            android:scaleX="0.5"
+            android:id="@+id/b_menu_4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <ImageView
+            android:onClick="click"
+            android:src="@drawable/list"
+            android:layout_weight="1"
+            android:scaleY="0.5"
+            android:scaleX="0.5"
+            android:id="@+id/b_menu_5"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </TableRow>
 </RelativeLayout>

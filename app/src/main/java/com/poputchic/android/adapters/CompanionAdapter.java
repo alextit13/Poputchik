@@ -54,12 +54,8 @@ public class CompanionAdapter extends BaseAdapter{
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // используем созданные, но не используемые view
-        View view = convertView;
-        if (view == null) {
-            view = lInflater.inflate(R.layout.item_main_list_companions, parent, false);
-            init(view);
-
-        }
+        convertView = lInflater.inflate(R.layout.item_main_list_companions, parent, false);
+        init(convertView);
 
         Companion c = getProduct(position);
 
@@ -72,12 +68,12 @@ public class CompanionAdapter extends BaseAdapter{
         }else{
             urlImage = c.getImage_path();
         }
-        Picasso.with(ctx).load(urlImage).into(list_comp_image);
+        Picasso.with(ctx).load(urlImage).resize(100,100).into(list_comp_image);
 
         if (c.getName()!=null) list_comp_name.setText(c.getName());
         if (c.getAbout()!=null)list_comp_about.setText(c.getAbout());
 
-        return view;
+        return convertView;
     }
 
     private void init(View v) {

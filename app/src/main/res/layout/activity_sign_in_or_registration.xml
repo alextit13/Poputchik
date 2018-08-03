@@ -16,7 +16,7 @@
             android:background="#3000"
             android:elevation="10dp"
             android:layout_width="match_parent"
-            android:layout_height="60dp">
+            android:layout_height="50dp">
             <TextView
                 android:layout_gravity="center"
                 android:textSize="22sp"
@@ -33,6 +33,11 @@
             android:layout_width="match_parent"
             android:layout_height="5dp"
             android:background="@drawable/toolbar_dropshadow"/>
+        <ImageView
+            android:src="@drawable/a_main_icon"
+            android:layout_width="250dp"
+            android:layout_centerInParent="true"
+            android:layout_height="250dp" />
         <LinearLayout
             android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"

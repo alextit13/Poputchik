@@ -1,13 +1,10 @@
-package com.poputchic.android.activities;
+package com.poputchic.android.activities.main_list;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v4.content.res.ResourcesCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +13,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,10 +22,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.poputchic.android.FontsDriver;
 import com.poputchic.android.R;
-import com.poputchic.android.activities.person_rooms.PersonRoomCompanion;
-import com.poputchic.android.activities.person_rooms.PersonRoomDriver;
+import com.poputchic.android.activities.DetailViewTravel;
 import com.poputchic.android.adapters.LZFC.LZFCAdapter;
 import com.poputchic.android.adapters.TravelAdapter;
+import com.poputchic.android.bottom_toolbar.BottomToolbarController;
 import com.poputchic.android.classes.Data;
 import com.poputchic.android.classes.VARIABLES_CLASS;
 import com.poputchic.android.classes.classes.Companion;
@@ -38,23 +34,21 @@ import com.poputchic.android.classes.classes.Travel;
 import com.poputchic.android.classes.classes.ZayavkaFromCompanion;
 import com.poputchic.android.find_fragments.FindFragment;
 import com.poputchic.android.find_fragments.MessageFragment;
-
-import org.w3c.dom.Text;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
 
-public class MainListActivity extends Activity implements FindFragment.EditNameDialogListener{
+public class MainListActivity extends Activity implements FindFragment.EditNameDialogListener {
 
     private ListView b_main_list;
-    private ImageView b_menu_1, b_menu_2, b_menu_3, b_menu_4, b_menu_5, b_iv_find,message_from_admin;
+    private ImageView /*b_menu_1, b_menu_2, b_menu_3, b_menu_4, b_menu_5,*/ b_iv_find,message_from_admin;
     private Driver driver;
     private ArrayList<Companion>listCompanions = new ArrayList<>();
     private Companion companion;
     private ArrayList<Travel> listTravesl;
-    private ProgressBar main_list_progress_bar;
+    private AVLoadingIndicatorView main_list_progress_bar;
     private TravelAdapter adapter;
     private ArrayList listDrivers;
-    int rating = 0;
     private String city = "";
 
 
@@ -71,20 +65,13 @@ public class MainListActivity extends Activity implements FindFragment.EditNameD
     } // меняем шрифт вьюхи на главном экаране
 
     private void init() {
-
         changeFont((TextView)findViewById(R.id.main_list_toolbar));
 
-        main_list_progress_bar = (ProgressBar) findViewById(R.id.main_list_progress_bar);
+        main_list_progress_bar = (AVLoadingIndicatorView) findViewById(R.id.main_list_progress_bar);
         main_list_progress_bar.setVisibility(View.VISIBLE);
         b_main_list = (ListView) findViewById(R.id.b_main_list);
-        //Log.d(VARIABLES_CLASS.LOG_TAG,"click");
 
         message_from_admin = (ImageView) findViewById(R.id.message_from_admin);
-        b_menu_1 = (ImageView) findViewById(R.id.b_menu_1);
-        b_menu_2 = (ImageView) findViewById(R.id.b_menu_2);
-        b_menu_3 = (ImageView) findViewById(R.id.b_menu_3);
-        b_menu_4 = (ImageView) findViewById(R.id.b_menu_4);
-        b_menu_5 = (ImageView) findViewById(R.id.b_menu_5);
         b_iv_find = (ImageView) findViewById(R.id.b_iv_find);
         b_iv_find.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,7 +91,8 @@ public class MainListActivity extends Activity implements FindFragment.EditNameD
                 if (companion != null) {
                     clickPosition(position);
                 }if (driver != null){
-                    addClicker();
+                    ChangeRating cr = new ChangeRating(MainListActivity.this);
+                    cr.addClicker();
                 }
             }
         });
@@ -207,96 +195,6 @@ public class MainListActivity extends Activity implements FindFragment.EditNameD
         main_list_progress_bar.setVisibility(View.INVISIBLE);
     }
 
-    private void addClicker() {
-
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(MainListActivity.this);
-// ...Irrelevant code for customizing the buttons and title
-        LayoutInflater inflater = getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.rating_and_review, null);
-        dialogBuilder.setView(dialogView);
-
-        final EditText review_RAR = (EditText) dialogView.findViewById(R.id.review_RAR);
-        Button save_RAR = (Button) dialogView.findViewById(R.id.save_RAR);
-        Button cancel_RAR = (Button) dialogView.findViewById(R.id.cancel_RAR);
-        final TextView r_RAR_1 = (TextView) dialogView.findViewById(R.id.r_RAR_1);
-        final TextView r_RAR_2 = (TextView) dialogView.findViewById(R.id.r_RAR_2);
-        final TextView r_RAR_3 = (TextView) dialogView.findViewById(R.id.r_RAR_3);
-        final TextView r_RAR_4 = (TextView) dialogView.findViewById(R.id.r_RAR_4);
-        final TextView r_RAR_5 = (TextView) dialogView.findViewById(R.id.r_RAR_5);
-        r_RAR_1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                rating = 1;
-                r_RAR_1.setBackgroundColor(Color.parseColor("#d7c100"));
-                r_RAR_2.setBackgroundColor(Color.parseColor("#ffeb3b"));
-                r_RAR_3.setBackgroundColor(Color.parseColor("#ffeb3b"));
-                r_RAR_4.setBackgroundColor(Color.parseColor("#ffeb3b"));
-                r_RAR_5.setBackgroundColor(Color.parseColor("#ffeb3b"));
-            }
-        });
-        r_RAR_2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                rating = 2;
-                r_RAR_1.setBackgroundColor(Color.parseColor("#ffeb3b"));
-                r_RAR_2.setBackgroundColor(Color.parseColor("#d7c100"));
-                r_RAR_3.setBackgroundColor(Color.parseColor("#ffeb3b"));
-                r_RAR_4.setBackgroundColor(Color.parseColor("#ffeb3b"));
-                r_RAR_5.setBackgroundColor(Color.parseColor("#ffeb3b"));
-            }
-        });
-        r_RAR_3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                rating = 3;
-                r_RAR_1.setBackgroundColor(Color.parseColor("#ffeb3b"));
-                r_RAR_2.setBackgroundColor(Color.parseColor("#ffeb3b"));
-                r_RAR_3.setBackgroundColor(Color.parseColor("#d7c100"));
-                r_RAR_4.setBackgroundColor(Color.parseColor("#ffeb3b"));
-                r_RAR_5.setBackgroundColor(Color.parseColor("#ffeb3b"));
-            }
-        });
-        r_RAR_4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                rating = 4;
-                r_RAR_1.setBackgroundColor(Color.parseColor("#ffeb3b"));
-                r_RAR_2.setBackgroundColor(Color.parseColor("#ffeb3b"));
-                r_RAR_3.setBackgroundColor(Color.parseColor("#ffeb3b"));
-                r_RAR_4.setBackgroundColor(Color.parseColor("#d7c100"));
-                r_RAR_5.setBackgroundColor(Color.parseColor("#ffeb3b"));
-            }
-        });
-        r_RAR_5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                rating = 5;
-                r_RAR_1.setBackgroundColor(Color.parseColor("#ffeb3b"));
-                r_RAR_2.setBackgroundColor(Color.parseColor("#ffeb3b"));
-                r_RAR_3.setBackgroundColor(Color.parseColor("#ffeb3b"));
-                r_RAR_4.setBackgroundColor(Color.parseColor("#ffeb3b"));
-                r_RAR_5.setBackgroundColor(Color.parseColor("#d7c100"));
-            }
-        });
-
-
-        final AlertDialog alertDialog = dialogBuilder.create();
-        cancel_RAR.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                alertDialog.dismiss();
-            }
-        });
-        save_RAR.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                alertDialog.dismiss();
-                save(review_RAR.getText().toString());
-            }
-        });
-        alertDialog.show();
-    }
-
     private void takeAndStartWithListTravels() {
         listTravesl = new ArrayList<>();
         listDrivers = new ArrayList<>();
@@ -371,122 +269,35 @@ public class MainListActivity extends Activity implements FindFragment.EditNameD
 
     }
 
-    private void save(String s) {
-
-    }
-
     public void click(View view) {
+        BottomToolbarController controller = new BottomToolbarController(this);
         switch (view.getId()) {
             case R.id.b_menu_1:
-                // private room
-                if (driver != null) {
-                    goToPrivateRoomDriver(driver);
-                } else if (companion != null) {
-                    goToPrivateRoomCompanion(companion);
-                }
+                controller.myProfile(driver,companion);
                 break;
             case R.id.b_menu_2:
-                // exit
-                exit();
+                controller.exit();
                 break;
             case R.id.b_menu_3:
-                // add
-                if (driver != null) {
-                    addTravel();
-                } else if (companion != null) {
-                    addZayavka(companion);
-                }
+                controller.addClick(driver,companion);
                 break;
             case R.id.b_menu_4:
-                /*if (driver != null) {
-                    Intent intent = new Intent(MainListActivity.this, ZayavkiToMyTravels.class);
-                    intent.putExtra("driver", driver);
-                    startActivity(intent);
-                } else*/ if (companion != null) {
-                    Intent intent = new Intent(MainListActivity.this, MyTravelsCompanion.class);
-                    intent.putExtra("companion", companion);
-                    startActivity(intent);
-                }else if (driver!=null){
-                    Intent intent = new Intent(MainListActivity.this, MyTravelsCompanion.class);
-                    intent.putExtra("driver", driver);
-                    startActivity(intent);
-                }
-                // ?
+                controller.imCompanoin(driver,companion);
                 break;
             case R.id.b_menu_5:
                 // ?
-                Intent intent = new Intent(MainListActivity.this,Reviews.class);
-                if (driver!=null){
-                    intent.putExtra("driver",driver);
-                    startActivity(intent);
-                }else if (companion!=null){
-                    intent.putExtra("companion",companion);
-                    startActivity(intent);
-                }
+                controller.usersList(driver,companion);
                 break;
-
         }
-    }
-
-    private void addZayavka(Companion C) {
-        Intent intent = new Intent(MainListActivity.this, AddZayavka.class);
-        intent.putExtra("companion", C);
-        startActivity(intent);
-    }
-
-    private void goToPrivateRoomCompanion(Companion CO) {
-        Intent intent = new Intent(MainListActivity.this, PersonRoomCompanion.class);
-        intent.putExtra("companion", CO);
-        startActivity(intent);
-    }
-
-    private void goToPrivateRoomDriver(Driver DR) {
-        Intent intent = new Intent(MainListActivity.this, PersonRoomDriver.class);
-        intent.putExtra("driver", DR);
-        startActivity(intent);
-    }
-
-    private void addTravel() {
-        Intent intent = new Intent(MainListActivity.this, AddTravel.class);
-        intent.putExtra("driver", driver);
-        startActivity(intent);
-    }
-
-    private void exit() {
-        new AlertDialog.Builder(MainListActivity.this)
-                .setTitle("Выход")
-                .setMessage("Вы действительно хотите выйти?")
-                .setPositiveButton("Ок", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        //the user wants to leave - so dismiss the dialog and exit
-                        Data data = new Data(MainListActivity.this);
-                        data.saveSharedPreferenceDRIVER(null);
-                        data.saveSharedPreferenceCOMPANION(null);
-
-
-                        finish();
-                    }
-                }).setNegativeButton("Нет", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-            }
-        })
-                .show();
     }
 
     @Override
     public void onFinishEditDialog(String inputText) {
-        //Log.d(VARIABLES_CLASS.LOG_TAG, "inputText = " + inputText);
         city = inputText;
         if (driver!=null){
-            //Log.d(VARIABLES_CLASS.LOG_TAG, "takeZayavkiFromCompanions_1");
             takeZayavkiFromCompanions();
-            //Log.d(VARIABLES_CLASS.LOG_TAG, "takeZayavkiFromCompanions_2");
         }else if (companion!=null){
-            //Log.d(VARIABLES_CLASS.LOG_TAG, "takeAndStartWithListTravels_1");
             takeAndStartWithListTravels();
-            //Log.d(VARIABLES_CLASS.LOG_TAG, "takeAndStartWithListTravels_2");
         }
     }
 }

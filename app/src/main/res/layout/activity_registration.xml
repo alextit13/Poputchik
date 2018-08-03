@@ -26,7 +26,7 @@
                 android:background="#3000"
                 android:elevation="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="60dp">
+                android:layout_height="50dp">
                 <TextView
                     android:layout_gravity="center"
                     android:textSize="22sp"
@@ -144,6 +144,7 @@
                     android:layout_height="wrap_content">
                     <Button
                         android:onClick="click_buttons"
+                        android:clickable="false"
                         android:id="@+id/a_b_registration"
                         android:fontFamily="@font/comforta_light"
                         android:text="@string/registration"

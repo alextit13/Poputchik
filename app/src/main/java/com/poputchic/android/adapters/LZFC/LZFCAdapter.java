@@ -2,6 +2,7 @@ package com.poputchic.android.adapters.LZFC;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -91,18 +92,20 @@ public class LZFCAdapter extends BaseAdapter{
         holder.cost_L.setText(objects.get(position).getPrice());
         holder.travel_to_L.setText(objects.get(position).getTo_location());
         holder.travel_from_L.setText(objects.get(position).getFrom_location());
-        Picasso.with(ctx).load(listCompanions.get(position).getImage_path()+"").into(holder.iv_driver);
+        Picasso.with(ctx).load(listCompanions.get(position).getImage_path()+"").resize(100,100)
+                .into(holder.iv_driver);
         changeFonts(holder,position);
     } // изменяем данные во вьюхах
 
     private void changeFonts(HelperHolder holder, int position) {
         FontsDriver.changeFontToComfort(ctx,holder.about_driver_L);
         FontsDriver.changeFontToComfort(ctx,holder.button_ok_hide);
-        FontsDriver.changeFontToComfort(ctx,holder.button_ok_L);
+        FontsDriver.changeFontToComfort(ctx,holder.text_take_companion);
         FontsDriver.changeFontToComfort(ctx,holder.cost_L);
         FontsDriver.changeFontToComfort(ctx,holder.name_companion_L);
         FontsDriver.changeFontToComfort(ctx,holder.phone_driver_L);
         FontsDriver.changeFontToComfort(ctx,holder.travel_to_L);
+        FontsDriver.changeFontToComfort(ctx,holder.travel_from_L);
     }
 
     private void init(HelperHolder holder,View convertView, int position) {
@@ -111,17 +114,19 @@ public class LZFCAdapter extends BaseAdapter{
         holder.phone_driver_L = (TextView)convertView.findViewById(R.id.phone_driver_L);
         holder.travel_from_L = (TextView)convertView.findViewById(R.id.travel_from_L);
         holder.travel_to_L = (TextView)convertView.findViewById(R.id.travel_to_L);
+        holder.text_take_companion = (TextView)convertView.findViewById(R.id.text_take_companion);
         holder.cost_L = (TextView)convertView.findViewById(R.id.cost_L);
         holder.linearLayout = (LinearLayout) convertView.findViewById(R.id.main_container_hint);
-        holder.button_ok_L = (Button) convertView.findViewById(R.id.button_ok_L);
+        holder.button_ok_L = (CardView) convertView.findViewById(R.id.button_ok_L);
         holder.button_ok_hide = (Button) convertView.findViewById(R.id.button_ok_hide);
         holder.iv_driver = (ImageView) convertView.findViewById(R.id.image_driver_L);
     } // инициализируем вьюхи
 
     class HelperHolder{
         ImageView iv_driver;
-        TextView name_companion_L,about_driver_L,phone_driver_L,travel_from_L,travel_to_L,cost_L;
-        Button button_ok_L,button_ok_hide;
+        TextView name_companion_L,about_driver_L,phone_driver_L,travel_from_L,travel_to_L,cost_L,text_take_companion;
+        Button button_ok_hide;
+        CardView button_ok_L;
         LinearLayout linearLayout;
     } // класс холдера
 }

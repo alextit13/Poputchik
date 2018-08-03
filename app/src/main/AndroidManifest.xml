@@ -58,7 +58,7 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:noHistory="true"/>
         <activity
-            android:name=".activities.MainListActivity"
+            android:name=".activities.main_list.MainListActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name="me.iwf.photopicker.PhotoPickerActivity"

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     android:background="@drawable/background"
-    android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -24,8 +23,60 @@
         android:layout_height="wrap_content" />
     <ListView
         android:layout_margin="3dp"
+        android:layout_below="@+id/title_activity_reviews"
         android:id="@+id/list_review"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottom_bar">
     </ListView>
-</LinearLayout>
+    <TableRow
+        android:id="@+id/bottom_bar"
+        android:layout_alignParentBottom="true"
+        android:background="#3000"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <ImageView
+            android:onClick="click"
+            android:src="@drawable/my_account"
+            android:layout_weight="1"
+            android:id="@+id/b_menu_1"
+            android:scaleY="0.5"
+            android:scaleX="0.5"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <ImageView
+            android:onClick="click"
+            android:src="@drawable/exit_icon"
+            android:layout_weight="1"
+            android:scaleY="0.5"
+            android:scaleX="0.5"
+            android:id="@+id/b_menu_2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <ImageView
+            android:onClick="click"
+            android:src="@drawable/icon_menu_add"
+            android:layout_weight="1"
+            android:id="@+id/b_menu_3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <ImageView
+            android:onClick="click"
+            android:src="@drawable/my_cars"
+            android:layout_weight="1"
+            android:scaleY="0.5"
+            android:scaleX="0.5"
+            android:id="@+id/b_menu_4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <ImageView
+            android:onClick="click"
+            android:src="@drawable/list"
+            android:layout_weight="1"
+            android:scaleY="0.5"
+            android:scaleX="0.5"
+            android:id="@+id/b_menu_5"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </TableRow>
+</RelativeLayout>

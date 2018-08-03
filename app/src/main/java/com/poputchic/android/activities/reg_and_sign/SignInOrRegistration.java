@@ -7,20 +7,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.poputchic.android.FontsDriver;
 import com.poputchic.android.R;
-import com.poputchic.android.activities.MainListActivity;
-import com.poputchic.android.classes.Data;
-import com.poputchic.android.classes.classes.Companion;
-import com.poputchic.android.classes.classes.Driver;
 
 public class SignInOrRegistration extends Activity {
 

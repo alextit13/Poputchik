@@ -19,8 +19,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.poputchic.android.FontsDriver;
 import com.poputchic.android.R;
-import com.poputchic.android.activities.MainListActivity;
-import com.poputchic.android.classes.Data;
 import com.poputchic.android.classes.VARIABLES_CLASS;
 import com.poputchic.android.classes.classes.Companion;
 import com.poputchic.android.classes.classes.Driver;
@@ -78,14 +76,10 @@ public class ZayavkaAdapter extends BaseAdapter{
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // используем созданные, но не используемые view
-        View view = convertView;
-        if (view == null) {
-            view = lInflater.inflate(R.layout.item_zayavka, parent, false);
-        }
+        convertView =lInflater.inflate(R.layout.item_zayavka, parent, false);
 
         Zayavka z = getProduct(position);
-        Log.d(VARIABLES_CLASS.LOG_TAG,"p = " + position);
-        init(view);
+        init(convertView);
         getCompanion(z);
 
 
@@ -95,7 +89,7 @@ public class ZayavkaAdapter extends BaseAdapter{
         // заполняем View в пункте списка данными из товаров: наименование, цена
         // и картинка
 
-        return view;
+        return convertView;
     }
 
     private void completeViews(Zayavka z) {

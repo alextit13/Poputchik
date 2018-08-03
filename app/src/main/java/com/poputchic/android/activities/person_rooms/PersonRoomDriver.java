@@ -34,6 +34,7 @@ import com.google.firebase.storage.UploadTask;
 import com.poputchic.android.FontsDriver;
 import com.poputchic.android.R;
 import com.poputchic.android.activities.person_rooms.my_travels.MyTravels;
+import com.poputchic.android.bottom_toolbar.BottomToolbarController;
 import com.poputchic.android.classes.VARIABLES_CLASS;
 import com.poputchic.android.classes.classes.Driver;
 import com.poputchic.android.classes.classes.Review;
@@ -85,6 +86,29 @@ public class PersonRoomDriver extends Activity {
         FontsDriver.changeFontToComfort(this,(TextView)findViewById(R.id.pr_tv_email));
         FontsDriver.changeFontToComfort(this,(TextView)findViewById(R.id.pr_tv_number_phone));
         FontsDriver.changeFontToComfort(this,(TextView)findViewById(R.id.pr_tv_car));
+    }
+
+    public void click(View view) {
+        BottomToolbarController controller = new BottomToolbarController(this);
+        switch (view.getId()) {
+            case R.id.b_menu_1:
+                //controller.myProfile(driver,null);
+                break;
+            case R.id.b_menu_2:
+                //controller.exit();
+                finish();
+                break;
+            case R.id.b_menu_3:
+                controller.addClick(driver,null);
+                break;
+            case R.id.b_menu_4:
+                controller.imCompanoin(driver,null);
+                break;
+            case R.id.b_menu_5:
+                // ?
+                controller.usersList(driver,null);
+                break;
+        }
     }
 
     private void init() {

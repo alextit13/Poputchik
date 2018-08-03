@@ -11,14 +11,14 @@
         android:background="@color/black_100"
         android:id="@+id/toolbar_companion_finish_trav"
         android:layout_width="match_parent"
-        android:layout_height="70dp">
+        android:layout_height="50dp">
         <ImageView
             android:id="@+id/pr_iv_my_travels_c"
             android:layout_marginStart="10dp"
             android:layout_centerVertical="true"
-            android:src="@drawable/finish_yellow"
-            android:layout_width="40dp"
-            android:layout_height="40dp" />
+            android:src="@drawable/my_travels"
+            android:layout_width="30dp"
+            android:layout_height="30dp" />
         <TextView
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
@@ -34,9 +34,9 @@
             android:layout_marginEnd="10dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/edit"
-            android:layout_width="40dp"
-            android:layout_height="40dp" />
+            android:src="@drawable/edit_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp" />
     </RelativeLayout>
     <ScrollView
         android:layout_below="@id/toolbar_companion_finish_trav"
@@ -125,6 +125,56 @@
             </ListView>
         </LinearLayout>
     </ScrollView>
+    <TableRow
+        android:id="@+id/bottom_bar"
+        android:background="#3000"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <ImageView
+            android:onClick="click"
+            android:src="@drawable/my_account"
+            android:layout_weight="1"
+            android:id="@+id/b_menu_1"
+            android:scaleY="0.5"
+            android:scaleX="0.5"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <ImageView
+            android:onClick="click"
+            android:src="@drawable/exit_icon"
+            android:layout_weight="1"
+            android:scaleY="0.5"
+            android:scaleX="0.5"
+            android:id="@+id/b_menu_2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <ImageView
+            android:onClick="click"
+            android:src="@drawable/icon_menu_add"
+            android:layout_weight="1"
+            android:id="@+id/b_menu_3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <ImageView
+            android:onClick="click"
+            android:src="@drawable/my_cars"
+            android:layout_weight="1"
+            android:scaleY="0.5"
+            android:scaleX="0.5"
+            android:id="@+id/b_menu_4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <ImageView
+            android:onClick="click"
+            android:src="@drawable/list"
+            android:layout_weight="1"
+            android:scaleY="0.5"
+            android:scaleX="0.5"
+            android:id="@+id/b_menu_5"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </TableRow>
     <ProgressBar
         android:id="@+id/private_room_progress_bar_c"
         android:layout_centerVertical="true"

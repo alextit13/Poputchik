@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    android:background="@android:drawable/dialog_holo_light_frame"
     android:orientation="vertical"
-    android:padding="10dp"
     android:id="@+id/a_fl_container"
+    android:padding="5dp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -16,6 +15,7 @@
         <ImageView
             android:src="@drawable/icon_menu_1"
             android:id="@+id/item_image_driver"
+            android:layout_margin="5dp"
             android:layout_width="70dp"
             android:layout_height="70dp" />
         <LinearLayout
@@ -42,8 +42,8 @@
                 <ImageView
                     android:layout_gravity="center"
                     android:src="@drawable/start_rating"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"/>
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"/>
                 <TextView
                     android:textSize="16sp"
                     android:layout_gravity="center"
@@ -55,10 +55,10 @@
                     android:layout_gravity="center"
                     android:layout_marginStart="20dp"
                     android:src="@drawable/review"
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"/>
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"/>
                 <TextView
-                    android:layout_marginEnd="2dp"
+                    android:layout_marginStart="4dp"
                     android:textSize="16sp"
                     tools:text="7"
                     android:layout_gravity="center"
@@ -73,11 +73,11 @@
         <ImageView
             android:layout_marginStart="10dp"
             android:layout_gravity="end|top"
-            android:src="@drawable/finish"
+            android:src="@android:drawable/ic_menu_myplaces"
             android:layout_width="40dp"
             android:layout_height="40dp" />
         <TextView
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="10dp"
             android:layout_gravity="top|center"
             android:textSize="16sp"
             tools:text="2"
@@ -88,7 +88,7 @@
     <View
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
-        android:background="@color/black_50"
+        android:background="@color/black_10"
         android:layout_width="match_parent"
         android:layout_height="1dp"/>
 
@@ -127,13 +127,14 @@
     </LinearLayout>
 
     <TableRow
-        android:layout_marginStart="2dp"
+        android:layout_marginStart="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageView
             android:src="@drawable/peoples"
-            android:layout_width="40dp"
-            android:layout_height="40dp"/>
+            android:layout_width="20dp"
+            android:layout_marginTop="2dp"
+            android:layout_height="20dp"/>
         <TextView
             android:layout_marginStart="7dp"
             android:layout_gravity="center"

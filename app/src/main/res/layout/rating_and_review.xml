@@ -94,7 +94,7 @@
         android:layout_height="100dp" />
 
     <TableRow
-        android:layout_margin="10dp"
+        android:layout_margin="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <Button
