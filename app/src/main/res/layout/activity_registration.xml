@@ -98,15 +98,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
                 <RadioGroup
-                    android:gravity="start"
-                    android:layout_gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <RadioButton
                         android:onClick="click_buttons"
                         android:id="@+id/a_cb_driver"
-                        android:gravity="center"
-                        android:layout_gravity="center"
+                        android:layout_gravity="start"
                         android:fontFamily="@font/comforta_light"
                         android:text="@string/driver"
                         android:layout_width="wrap_content"
@@ -114,9 +111,8 @@
                     <RadioButton
                         android:onClick="click_buttons"
                         android:id="@+id/a_cb_companion"
-                        android:layout_gravity="center"
-                        android:gravity="center"
                         android:fontFamily="@font/comforta_light"
+                        android:layout_gravity="start"
                         android:text="@string/user"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
