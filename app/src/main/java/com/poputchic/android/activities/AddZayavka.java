@@ -72,6 +72,8 @@ public class AddZayavka extends Activity {
     private EditText  e_et_pointer_adress_2, e_about,e_et_from,e_et_pointer_adress_1,e_et_to;
     private Button e_b_time_start, e_b_cancel, e_b_go, e_b_date, b_onMap_start, b_onMap_finish;
 
+    private long dateFrom = 0;
+
     int DIALOG_TIME = 1;
     int myHour = 14;
     int myMinute = 35;
@@ -84,7 +86,6 @@ public class AddZayavka extends Activity {
     private String adress_from;
     private String adress_to;
 
-    private List<Cities> listCities;
     private Companion companion;
 
     //private FrameLayout add_container;
@@ -296,7 +297,10 @@ public class AddZayavka extends Activity {
         if (adress_from!=null||adress_to!=null&&!e_et_from.getText().toString().equals("")
                 &&!e_et_to.getText().toString().equals("")){
             ZayavkaFromCompanion ZFC = new ZayavkaFromCompanion(null,new Date().getTime()+"",adress_from+", "+e_et_from.getText().toString()
-                    ,adress_to+", " + e_et_to.getText().toString(),e_b_time_start.getText().toString()
+                    ,adress_to+", " + e_et_to.getText().toString(),/*e_b_time_start.getText().toString()*/
+
+                    new Date(myYear,myMonth,myDay,myHour,myMinute)+""
+
             ,"0",e_about.getText().toString(),companion.getDate_create()+"");
             pushToFirebase(ZFC);
         }else{
@@ -406,19 +410,24 @@ public class AddZayavka extends Activity {
         new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                myYear = i;
+                myMonth = i1;
+                myDay = i2;
                 e_b_date.setText(i2 + "." + i1 + "."+i);
             }
-        },2018,1,1).show();
+        },new Date().getYear(),new Date().getMonth(),new Date().getDay()).show();
     }
 
     private void clickTime(final Button b) {
-        Log.d(VARIABLES_CLASS.LOG_TAG,"click time");
+        //Log.d(VARIABLES_CLASS.LOG_TAG,"click time");
         new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int i, int i1) {
                 switch (b.getId()) {
                     case R.id.e_b_time_start_z:
                         // ...
+                        myHour = i;
+                        myMinute = i1;
                         e_b_time_start.setText(i + "." + i1);
                         break;
                     default:

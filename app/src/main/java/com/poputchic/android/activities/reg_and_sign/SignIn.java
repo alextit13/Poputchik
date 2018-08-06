@@ -134,7 +134,7 @@ public class SignIn extends Activity {
 
                         if (data.getValue(Driver.class).getEmail().equals(b_et_email.getText().toString())
                                 &&data.getValue(Driver.class).getPassword().equals(b_et_password.getText().toString())){
-                            Log.d(VARIABLES_CLASS.LOG_TAG,"dr = " + data.getValue(Driver.class));
+                            //Log.d(VARIABLES_CLASS.LOG_TAG,"dr = " + data.getValue(Driver.class));
                             driver = data.getValue(Driver.class);
                             goToIntent();
                         }

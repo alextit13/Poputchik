@@ -56,6 +56,8 @@ public class AddTravel extends Activity {
 
     private String defaultLocation = "";
 
+    private int minute,hours,day,month,year;
+
     private ProgressBar f_pb_;
     private AutoCompleteTextView e_et_from, e_et_to;
     private EditText e_et_pointer_adress_1, e_et_pointer_adress_2, e_about, e_how_many_peoples;
@@ -240,7 +242,7 @@ public class AddTravel extends Activity {
         createAdresses();
         if (adress_from!=null||adress_to!=null){
             Travel travel = new Travel(0,Integer.parseInt(e_how_many_peoples.getText().toString())
-                    ,adress_from,adress_to,e_b_time_start.getText().toString()
+                    ,adress_from,adress_to, new Date(year,month,day,hours,minute) + ""
                     ,"",driver.getDate_create()+"",e_about.getText().toString(),new Date().getTime()+"");
             f_pb_.setVisibility(View.VISIBLE);
             add_container.setAlpha(.3f);
@@ -343,6 +345,7 @@ public class AddTravel extends Activity {
         new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                year = i; month = i1; day = i2;
                 e_b_date.setText(i2 + "." + i1 + "."+i);
             }
         },2018,1,1).show();
@@ -356,6 +359,8 @@ public class AddTravel extends Activity {
                 switch (b.getId()) {
                     case R.id.e_b_time_start:
                         // ...
+                        minute = i1;
+                        hours = i;
                         e_b_time_start.setText(i + "." + i1);
                         break;
                     /*case R.id.e_b_time_finish:

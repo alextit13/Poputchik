@@ -2,6 +2,7 @@ package com.poputchic.android.activities;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -30,7 +31,7 @@ public class DetailViewTravel extends Activity {
     private Travel travel;
     private ListView list_review_about_driver;
     private TextView text_driver;
-    private ImageView face_driver;
+    private ImageView face_driver,back_button_my_travels;
     private Driver driver;
     private List<String>listReviews = new ArrayList<>();
 
@@ -92,7 +93,7 @@ public class DetailViewTravel extends Activity {
     }
 
     private void toAdapter(List<String> LR) {
-        ArrayAdapter adapter = new ArrayAdapter(DetailViewTravel.this,android.R.layout.simple_list_item_1,
+        ArrayAdapter adapter = new ArrayAdapter<String>(DetailViewTravel.this,android.R.layout.simple_list_item_1,
                 LR);
         list_review_about_driver.setAdapter(adapter);
 
@@ -100,6 +101,12 @@ public class DetailViewTravel extends Activity {
 
     private void init() {
         face_driver = (ImageView) findViewById(R.id.face_driver);
+        (findViewById(R.id.back_button_my_travels)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         companion = (Companion) getIntent().getSerializableExtra("companion");
         travel = (Travel) getIntent().getSerializableExtra("travel");
         list_review_about_driver = (ListView) findViewById(R.id.list_review_about_driver);

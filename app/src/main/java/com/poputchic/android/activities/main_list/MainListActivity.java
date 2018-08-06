@@ -37,6 +37,7 @@ import com.poputchic.android.find_fragments.MessageFragment;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MainListActivity extends Activity implements FindFragment.EditNameDialogListener {
 
@@ -151,7 +152,9 @@ public class MainListActivity extends Activity implements FindFragment.EditNameD
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 ArrayList<ZayavkaFromCompanion>list = new ArrayList<>();
                                 for (DataSnapshot data : dataSnapshot.getChildren()){
-                                    list.add(data.getValue(ZayavkaFromCompanion.class));
+                                    if (new Date().getTime() < Long.parseLong(data.getValue(ZayavkaFromCompanion.class).getDate())){
+                                        list.add(data.getValue(ZayavkaFromCompanion.class));
+                                    }
                                 }
 
                                 getListCompanions(list);
@@ -167,6 +170,11 @@ public class MainListActivity extends Activity implements FindFragment.EditNameD
     }
 
     private void getListCompanions(final ArrayList<ZayavkaFromCompanion> list) {
+        if (list==null||list.size()==0){
+            // we are get empty list. All zayavki is not actual in this time
+            Toast.makeText(this, "Нет активных заявок", Toast.LENGTH_SHORT).show();
+            main_list_progress_bar.setVisibility(View.INVISIBLE);
+        }
         listCompanions.clear();
         for (int i = 0; i<list.size();i++){
             FirebaseDatabase.getInstance().getReference().child("users").child("companion").child(list.get(i).getCompanion()+"")
@@ -209,19 +217,22 @@ public class MainListActivity extends Activity implements FindFragment.EditNameD
 
                             for (DataSnapshot data : dataSnapshot.getChildren()) {
 
-                                if (!city.equals("")&&data.getValue(Travel.class).getFrom().contains(city)){
+                                if (new Date().getTime() < Long.parseLong(data.getValue(Travel.class).getTime_from())){
+                                    if (!city.equals("")&&data.getValue(Travel.class).getFrom().contains(city)){
 
-                                    listTravesl.add(data.getValue(Travel.class));
-                                }else if (city.equals("")){
+                                        listTravesl.add(data.getValue(Travel.class));
+                                    }else if (city.equals("")){
 
-                                    listTravesl.add(data.getValue(Travel.class));
-                                }else if (city.equals("ВСЕ")){
-                                    listTravesl.add(data.getValue(Travel.class));
+                                        listTravesl.add(data.getValue(Travel.class));
+                                    }else if (city.equals("ВСЕ")){
+                                        listTravesl.add(data.getValue(Travel.class));
+                                    }
                                 }
 
                             }
                             if (listTravesl.size()==0){
                                 Toast.makeText(MainListActivity.this, "Ничего не найдено!", Toast.LENGTH_SHORT).show();
+                                main_list_progress_bar.setVisibility(View.INVISIBLE);
                             }
                             takeDrivers();
                         }
@@ -232,7 +243,7 @@ public class MainListActivity extends Activity implements FindFragment.EditNameD
                         }
                     });
         }catch (Exception e){
-
+            System.out.println("crash");
         }
     }
 

@@ -112,9 +112,9 @@ public class TravelAdapter extends BaseAdapter{
         init(view);
 
         if (t!=null){
-            if (t.getTime_create()!=null){
+            if (t.getTime_from()!=null){
                 String d = "";
-                Date date = new Date(Long.parseLong(t.getTime_create()));
+                Date date = new Date(Long.parseLong(t.getTime_from()));
                 DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.LONG,  Locale.getDefault());
                 d = dateFormat.format(date);
                 tv_date.setText(d);
