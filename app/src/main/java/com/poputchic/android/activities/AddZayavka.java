@@ -54,6 +54,7 @@ import com.poputchic.android.map.MapsActivity;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -71,6 +72,9 @@ public class AddZayavka extends Activity {
     private ProgressBar f_pb_;
     private EditText  e_et_pointer_adress_2, e_about,e_et_from,e_et_pointer_adress_1,e_et_to;
     private Button e_b_time_start, e_b_cancel, e_b_go, e_b_date, b_onMap_start, b_onMap_finish;
+
+    private double locality_lat = 0; // line for adress user location now - latitude
+    private double locality_lon = 0; // line for adress user location now - longitude
 
     private long dateFrom = 0;
 
@@ -127,6 +131,8 @@ public class AddZayavka extends Activity {
                                     System.out.println(Arrays.asList(addresses.get(0).getAddressLine(0)));
                                     e_et_pointer_adress_1.setText(addresses.get(0).getAddressLine(0));
                                     e_et_from.setText(addresses.get(0).getLocality());
+                                    locality_lon = addresses.get(0).getLongitude();
+                                    locality_lat = addresses.get(0).getLatitude();
                                 }
                             }
                         }
@@ -365,11 +371,15 @@ public class AddZayavka extends Activity {
             case R.id.b_onMap_start_z:
                 //
                 Intent intent_1 = new Intent(AddZayavka.this, MapsActivity.class);
+                intent_1.putExtra("location_user_log",locality_lon);
+                intent_1.putExtra("location_user_lat",locality_lat);
                 startActivityForResult(intent_1,1);
                 break;
             case R.id.b_onMap_finish_z:
                 //
                 Intent intent_2 = new Intent(AddZayavka.this, MapsActivity.class);
+                intent_2.putExtra("location_user_log",locality_lon);
+                intent_2.putExtra("location_user_lat",locality_lat);
                 startActivityForResult(intent_2,2);
                 break;
             default:
@@ -407,6 +417,7 @@ public class AddZayavka extends Activity {
     }
 
     private void selectDate() {
+        Calendar calendar = Calendar.getInstance();
         new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
@@ -415,7 +426,8 @@ public class AddZayavka extends Activity {
                 myDay = i2;
                 e_b_date.setText(i2 + "." + i1 + "."+i);
             }
-        },new Date().getYear(),new Date().getMonth(),new Date().getDay()).show();
+        },calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH))
+                .show();
     }
 
     private void clickTime(final Button b) {

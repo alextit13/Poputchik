@@ -11,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
+import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.os.Bundle;
@@ -27,7 +28,11 @@ import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.TimePicker;
+
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.FirebaseDatabase;
 import com.poputchic.android.FontsDriver;
@@ -43,6 +48,7 @@ import org.ankit.gpslibrary.MyTracker;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -51,17 +57,22 @@ public class AddTravel extends Activity {
 
     private static final int REQUEST_CODE_PERMISSION = 2;
     String mPermission = Manifest.permission.ACCESS_FINE_LOCATION;
+    private FusedLocationProviderClient mFusedLocationClient;
 
     private Driver driver;
 
     private String defaultLocation = "";
 
-    private int minute,hours,day,month,year;
+    private int minute, hours, day, month, year;
+
+    private double locality_lat = 0; // line for adress user location now - latitude
+    private double locality_lon = 0; // line for adress user location now - longitude
 
     private ProgressBar f_pb_;
     private AutoCompleteTextView e_et_from, e_et_to;
     private EditText e_et_pointer_adress_1, e_et_pointer_adress_2, e_about, e_how_many_peoples;
-    private Button e_b_time_start, /*e_b_time_finish*/ e_b_cancel, e_b_go, e_b_date, b_onMap_start, b_onMap_finish;
+    private Button e_b_time_start, /*e_b_time_finish*/
+            e_b_cancel, e_b_go, e_b_date, b_onMap_start, b_onMap_finish;
 
     private String adress_from;
     private String adress_to;
@@ -82,7 +93,7 @@ public class AddTravel extends Activity {
         BottomToolbarController controller = new BottomToolbarController(this);
         switch (view.getId()) {
             case R.id.b_menu_1:
-                controller.myProfile(driver,null);
+                controller.myProfile(driver, null);
                 break;
             case R.id.b_menu_2:
                 //controller.exit();
@@ -92,29 +103,29 @@ public class AddTravel extends Activity {
                 //controller.addClick(driver,null);
                 break;
             case R.id.b_menu_4:
-                controller.imCompanoin(driver,null);
+                controller.imCompanoin(driver, null);
                 break;
             case R.id.b_menu_5:
                 // ?
-                controller.usersList(driver,null);
+                controller.usersList(driver, null);
                 break;
         }
     }
 
     private void changeFonts() {
-        FontsDriver.changeFontToComfort(this,(TextView)findViewById(R.id.create_voyage));
-        FontsDriver.changeFontToComfort(this,e_et_from);
-        FontsDriver.changeFontToComfort(this,e_et_to);
-        FontsDriver.changeFontToComfort(this,e_et_pointer_adress_1);
-        FontsDriver.changeFontToComfort(this,e_et_pointer_adress_2);
-        FontsDriver.changeFontToComfort(this,e_about);
-        FontsDriver.changeFontToComfort(this,e_how_many_peoples);
-        FontsDriver.changeFontToComfort(this,e_b_time_start);
-        FontsDriver.changeFontToComfort(this,e_b_cancel);
-        FontsDriver.changeFontToComfort(this,e_b_go);
-        FontsDriver.changeFontToComfort(this,e_b_date);
-        FontsDriver.changeFontToComfort(this,b_onMap_start);
-        FontsDriver.changeFontToComfort(this,b_onMap_finish);
+        FontsDriver.changeFontToComfort(this, (TextView) findViewById(R.id.create_voyage));
+        FontsDriver.changeFontToComfort(this, e_et_from);
+        FontsDriver.changeFontToComfort(this, e_et_to);
+        FontsDriver.changeFontToComfort(this, e_et_pointer_adress_1);
+        FontsDriver.changeFontToComfort(this, e_et_pointer_adress_2);
+        FontsDriver.changeFontToComfort(this, e_about);
+        FontsDriver.changeFontToComfort(this, e_how_many_peoples);
+        FontsDriver.changeFontToComfort(this, e_b_time_start);
+        FontsDriver.changeFontToComfort(this, e_b_cancel);
+        FontsDriver.changeFontToComfort(this, e_b_go);
+        FontsDriver.changeFontToComfort(this, e_b_date);
+        FontsDriver.changeFontToComfort(this, b_onMap_start);
+        FontsDriver.changeFontToComfort(this, b_onMap_finish);
     } // изменяем шрифты на вьюхах
 
     @Override
@@ -160,6 +171,44 @@ public class AddTravel extends Activity {
         takeCoordinates();
         clickers();
         autocompleteCityes();
+        getUserLocation();
+    }
+
+    private void getUserLocation() {
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }else{
+            mFusedLocationClient.getLastLocation()
+                    .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                        @Override
+                        public void onSuccess(Location location) {
+                            // Got last known location. In some rare situations this can be null.
+                            if (location != null) {
+                                // Logic to handle location object
+                                //Log.d(VARIABLES_CLASS.LOG_TAG,"location = " + location);
+                                Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+                                List<Address> addresses = null;
+                                try {
+                                    addresses = geocoder.getFromLocation(
+                                            location.getLatitude(),
+                                            location.getLongitude(),
+                                            // In this sample, get just a single address.
+                                            1);
+                                } catch (IOException e) {
+
+                                }
+                                if (addresses != null) {
+                                    //System.out.println(Arrays.asList(addresses.get(0).getAddressLine(0)));
+                                    e_et_pointer_adress_1.setText(addresses.get(0).getAddressLine(0));
+                                    e_et_from.setText(addresses.get(0).getLocality());
+                                    locality_lon = addresses.get(0).getLongitude();
+                                    locality_lat = addresses.get(0).getLatitude();
+                                }
+                            }
+                        }
+                    });
+        }
     }
 
     private void takeCoordinates() {
@@ -268,17 +317,17 @@ public class AddTravel extends Activity {
     private void createAdresses() {
         if (!b_onMap_start.getText().toString().equals("Карта")){
             // если на кнопке адрес
-            Log.d(VARIABLES_CLASS.LOG_TAG,"11");
+            //Log.d(VARIABLES_CLASS.LOG_TAG,"11");
             adress_from = b_onMap_start.getText().toString();
         }else if (!e_et_from.getText().toString().equals("")&&
                 !e_et_pointer_adress_1.getText().toString().equals("")) {
-            Log.d(VARIABLES_CLASS.LOG_TAG,"12");
+            //Log.d(VARIABLES_CLASS.LOG_TAG,"12");
             {
-                Log.d(VARIABLES_CLASS.LOG_TAG,"13");
+                //Log.d(VARIABLES_CLASS.LOG_TAG,"13");
                 adress_from = e_et_from.getText().toString() + "," + e_et_pointer_adress_1.getText().toString();
             }
         }else{
-            Log.d(VARIABLES_CLASS.LOG_TAG,"4");
+            //Log.d(VARIABLES_CLASS.LOG_TAG,"4");
             Snackbar.make(e_b_go,"Заполните все поля",Snackbar.LENGTH_LONG).show();
             f_pb_.setVisibility(View.INVISIBLE);
             add_container.setAlpha(1f);
@@ -286,17 +335,17 @@ public class AddTravel extends Activity {
 
         if (!b_onMap_finish.getText().toString().equals("Карта")){
             // если на кнопке адрес
-            Log.d(VARIABLES_CLASS.LOG_TAG,"21");
+            //Log.d(VARIABLES_CLASS.LOG_TAG,"21");
             adress_to = b_onMap_finish.getText().toString();
         }else if (!e_et_to.getText().toString().equals("")&&
                 !e_et_pointer_adress_2.getText().toString().equals("")) {
-            Log.d(VARIABLES_CLASS.LOG_TAG,"22");
+            //Log.d(VARIABLES_CLASS.LOG_TAG,"22");
             {
-                Log.d(VARIABLES_CLASS.LOG_TAG,"23");
+                //Log.d(VARIABLES_CLASS.LOG_TAG,"23");
                 adress_to = e_et_to.getText().toString() + "," + e_et_pointer_adress_2.getText().toString();
             }
         }else{
-            Log.d(VARIABLES_CLASS.LOG_TAG,"24");
+            //Log.d(VARIABLES_CLASS.LOG_TAG,"24");
             Snackbar.make(e_b_go,"Заполните все поля",Snackbar.LENGTH_LONG).show();
             f_pb_.setVisibility(View.INVISIBLE);
             add_container.setAlpha(1f);
@@ -308,11 +357,15 @@ public class AddTravel extends Activity {
             case R.id.b_onMap_start:
                 //
                 Intent intent_1 = new Intent(AddTravel.this, MapsActivity.class);
+                intent_1.putExtra("location_user_log",locality_lon);
+                intent_1.putExtra("location_user_lat",locality_lat);
                 startActivityForResult(intent_1,1);
                 break;
             case R.id.b_onMap_finish:
                 //
                 Intent intent_2 = new Intent(AddTravel.this, MapsActivity.class);
+                intent_2.putExtra("location_user_log",locality_lon);
+                intent_2.putExtra("location_user_lat",locality_lat);
                 startActivityForResult(intent_2,2);
                 break;
             default:
@@ -342,17 +395,18 @@ public class AddTravel extends Activity {
     }
 
     private void selectDate() {
+        Calendar calendar = Calendar.getInstance();
         new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
                 year = i; month = i1; day = i2;
                 e_b_date.setText(i2 + "." + i1 + "."+i);
             }
-        },2018,1,1).show();
+        },calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH)).show();
     }
 
     private void clickTime(final Button b) {
-        Log.d(VARIABLES_CLASS.LOG_TAG,"click time");
+        //Log.d(VARIABLES_CLASS.LOG_TAG,"click time");
         new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int i, int i1) {
