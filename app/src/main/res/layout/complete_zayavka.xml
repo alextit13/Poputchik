@@ -71,7 +71,7 @@
         android:id="@+id/tv_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-    <TableRow
+    <!--<TableRow
         android:layout_below="@id/tv_date"
         android:id="@+id/tr_from_to"
         android:layout_width="match_parent"
@@ -88,6 +88,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <ImageView
+            android:id="@+id/to_image"
             android:layout_gravity="center"
             android:src="@drawable/go_from_to"
             android:layout_width="50dp"
@@ -136,5 +137,5 @@
         android:layout_below="@id/places"
         android:id="@+id/d_tv_about"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content" />-->
 </RelativeLayout>

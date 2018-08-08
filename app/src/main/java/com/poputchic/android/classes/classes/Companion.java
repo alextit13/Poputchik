@@ -13,6 +13,7 @@ public class Companion implements Serializable{
     private String password;
     private String name;
     private String phone;
+    private String cardNumber;
 
     public Companion() {
     }
@@ -26,6 +27,26 @@ public class Companion implements Serializable{
         this.password = password;
         this.name = name;
         this.phone = phone;
+    }
+
+    public Companion(String about, String date_create, int year, String image_path, String email, String password, String name, String phone, String cardNumber) {
+        this.about = about;
+        this.date_create = date_create;
+        this.year = year;
+        this.image_path = image_path;
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.phone = phone;
+        this.cardNumber = cardNumber;
+    }
+
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
     }
 
     public String getAbout() {

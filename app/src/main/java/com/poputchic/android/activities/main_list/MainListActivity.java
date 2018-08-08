@@ -23,6 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.poputchic.android.FontsDriver;
 import com.poputchic.android.R;
 import com.poputchic.android.activities.DetailViewTravel;
+import com.poputchic.android.activities.events.EventRefreshAdapter;
 import com.poputchic.android.adapters.LZFC.LZFCAdapter;
 import com.poputchic.android.adapters.TravelAdapter;
 import com.poputchic.android.bottom_toolbar.BottomToolbarController;
@@ -35,6 +36,10 @@ import com.poputchic.android.classes.classes.ZayavkaFromCompanion;
 import com.poputchic.android.find_fragments.FindFragment;
 import com.poputchic.android.find_fragments.MessageFragment;
 import com.wang.avi.AVLoadingIndicatorView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -51,6 +56,7 @@ public class MainListActivity extends Activity implements FindFragment.EditNameD
     private TravelAdapter adapter;
     private ArrayList listDrivers;
     private String city = "";
+    private LZFCAdapter mAdapter;
 
 
     @Override
@@ -144,6 +150,11 @@ public class MainListActivity extends Activity implements FindFragment.EditNameD
         }
     }
 
+    @Subscribe (threadMode = ThreadMode.ASYNC, sticky = true)
+    public void onEventRefreshAdapter(EventRefreshAdapter eventRefreshAdapter){
+        takeZayavkiFromCompanions();
+    }
+
     private void takeZayavkiFromCompanions() {
         FirebaseDatabase.getInstance().getReference().child("zayavki_from_companoins")
                 .addListenerForSingleValueEvent(
@@ -152,7 +163,7 @@ public class MainListActivity extends Activity implements FindFragment.EditNameD
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 ArrayList<ZayavkaFromCompanion>list = new ArrayList<>();
                                 for (DataSnapshot data : dataSnapshot.getChildren()){
-                                    if (new Date().getTime() < Long.parseLong(data.getValue(ZayavkaFromCompanion.class).getDate())){
+                                    if (new Date().getTime() < Long.parseLong(data.getValue(ZayavkaFromCompanion.class).getFrom_time())){
                                         list.add(data.getValue(ZayavkaFromCompanion.class));
                                     }
                                 }
@@ -172,34 +183,36 @@ public class MainListActivity extends Activity implements FindFragment.EditNameD
     private void getListCompanions(final ArrayList<ZayavkaFromCompanion> list) {
         if (list==null||list.size()==0){
             // we are get empty list. All zayavki is not actual in this time
+            completeAdapter(list,listCompanions);
             Toast.makeText(this, "Нет активных заявок", Toast.LENGTH_SHORT).show();
             main_list_progress_bar.setVisibility(View.INVISIBLE);
-        }
-        listCompanions.clear();
-        for (int i = 0; i<list.size();i++){
-            FirebaseDatabase.getInstance().getReference().child("users").child("companion").child(list.get(i).getCompanion()+"")
-                    .addListenerForSingleValueEvent(
-                            new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                    listCompanions.add(dataSnapshot.getValue(Companion.class));
-                                    if (listCompanions.size()==list.size()){
-                                        completeAdapter(list,listCompanions);
+        }else{
+            listCompanions.clear();
+            for (int i = 0; i<list.size();i++){
+                FirebaseDatabase.getInstance().getReference().child("users").child("companion").child(list.get(i).getCompanion()+"")
+                        .addListenerForSingleValueEvent(
+                                new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        listCompanions.add(dataSnapshot.getValue(Companion.class));
+                                        if (listCompanions.size()==list.size()){
+                                            completeAdapter(list,listCompanions);
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
                                     }
                                 }
-
-                                @Override
-                                public void onCancelled(DatabaseError databaseError) {
-
-                                }
-                            }
-                    );
+                        );
+            }
         }
     }
 
     private void completeAdapter(ArrayList<ZayavkaFromCompanion> LZFC,ArrayList<Companion>listComp) {
-        LZFCAdapter adapter = new LZFCAdapter(MainListActivity.this,LZFC,driver,listComp);
-        b_main_list.setAdapter(adapter);
+        mAdapter = new LZFCAdapter(MainListActivity.this,LZFC,driver,listComp);
+        b_main_list.setAdapter(mAdapter);
         main_list_progress_bar.setVisibility(View.INVISIBLE);
     }
 
@@ -310,5 +323,17 @@ public class MainListActivity extends Activity implements FindFragment.EditNameD
         }else if (companion!=null){
             takeAndStartWithListTravels();
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
     }
 }

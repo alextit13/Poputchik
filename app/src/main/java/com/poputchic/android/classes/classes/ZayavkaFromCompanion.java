@@ -2,7 +2,7 @@ package com.poputchic.android.classes.classes;
 
 import java.io.Serializable;
 
-public class ZayavkaFromCompanion implements Serializable{
+public class ZayavkaFromCompanion extends Zayavka implements Serializable{
     String date;
     String from_location;
     String to_location;

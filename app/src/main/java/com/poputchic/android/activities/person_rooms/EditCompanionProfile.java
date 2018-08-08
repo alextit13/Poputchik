@@ -20,7 +20,8 @@ import com.poputchic.android.classes.classes.Companion;
 
 public class EditCompanionProfile extends Activity {
 
-    private EditText edit_driver_name_c,edit_driver_email_c,edit_driver_year_c,edit_driver_phone_c,edit_driver_about_c;
+    private EditText edit_driver_name_c,edit_driver_email_c,edit_driver_year_c,edit_driver_phone_c,edit_driver_about_c
+            ,edit_driver_card_num_c;
     private Button b_driver_cancel_c,b_driver_save_c;
     private ProgressBar edit_companion;
     private FrameLayout container_companion_edit;
@@ -56,6 +57,9 @@ public class EditCompanionProfile extends Activity {
         edit_driver_name_c.setText(companion.getName());
         edit_driver_phone_c.setText(companion.getPhone());
         edit_driver_year_c.setText(companion.getYear()+"");
+        if (companion.getCardNumber()!=null){
+            edit_driver_card_num_c.setText(companion.getCardNumber());
+        }
     }
 
     private void clicker() {
@@ -82,6 +86,7 @@ public class EditCompanionProfile extends Activity {
             companion.setName(edit_driver_name_c.getText().toString());
             companion.setPhone(edit_driver_phone_c.getText().toString());
             companion.setYear(Integer.parseInt(edit_driver_year_c.getText().toString()));
+            companion.setCardNumber(edit_driver_card_num_c.getText().toString());
             pushCompanionToFirebase();
         }else{
             Snackbar.make(b_driver_save_c,"Заполните все поля",Snackbar.LENGTH_LONG).show();
@@ -121,6 +126,7 @@ public class EditCompanionProfile extends Activity {
         edit_driver_year_c = (EditText) findViewById(R.id.edit_driver_year_c);
         edit_driver_phone_c = (EditText) findViewById(R.id.edit_driver_phone_c);
         edit_driver_about_c = (EditText) findViewById(R.id.edit_driver_about_c);
+        edit_driver_card_num_c = (EditText) findViewById(R.id.edit_driver_card_num_c);
 
         b_driver_cancel_c = (Button) findViewById(R.id.b_driver_cancel_c);
         b_driver_save_c = (Button) findViewById(R.id.b_driver_save_c);

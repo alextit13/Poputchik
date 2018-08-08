@@ -13,26 +13,32 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.poputchic.android.R;
+import com.poputchic.android.activities.events.EventRefreshAdapter;
 import com.poputchic.android.classes.classes.Driver;
 import com.poputchic.android.classes.classes.Zayavka;
 import com.poputchic.android.classes.classes.ZayavkaFromCompanion;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class InitClickers {
     private LZFCAdapter adapter;
     private Context context;
     private int numZ = 0;
     private int position = 0;
-    private ArrayList<ZayavkaFromCompanion> objects;
+    private List<ZayavkaFromCompanion> objects;
     private Driver driver;
 
-    public InitClickers(LZFCAdapter adapter, Context context, int position, ArrayList<ZayavkaFromCompanion> objects,Driver d) {
+
+    public InitClickers(LZFCAdapter adapter, Context context, int position, List<ZayavkaFromCompanion> objects, Driver d) {
         this.adapter = adapter;
         this.context = context;
         this.position = position;
         this.objects = objects;
         this.driver = d;
+        //EventBus.getDefault().register(this);
     }
 
     protected void init(View button_ok_L, View button_ok_hide){
@@ -44,11 +50,13 @@ public class InitClickers {
                                 new ValueEventListener() {
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {
+                                        numZ=0;
                                         for (DataSnapshot data : dataSnapshot.getChildren()){
                                             if (data.getValue(Zayavka.class).getDriver().equals(driver.getDate_create())){
                                                 numZ++;
                                             }
                                         }
+                                        numZ++;
                                         checkData();
                                     }
 
@@ -73,8 +81,12 @@ public class InitClickers {
                 );
     }
 
-    private void checkData() {
-        if (numZ<2){
+    public void checkData() {
+
+        //EventBus.getDefault().postSticky(new EventRefreshAdapter(true));
+        //Toast.makeText(context, "Вы одобрили попутчика!", Toast.LENGTH_SHORT).show();
+
+        if (numZ<=2){
             objects.get(position).setDriver(driver.getDate_create()+"");
             FirebaseDatabase.getInstance().getReference().child("complete_travels_with_zay_from_comp").child(objects.get(position).getDate()+"")
                     .setValue(objects.get(position));
@@ -84,6 +96,8 @@ public class InitClickers {
                             new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
+
+                                    EventBus.getDefault().postSticky(new EventRefreshAdapter(true));
                                     Toast.makeText(context, "Вы одобрили попутчика!", Toast.LENGTH_SHORT).show();
                                 }
                             }

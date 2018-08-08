@@ -31,21 +31,32 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class LZFCAdapter extends BaseAdapter{
 
     private Context ctx;
     private LayoutInflater lInflater;
-    private ArrayList<ZayavkaFromCompanion> objects;
-    private ArrayList<Companion> listCompanions;
+    private List<ZayavkaFromCompanion> objects;
+    private List<Companion> listCompanions;
+    private List<Driver> listDrivers;
     private Driver driver;
 
-    public LZFCAdapter(Context context, ArrayList<ZayavkaFromCompanion> products,Driver d,ArrayList<Companion>listComp) {
+    public LZFCAdapter(Context context, List<ZayavkaFromCompanion> products,Driver d,List<Companion>listComp) {
         listCompanions = listComp;
         driver = d;
         ctx = context;
         objects = products;
         lInflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
+
+    public LZFCAdapter(Context context, List<ZayavkaFromCompanion> products,Driver d,List<Companion>listComp,List<Driver>l) {
+        listCompanions = listComp;
+        driver = d;
+        ctx = context;
+        objects = products;
+        lInflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        listDrivers=l;
     }
 
     @Override
@@ -81,8 +92,10 @@ public class LZFCAdapter extends BaseAdapter{
     }
 
     private void clicker(HelperHolder holder, int position) {
-        InitClickers iC = new InitClickers(this,ctx,position,objects,driver);
-        iC.init(holder.button_ok_L,holder.button_ok_hide);
+        if (driver!=null){
+            InitClickers iC = new InitClickers(this,ctx,position,objects,driver);
+            iC.init(holder.button_ok_L,holder.button_ok_hide);
+        }
     } // инициализируем и обрабатываем клики
 
     private void changeViews(HelperHolder holder, int position) {
@@ -92,6 +105,9 @@ public class LZFCAdapter extends BaseAdapter{
         holder.cost_L.setText(objects.get(position).getPrice());
         holder.travel_to_L.setText(objects.get(position).getTo_location());
         holder.travel_from_L.setText(objects.get(position).getFrom_location());
+        if (driver==null){
+            holder.driver_take_zayavka.setText(listDrivers.get(position).toString());
+        }
         Picasso.with(ctx).load(listCompanions.get(position).getImage_path()+"").resize(100,100)
                 .into(holder.iv_driver);
         changeFonts(holder,position);
@@ -119,12 +135,19 @@ public class LZFCAdapter extends BaseAdapter{
         holder.linearLayout = (LinearLayout) convertView.findViewById(R.id.main_container_hint);
         holder.button_ok_L = (CardView) convertView.findViewById(R.id.button_ok_L);
         holder.button_ok_hide = (Button) convertView.findViewById(R.id.button_ok_hide);
+        holder.driver_take_zayavka = (TextView) convertView.findViewById(R.id.driver_take_zayavka);
+        if (driver==null){
+            holder.button_ok_L.setVisibility(View.GONE);
+            holder.button_ok_hide.setVisibility(View.GONE);
+            holder.driver_take_zayavka.setVisibility(View.VISIBLE);
+        }
+
         holder.iv_driver = (ImageView) convertView.findViewById(R.id.image_driver_L);
     } // инициализируем вьюхи
 
     class HelperHolder{
         ImageView iv_driver;
-        TextView name_companion_L,about_driver_L,phone_driver_L,travel_from_L,travel_to_L,cost_L,text_take_companion;
+        TextView name_companion_L,about_driver_L,phone_driver_L,travel_from_L,travel_to_L,cost_L,text_take_companion,driver_take_zayavka;
         Button button_ok_hide;
         CardView button_ok_L;
         LinearLayout linearLayout;

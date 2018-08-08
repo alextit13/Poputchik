@@ -20,6 +20,7 @@ public class Driver implements Serializable{
     private ArrayList<Travel>active_travels;
     private ArrayList<Travel>complete_travels;
     private ArrayList<Travel>rewiews;
+    private int numApply;
 
     public Driver() {
     }
@@ -42,25 +43,23 @@ public class Driver implements Serializable{
         this.rewiews = rewiews;
     }
 
-    @Override
-    public String toString() {
-        return "Driver{" +
-                "numberCard='" + numberCard + '\'' +
-                ", about='" + about + '\'' +
-                ", date_create='" + date_create + '\'' +
-                ", year=" + year +
-                ", image_path='" + image_path + '\'' +
-                ", rating='" + rating + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", name='" + name + '\'' +
-                ", name_car='" + name_car + '\'' +
-                ", year_car='" + year_car + '\'' +
-                ", numberPhone='" + numberPhone + '\'' +
-                ", active_travels=" + active_travels +
-                ", complete_travels=" + complete_travels +
-                ", rewiews=" + rewiews +
-                '}';
+    public Driver(String numberCard, String about, String date_create, int year, String image_path, String rating, String email, String password, String name, String name_car, String year_car, String numberPhone, ArrayList<Travel> active_travels, ArrayList<Travel> complete_travels, ArrayList<Travel> rewiews, int numApp) {
+        this.numberCard = numberCard;
+        this.about = about;
+        this.date_create = date_create;
+        this.year = year;
+        this.image_path = image_path;
+        this.rating = rating;
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.name_car = name_car;
+        this.year_car = year_car;
+        this.numberPhone = numberPhone;
+        this.active_travels = active_travels;
+        this.complete_travels = complete_travels;
+        this.rewiews = rewiews;
+        this.numApply=numApp;
     }
 
     public String getNumberPhone() {
@@ -181,5 +180,17 @@ public class Driver implements Serializable{
 
     public void setRewiews(ArrayList<Travel> rewiews) {
         this.rewiews = rewiews;
+    }
+
+    @Override
+    public String toString() {
+        return "ВАС ОДОБРИЛИ КАК ПОПУТЧИКА!"+ "\n \n"+
+                "О водителе: " + about + "\n" +
+                "Рейтинг: " + rating + "\n" +
+                "E-mail: " + email + "\n" +
+                "Имя: " + name + "\n" +
+                "Авто: " + name_car + "\n" +
+                "Год авто: " + year_car + "\n" +
+                "Номер телефона: " + numberPhone;
     }
 }

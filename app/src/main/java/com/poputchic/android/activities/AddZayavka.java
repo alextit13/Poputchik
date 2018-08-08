@@ -305,7 +305,7 @@ public class AddZayavka extends Activity {
             ZayavkaFromCompanion ZFC = new ZayavkaFromCompanion(null,new Date().getTime()+"",adress_from+", "+e_et_from.getText().toString()
                     ,adress_to+", " + e_et_to.getText().toString(),/*e_b_time_start.getText().toString()*/
 
-                    new Date(myYear,myMonth,myDay,myHour,myMinute)+""
+                    new Date(myYear,myMonth,myDay,myHour,myMinute).getTime()+""
 
             ,"0",e_about.getText().toString(),companion.getDate_create()+"");
             pushToFirebase(ZFC);
@@ -321,7 +321,7 @@ public class AddZayavka extends Activity {
                 .setValue(z).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        Snackbar.make(e_b_go,"Поездка успешно создана!",Snackbar.LENGTH_LONG).show();
+                        Toast.makeText(AddZayavka.this, "Поездка успешно создана!", Toast.LENGTH_SHORT).show();
                         finish();
                     }
                 });

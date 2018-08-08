@@ -48,6 +48,12 @@
                 android:hint="@string/about_me"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/edit_driver_card_num_c"
+                android:fontFamily="@font/comforta_light"
+                android:hint="@string/card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">

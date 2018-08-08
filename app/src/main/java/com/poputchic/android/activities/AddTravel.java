@@ -26,6 +26,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -79,7 +80,7 @@ public class AddTravel extends Activity {
 
     private List<Cities> listCities;
 
-    private FrameLayout add_container;
+    private RelativeLayout add_container;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,7 +143,7 @@ public class AddTravel extends Activity {
 
     private void init() {
 
-        add_container = (FrameLayout) findViewById(R.id.add_container);
+        add_container = (RelativeLayout) findViewById(R.id.add_container);
 
         driver = (Driver) getIntent().getSerializableExtra("driver");
 
@@ -291,7 +292,7 @@ public class AddTravel extends Activity {
         createAdresses();
         if (adress_from!=null||adress_to!=null){
             Travel travel = new Travel(0,Integer.parseInt(e_how_many_peoples.getText().toString())
-                    ,adress_from,adress_to, new Date(year,month,day,hours,minute) + ""
+                    ,adress_from,adress_to, new Date(year,month,day,hours,minute).getTime() + ""
                     ,"",driver.getDate_create()+"",e_about.getText().toString(),new Date().getTime()+"");
             f_pb_.setVisibility(View.VISIBLE);
             add_container.setAlpha(.3f);
@@ -315,7 +316,18 @@ public class AddTravel extends Activity {
     }
 
     private void createAdresses() {
-        if (!b_onMap_start.getText().toString().equals("Карта")){
+
+        if (!e_et_from.getText().toString().equals("") && !e_et_pointer_adress_1.getText().toString().equals("") &&
+                !e_et_to.getText().toString().equals("") && !e_et_pointer_adress_2.getText().toString().equals("")){
+            adress_from = e_et_from.getText().toString() + " " + e_et_pointer_adress_1.getText().toString();
+            adress_to = e_et_to.getText().toString() + " " + e_et_pointer_adress_2.getText().toString();
+        }else{
+            Snackbar.make(e_b_go,"Заполните все поля",Snackbar.LENGTH_LONG).show();
+        }
+
+
+
+        /*if (!b_onMap_start.getText().toString().equals("Карта")){
             // если на кнопке адрес
             //Log.d(VARIABLES_CLASS.LOG_TAG,"11");
             adress_from = b_onMap_start.getText().toString();
@@ -333,10 +345,10 @@ public class AddTravel extends Activity {
             add_container.setAlpha(1f);
         }
 
-        if (!b_onMap_finish.getText().toString().equals("Карта")){
+        if (!e_et_pointer_adress_1.getText().toString().equals("")){
             // если на кнопке адрес
             //Log.d(VARIABLES_CLASS.LOG_TAG,"21");
-            adress_to = b_onMap_finish.getText().toString();
+            adress_to = e_et_pointer_adress_1.getText().toString();
         }else if (!e_et_to.getText().toString().equals("")&&
                 !e_et_pointer_adress_2.getText().toString().equals("")) {
             //Log.d(VARIABLES_CLASS.LOG_TAG,"22");
@@ -349,7 +361,7 @@ public class AddTravel extends Activity {
             Snackbar.make(e_b_go,"Заполните все поля",Snackbar.LENGTH_LONG).show();
             f_pb_.setVisibility(View.INVISIBLE);
             add_container.setAlpha(1f);
-        }
+        }*/
     }
 
     private void map(Button b) {
@@ -379,7 +391,8 @@ public class AddTravel extends Activity {
             // start point
             adress_from = data.getStringExtra("adress");
             if (data.getStringExtra("adress")!=null){
-                b_onMap_start.setText(adress_from);
+                e_et_from.setText(data.getStringExtra("city"));
+                e_et_pointer_adress_1.setText(adress_from);
             }
 
             //Log.d(VARIABLES_CLASS.LOG_TAG,"req = " +  data.getParcelableExtra("coor"));
@@ -387,7 +400,8 @@ public class AddTravel extends Activity {
             // finish point
             adress_to = data.getStringExtra("adress");
             if (data.getStringExtra("adress")!=null){
-                b_onMap_finish.setText(adress_to);
+                e_et_to.setText(data.getStringExtra("city"));
+                e_et_pointer_adress_2.setText(adress_to);
             }
             //Log.d(VARIABLES_CLASS.LOG_TAG,"req = " +  data.getParcelableExtra("coor"));
         }
