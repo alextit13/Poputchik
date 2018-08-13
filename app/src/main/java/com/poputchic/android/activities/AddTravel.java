@@ -8,7 +8,6 @@ import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -17,14 +16,12 @@ import android.support.design.widget.Snackbar;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.test.mock.MockPackageManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -36,16 +33,13 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.FirebaseDatabase;
-import com.poputchic.android.FontsDriver;
+import com.poputchic.android.models.fonts.FontsConteroller;
 import com.poputchic.android.R;
 import com.poputchic.android.bottom_toolbar.BottomToolbarController;
-import com.poputchic.android.classes.VARIABLES_CLASS;
-import com.poputchic.android.classes.classes.Driver;
-import com.poputchic.android.classes.classes.Travel;
-import com.poputchic.android.classes.enums.Cities;
+import com.poputchic.android.models.driver.Driver;
+import com.poputchic.android.models.Travel;
+import com.poputchic.android.models.Cities;
 import com.poputchic.android.map.MapsActivity;
-
-import org.ankit.gpslibrary.MyTracker;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -114,19 +108,19 @@ public class AddTravel extends Activity {
     }
 
     private void changeFonts() {
-        FontsDriver.changeFontToComfort(this, (TextView) findViewById(R.id.create_voyage));
-        FontsDriver.changeFontToComfort(this, e_et_from);
-        FontsDriver.changeFontToComfort(this, e_et_to);
-        FontsDriver.changeFontToComfort(this, e_et_pointer_adress_1);
-        FontsDriver.changeFontToComfort(this, e_et_pointer_adress_2);
-        FontsDriver.changeFontToComfort(this, e_about);
-        FontsDriver.changeFontToComfort(this, e_how_many_peoples);
-        FontsDriver.changeFontToComfort(this, e_b_time_start);
-        FontsDriver.changeFontToComfort(this, e_b_cancel);
-        FontsDriver.changeFontToComfort(this, e_b_go);
-        FontsDriver.changeFontToComfort(this, e_b_date);
-        FontsDriver.changeFontToComfort(this, b_onMap_start);
-        FontsDriver.changeFontToComfort(this, b_onMap_finish);
+        /*FontsConteroller.changeFontToComfort(this, (TextView) findViewById(R.id.create_voyage));
+        FontsConteroller.changeFontToComfort(this, e_et_from);
+        FontsConteroller.changeFontToComfort(this, e_et_to);
+        FontsConteroller.changeFontToComfort(this, e_et_pointer_adress_1);
+        FontsConteroller.changeFontToComfort(this, e_et_pointer_adress_2);
+        FontsConteroller.changeFontToComfort(this, e_about);
+        FontsConteroller.changeFontToComfort(this, e_how_many_peoples);
+        FontsConteroller.changeFontToComfort(this, e_b_time_start);
+        FontsConteroller.changeFontToComfort(this, e_b_cancel);
+        FontsConteroller.changeFontToComfort(this, e_b_go);
+        FontsConteroller.changeFontToComfort(this, e_b_date);
+        FontsConteroller.changeFontToComfort(this, b_onMap_start);
+        FontsConteroller.changeFontToComfort(this, b_onMap_finish);*/
     } // изменяем шрифты на вьюхах
 
     @Override

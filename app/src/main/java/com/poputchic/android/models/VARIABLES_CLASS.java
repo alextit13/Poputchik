@@ -1,4 +1,4 @@
-package com.poputchic.android.classes;
+package com.poputchic.android.models;
 
 
 public class VARIABLES_CLASS {

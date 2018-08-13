@@ -9,8 +9,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.poputchic.android.FontsDriver;
+import com.poputchic.android.models.fonts.FontsConteroller;
 import com.poputchic.android.R;
+import com.poputchic.android.views.registration.Registration;
 
 public class SignInOrRegistration extends Activity {
 
@@ -27,9 +28,9 @@ public class SignInOrRegistration extends Activity {
     }
 
     private void changeFonts() {
-        FontsDriver.changeFontToComfort(this,c_b_registration);
-        FontsDriver.changeFontToComfort(this,c_b_sign_in);
-        FontsDriver.changeFontToComfort(this,(TextView)findViewById(R.id.c_toolbar));
+        /*FontsConteroller.changeFontToComfort(this,c_b_registration);
+        FontsConteroller.changeFontToComfort(this,c_b_sign_in);
+        FontsConteroller.changeFontToComfort(this,(TextView)findViewById(R.id.c_toolbar));*/
     } // change viws on views
 
     private void init(){

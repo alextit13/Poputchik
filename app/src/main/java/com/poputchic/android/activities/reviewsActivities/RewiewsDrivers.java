@@ -3,7 +3,6 @@ package com.poputchic.android.activities.reviewsActivities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -14,11 +13,10 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.poputchic.android.FontsDriver;
+import com.poputchic.android.models.fonts.FontsConteroller;
 import com.poputchic.android.R;
-import com.poputchic.android.classes.VARIABLES_CLASS;
-import com.poputchic.android.classes.classes.Companion;
-import com.poputchic.android.classes.classes.Driver;
+import com.poputchic.android.models.companion.Companion;
+import com.poputchic.android.models.driver.Driver;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -44,8 +42,8 @@ public class RewiewsDrivers extends Activity {
     }
 
     private void changeFonts() {
-        FontsDriver.changeFontToComfort(this,buttonAdd);
-        FontsDriver.changeFontToComfort(this,add_rev_edit_text);
+        /*FontsConteroller.changeFontToComfort(this,buttonAdd);
+        FontsConteroller.changeFontToComfort(this,add_rev_edit_text);*/
     } // изменяем шрифты во вьюхах
 
     private void initViews() {

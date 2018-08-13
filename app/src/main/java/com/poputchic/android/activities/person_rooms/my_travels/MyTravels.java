@@ -3,7 +3,6 @@ package com.poputchic.android.activities.person_rooms.my_travels;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.os.Trace;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,13 +15,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.poputchic.android.FontsDriver;
+import com.poputchic.android.models.fonts.FontsConteroller;
 import com.poputchic.android.R;
-import com.poputchic.android.activities.AddTravel;
 import com.poputchic.android.adapters.TravelAdapter;
-import com.poputchic.android.classes.VARIABLES_CLASS;
-import com.poputchic.android.classes.classes.Driver;
-import com.poputchic.android.classes.classes.Travel;
+import com.poputchic.android.models.VARIABLES_CLASS;
+import com.poputchic.android.models.driver.Driver;
+import com.poputchic.android.models.Travel;
 
 import java.util.ArrayList;
 
@@ -46,8 +44,8 @@ public class MyTravels extends Activity {
     }
 
     private void changeFonts() {
-        FontsDriver.changeFontToComfort(this,(TextView)findViewById(R.id.activity_my_travels_label));
-        FontsDriver.changeFontToComfort(this,(TextView)findViewById(R.id.logo_my_travels));
+        /*FontsConteroller.changeFontToComfort(this,(TextView)findViewById(R.id.activity_my_travels_label));
+        FontsConteroller.changeFontToComfort(this,(TextView)findViewById(R.id.logo_my_travels));*/
     } // изменяем шрифты вьюх
 
     private void takeDriver() {

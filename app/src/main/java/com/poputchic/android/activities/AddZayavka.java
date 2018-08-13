@@ -14,17 +14,12 @@ import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.test.mock.MockPackageManager;
-import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -35,24 +30,15 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.poputchic.android.FontsDriver;
+import com.poputchic.android.models.fonts.FontsConteroller;
 import com.poputchic.android.R;
 import com.poputchic.android.bottom_toolbar.BottomToolbarController;
-import com.poputchic.android.classes.VARIABLES_CLASS;
-import com.poputchic.android.classes.classes.Companion;
-import com.poputchic.android.classes.classes.Driver;
-import com.poputchic.android.classes.classes.Travel;
-import com.poputchic.android.classes.classes.Zayavka;
-import com.poputchic.android.classes.classes.ZayavkaFromCompanion;
-import com.poputchic.android.classes.enums.Cities;
+import com.poputchic.android.models.companion.Companion;
+import com.poputchic.android.models.ZayavkaFromCompanion;
 import com.poputchic.android.map.MapsActivity;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -164,18 +150,18 @@ public class AddZayavka extends Activity {
     }
 
     private void changeFonts() {
-        FontsDriver.changeFontToComfort(this,(TextView)findViewById(R.id.activity_add_zayavka_logo));
-        FontsDriver.changeFontToComfort(this,e_et_pointer_adress_2);
-        FontsDriver.changeFontToComfort(this,e_about);
-        FontsDriver.changeFontToComfort(this,e_et_from);
-        FontsDriver.changeFontToComfort(this,e_et_pointer_adress_1);
-        FontsDriver.changeFontToComfort(this,e_et_to);
-        FontsDriver.changeFontToComfort(this,e_b_time_start);
-        FontsDriver.changeFontToComfort(this,e_b_cancel);
-        FontsDriver.changeFontToComfort(this,e_b_go);
-        FontsDriver.changeFontToComfort(this,e_b_date);
-        FontsDriver.changeFontToComfort(this,b_onMap_start);
-        FontsDriver.changeFontToComfort(this,b_onMap_finish);
+        /*FontsConteroller.changeFontToComfort(this,(TextView)findViewById(R.id.activity_add_zayavka_logo));
+        FontsConteroller.changeFontToComfort(this,e_et_pointer_adress_2);
+        FontsConteroller.changeFontToComfort(this,e_about);
+        FontsConteroller.changeFontToComfort(this,e_et_from);
+        FontsConteroller.changeFontToComfort(this,e_et_pointer_adress_1);
+        FontsConteroller.changeFontToComfort(this,e_et_to);
+        FontsConteroller.changeFontToComfort(this,e_b_time_start);
+        FontsConteroller.changeFontToComfort(this,e_b_cancel);
+        FontsConteroller.changeFontToComfort(this,e_b_go);
+        FontsConteroller.changeFontToComfort(this,e_b_date);
+        FontsConteroller.changeFontToComfort(this,b_onMap_start);
+        FontsConteroller.changeFontToComfort(this,b_onMap_finish);*/
     }
 
     void getLocation(){

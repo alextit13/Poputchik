@@ -1,7 +1,27 @@
-package com.poputchic.android.classes.classes;
+package com.poputchic.android.models.driver;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.util.Log;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.poputchic.android.activities.main_list.MainListActivity;
+import com.poputchic.android.models.Data;
+import com.poputchic.android.models.Travel;
+import com.poputchic.android.models.VARIABLES_CLASS;
+import com.poputchic.android.presenters.splashScreenPresenter.SplashScreenPresenter;
+import com.poputchic.android.views.registration.Registration;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Driver implements Serializable{
 
@@ -21,6 +41,9 @@ public class Driver implements Serializable{
     private ArrayList<Travel>complete_travels;
     private ArrayList<Travel>rewiews;
     private int numApply;
+    private Data data;
+    private String D = "";
+    private Driver driver;
 
     public Driver() {
     }
@@ -90,10 +113,6 @@ public class Driver implements Serializable{
         return date_create;
     }
 
-    public void setDate_create(String date_create) {
-        this.date_create = date_create;
-    }
-
     public int getYear() {
         return year;
     }
@@ -104,10 +123,6 @@ public class Driver implements Serializable{
 
     public String getImage_path() {
         return image_path;
-    }
-
-    public void setImage_path(String image_path) {
-        this.image_path = image_path;
     }
 
     public String getRating() {
@@ -128,10 +143,6 @@ public class Driver implements Serializable{
 
     public String getPassword() {
         return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getName() {
@@ -158,28 +169,8 @@ public class Driver implements Serializable{
         this.year_car = year_car;
     }
 
-    public ArrayList<Travel> getActive_travels() {
-        return active_travels;
-    }
-
-    public void setActive_travels(ArrayList<Travel> active_travels) {
-        this.active_travels = active_travels;
-    }
-
-    public ArrayList<Travel> getComplete_travels() {
-        return complete_travels;
-    }
-
-    public void setComplete_travels(ArrayList<Travel> complete_travels) {
-        this.complete_travels = complete_travels;
-    }
-
     public ArrayList<Travel> getRewiews() {
         return rewiews;
-    }
-
-    public void setRewiews(ArrayList<Travel> rewiews) {
-        this.rewiews = rewiews;
     }
 
     @Override
@@ -193,4 +184,73 @@ public class Driver implements Serializable{
                 "Год авто: " + year_car + "\n" +
                 "Номер телефона: " + numberPhone;
     }
+
+    public void getSaveDriver(final SplashScreenPresenter presenter, final Activity activity){
+        data = new Data(activity);
+        final TakeSAveDriver takeSAveDriver = (TakeSAveDriver)presenter;
+        try {
+            D = data.getDriverData(); // пытаемся получить водителя
+        }catch (NullPointerException n){
+            Log.d(VARIABLES_CLASS.LOG_TAG, "exception: " + n.getMessage());
+        }
+        if (!D.equals("")){
+            // если нам пришла джейсонка водителя не нулевая то мы создаем водителя
+            // создаем водителя из строки
+
+            FirebaseDatabase.getInstance().getReference().child("users").child("drivers")
+                    .child(D).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    driver = dataSnapshot.getValue(Driver.class);
+
+                    if (driver!=null)
+                        takeSAveDriver.getDriver(driver);
+                    else
+                        takeSAveDriver.getDriver(null);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }else
+            takeSAveDriver.getDriver(null);
+    }
+
+    public boolean checkSingleDriver(List<String> emailsUsers, String email) {
+        boolean b = true;
+        for (String s : emailsUsers){
+            if (s.equals(email)) b = false;
+        }
+        return b;
+    }
+
+    public boolean checkDriverCompleteFields(String email, String p_1, String p_2, String name) {
+        return email.contains("@") && email.length() > 6 && p_1.equals(p_2) && name.length() > 0;
+    }
+
+    public interface TakeSAveDriver{
+        void getDriver(Driver driver);
+    }
+
+    public void saveDriverToFirebase(final Activity activity, final Driver d){
+        FirebaseDatabase.getInstance().getReference().child("users")
+                .child("drivers")
+                .child(d.getDate_create() + "")
+                .setValue(d).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+
+                Data data = new Data(activity);
+                data.saveSharedPreferenceDRIVER(d);
+
+                Intent intent = new Intent(activity, MainListActivity.class);
+                Toast.makeText(activity, "Вошел драйвер", Toast.LENGTH_SHORT).show();
+                intent.putExtra("driver", d);
+                activity.startActivity(intent);
+            }
+        });
+    }
+
 }

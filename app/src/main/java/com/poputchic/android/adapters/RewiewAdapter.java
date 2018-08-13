@@ -7,8 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-import com.poputchic.android.classes.classes.Companion;
-import com.poputchic.android.classes.classes.Travel;
+import com.poputchic.android.models.companion.Companion;
 
 import java.util.ArrayList;
 

@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,13 +16,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.poputchic.android.FontsDriver;
+import com.poputchic.android.models.fonts.FontsConteroller;
 import com.poputchic.android.R;
-import com.poputchic.android.classes.VARIABLES_CLASS;
-import com.poputchic.android.classes.classes.Companion;
-import com.poputchic.android.classes.classes.Driver;
-import com.poputchic.android.classes.classes.Travel;
-import com.poputchic.android.classes.classes.Zayavka;
+import com.poputchic.android.models.companion.Companion;
+import com.poputchic.android.models.driver.Driver;
+import com.poputchic.android.models.Travel;
+import com.poputchic.android.models.Zayavka;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -157,14 +155,14 @@ public class ZayavkaAdapter extends BaseAdapter{
     private void changeFonts(TextView tv_date, TextView review_driver, TextView review_driver_c,
                              TextView d_tv_about, TextView d_tv_from, TextView d_tv_to, TextView places,
                              TextView name_driver_and_year) {
-        FontsDriver.changeFontToComfort(ctx,tv_date);
-        FontsDriver.changeFontToComfort(ctx,review_driver);
-        FontsDriver.changeFontToComfort(ctx,review_driver_c);
-        FontsDriver.changeFontToComfort(ctx,d_tv_about);
-        FontsDriver.changeFontToComfort(ctx,d_tv_from);
-        FontsDriver.changeFontToComfort(ctx,d_tv_to);
-        FontsDriver.changeFontToComfort(ctx,places);
-        FontsDriver.changeFontToComfort(ctx,name_driver_and_year);
+        /*FontsConteroller.changeFontToComfort(ctx,tv_date);
+        FontsConteroller.changeFontToComfort(ctx,review_driver);
+        FontsConteroller.changeFontToComfort(ctx,review_driver_c);
+        FontsConteroller.changeFontToComfort(ctx,d_tv_about);
+        FontsConteroller.changeFontToComfort(ctx,d_tv_from);
+        FontsConteroller.changeFontToComfort(ctx,d_tv_to);
+        FontsConteroller.changeFontToComfort(ctx,places);
+        FontsConteroller.changeFontToComfort(ctx,name_driver_and_year);*/
     }
 
     public void clicker(final Zayavka z){

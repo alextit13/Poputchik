@@ -4,12 +4,9 @@ import android.app.DialogFragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -18,17 +15,8 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.poputchic.android.FontsDriver;
+import com.poputchic.android.models.fonts.FontsConteroller;
 import com.poputchic.android.R;
-import com.poputchic.android.classes.VARIABLES_CLASS;
-import com.poputchic.android.classes.enums.Cities;
-
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class MessageFragment extends DialogFragment{
 
@@ -92,9 +80,9 @@ public class MessageFragment extends DialogFragment{
     }
 
     private void changeFonts(View v) {
-        FontsDriver.changeFontToComfort(ctx,(TextView) v.findViewById(R.id.mesage_from_administration));
-        FontsDriver.changeFontToComfort(ctx,(TextView) v.findViewById(R.id.message_text));
-        FontsDriver.changeFontToComfort(ctx,(Button) v.findViewById(R.id.cancel_btn));
+        /*FontsConteroller.changeFontToComfort(ctx,(TextView) v.findViewById(R.id.mesage_from_administration));
+        FontsConteroller.changeFontToComfort(ctx,(TextView) v.findViewById(R.id.message_text));
+        FontsConteroller.changeFontToComfort(ctx,(Button) v.findViewById(R.id.cancel_btn));*/
     }
 
     /***

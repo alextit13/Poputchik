@@ -2,7 +2,6 @@ package com.poputchic.android.activities;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,20 +12,16 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.poputchic.android.FontsDriver;
+import com.poputchic.android.models.fonts.FontsConteroller;
 import com.poputchic.android.R;
 import com.poputchic.android.activities.reviewsActivities.RewiewsDrivers;
 import com.poputchic.android.adapters.CompanionAdapter;
 import com.poputchic.android.adapters.DriversAdapter;
-import com.poputchic.android.adapters.RewiewAdapter;
 import com.poputchic.android.bottom_toolbar.BottomToolbarController;
-import com.poputchic.android.classes.classes.Companion;
-import com.poputchic.android.classes.classes.Driver;
-import com.poputchic.android.classes.classes.Review;
-import com.poputchic.android.classes.classes.Travel;
+import com.poputchic.android.models.companion.Companion;
+import com.poputchic.android.models.driver.Driver;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Reviews extends Activity {
 
@@ -46,7 +41,7 @@ public class Reviews extends Activity {
     }
 
     private void changeFonts() {
-        FontsDriver.changeFontToComfort(this,(TextView)findViewById(R.id.title_activity_reviews));
+        //FontsConteroller.changeFontToComfort(this,(TextView)findViewById(R.id.title_activity_reviews));
     }
 
     public void click(View view) {

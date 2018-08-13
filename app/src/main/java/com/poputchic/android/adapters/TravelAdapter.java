@@ -13,9 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,13 +22,13 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.poputchic.android.FontsDriver;
+import com.poputchic.android.models.fonts.FontsConteroller;
 import com.poputchic.android.R;
-import com.poputchic.android.classes.VARIABLES_CLASS;
-import com.poputchic.android.classes.classes.Companion;
-import com.poputchic.android.classes.classes.Driver;
-import com.poputchic.android.classes.classes.Travel;
-import com.poputchic.android.classes.classes.Zayavka;
+import com.poputchic.android.models.VARIABLES_CLASS;
+import com.poputchic.android.models.companion.Companion;
+import com.poputchic.android.models.driver.Driver;
+import com.poputchic.android.models.Travel;
+import com.poputchic.android.models.Zayavka;
 import com.squareup.picasso.Picasso;
 
 import java.text.DateFormat;
@@ -182,18 +180,18 @@ public class TravelAdapter extends BaseAdapter{
                              TextView d_tv_about, TextView d_tv_from, TextView d_tv_to, TextView places,
                              TextView name_driver_and_year, TextView car, TextView rating_driver,
                              TextView review_driver1, TextView finish_travels) {
-        FontsDriver.changeFontToComfort(ctx,tv_date);
-        FontsDriver.changeFontToComfort(ctx,review_driver);
-        FontsDriver.changeFontToComfort(ctx,review_driver_c);
-        FontsDriver.changeFontToComfort(ctx,d_tv_about);
-        FontsDriver.changeFontToComfort(ctx,d_tv_from);
-        FontsDriver.changeFontToComfort(ctx,d_tv_to);
-        FontsDriver.changeFontToComfort(ctx,places);
-        FontsDriver.changeFontToComfort(ctx,name_driver_and_year);
-        FontsDriver.changeFontToComfort(ctx,car);
-        FontsDriver.changeFontToComfort(ctx,rating_driver);
-        FontsDriver.changeFontToComfort(ctx,review_driver1);
-        FontsDriver.changeFontToComfort(ctx,finish_travels);
+        /*FontsConteroller.changeFontToComfort(ctx,tv_date);
+        FontsConteroller.changeFontToComfort(ctx,review_driver);
+        FontsConteroller.changeFontToComfort(ctx,review_driver_c);
+        FontsConteroller.changeFontToComfort(ctx,d_tv_about);
+        FontsConteroller.changeFontToComfort(ctx,d_tv_from);
+        FontsConteroller.changeFontToComfort(ctx,d_tv_to);
+        FontsConteroller.changeFontToComfort(ctx,places);
+        FontsConteroller.changeFontToComfort(ctx,name_driver_and_year);
+        FontsConteroller.changeFontToComfort(ctx,car);
+        FontsConteroller.changeFontToComfort(ctx,rating_driver);
+        FontsConteroller.changeFontToComfort(ctx,review_driver1);
+        FontsConteroller.changeFontToComfort(ctx,finish_travels);*/
     }
 
     public void clicker(final Travel t){
@@ -215,7 +213,7 @@ public class TravelAdapter extends BaseAdapter{
                             public void onClick(DialogInterface dialog, int which) {
                                 String cost = "0";
                                 cost = myEditText.getText().toString();
-                                Log.d(VARIABLES_CLASS.LOG_TAG,"cost = " + cost);
+                                //Log.d(VARIABLES_CLASS.LOG_TAG,"cost = " + cost);
                                 //checkSingelton(t,cost);
                                 addMeToTravel(t,cost);
                             }
@@ -263,6 +261,9 @@ public class TravelAdapter extends BaseAdapter{
             ,t.getTime_create()+"");
             if(checkSingelton(t,cost)){
                 FirebaseDatabase.getInstance().getReference().child("zayavki").child(z.getDateCreate()+"").setValue(z);
+                int numPlacesResult = t.getPlaces()-1;
+                FirebaseDatabase.getInstance().getReference().child("travels").child(t.getTime_create()+"").child("places")
+                        .setValue(numPlacesResult);
             }else{
                 Toast.makeText(ctx, "Вы уже подали заявку на данную поездку!", Toast.LENGTH_SHORT).show();
             }

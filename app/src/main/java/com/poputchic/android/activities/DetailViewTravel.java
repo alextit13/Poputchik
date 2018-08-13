@@ -12,15 +12,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.poputchic.android.FontsDriver;
+import com.poputchic.android.models.fonts.FontsConteroller;
 import com.poputchic.android.R;
-import com.poputchic.android.adapters.RewiewAdapter;
-import com.poputchic.android.classes.classes.Companion;
-import com.poputchic.android.classes.classes.Driver;
-import com.poputchic.android.classes.classes.Travel;
+import com.poputchic.android.models.companion.Companion;
+import com.poputchic.android.models.driver.Driver;
+import com.poputchic.android.models.Travel;
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,8 +43,8 @@ public class DetailViewTravel extends Activity {
     }
 
     private void changeFont() {
-        FontsDriver.changeFontToComfort(this,(TextView)findViewById(R.id.activity_detail_view_travel_logo));
-        FontsDriver.changeFontToComfort(this,(TextView)findViewById(R.id.reviews_about_users));
+        //FontsConteroller.changeFontToComfort(this,(TextView)findViewById(R.id.activity_detail_view_travel_logo));
+        //FontsConteroller.changeFontToComfort(this,(TextView)findViewById(R.id.reviews_about_users));
     }
 
     private void completeViews() {

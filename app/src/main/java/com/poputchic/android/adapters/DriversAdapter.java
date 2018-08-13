@@ -1,7 +1,6 @@
 package com.poputchic.android.adapters;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,10 +8,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.poputchic.android.FontsDriver;
+import com.poputchic.android.models.fonts.FontsConteroller;
 import com.poputchic.android.R;
-import com.poputchic.android.classes.classes.Companion;
-import com.poputchic.android.classes.classes.Driver;
+import com.poputchic.android.models.driver.Driver;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -84,8 +82,8 @@ public class DriversAdapter extends BaseAdapter{
     }
 
     private void changeFonts(TextView list_comp_about, TextView list_comp_name) {
-        FontsDriver.changeFontToComfort(ctx,list_comp_about);
-        FontsDriver.changeFontToComfort(ctx,list_comp_name);
+        /*FontsConteroller.changeFontToComfort(ctx,list_comp_about);
+        FontsConteroller.changeFontToComfort(ctx,list_comp_name);*/
     }
 
     // товар по позиции

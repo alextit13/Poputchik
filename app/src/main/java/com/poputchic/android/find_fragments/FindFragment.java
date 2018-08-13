@@ -2,25 +2,21 @@ package com.poputchic.android.find_fragments;
 
 import android.app.DialogFragment;
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.poputchic.android.R;
-import com.poputchic.android.classes.VARIABLES_CLASS;
-import com.poputchic.android.classes.enums.Cities;
+import com.poputchic.android.models.VARIABLES_CLASS;
+import com.poputchic.android.models.Cities;
 
 import java.util.Arrays;
 import java.util.List;

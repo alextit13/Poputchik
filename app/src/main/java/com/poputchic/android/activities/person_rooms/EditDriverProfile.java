@@ -16,12 +16,11 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
 import com.google.gson.Gson;
-import com.poputchic.android.FontsDriver;
+import com.poputchic.android.models.fonts.FontsConteroller;
 import com.poputchic.android.R;
-import com.poputchic.android.classes.VARIABLES_CLASS;
-import com.poputchic.android.classes.classes.Driver;
+import com.poputchic.android.models.VARIABLES_CLASS;
+import com.poputchic.android.models.driver.Driver;
 
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -49,16 +48,16 @@ public class EditDriverProfile extends Activity {
     }
 
     private void changeFonts() {
-        FontsDriver.changeFontToComfort(this,edit_driver_name);
-        FontsDriver.changeFontToComfort(this,edit_driver_email);
-        FontsDriver.changeFontToComfort(this,edit_driver_year);
-        FontsDriver.changeFontToComfort(this,edit_driver_phone);
-        FontsDriver.changeFontToComfort(this,edit_driver_auto);
-        FontsDriver.changeFontToComfort(this,edit_driver_auto_year);
-        FontsDriver.changeFontToComfort(this,edit_driver_card);
-        FontsDriver.changeFontToComfort(this,edit_driver_about);
-        FontsDriver.changeFontToComfort(this,b_driver_save);
-        FontsDriver.changeFontToComfort(this,hint_text_rating);
+        /*FontsConteroller.changeFontToComfort(this,edit_driver_name);
+        FontsConteroller.changeFontToComfort(this,edit_driver_email);
+        FontsConteroller.changeFontToComfort(this,edit_driver_year);
+        FontsConteroller.changeFontToComfort(this,edit_driver_phone);
+        FontsConteroller.changeFontToComfort(this,edit_driver_auto);
+        FontsConteroller.changeFontToComfort(this,edit_driver_auto_year);
+        FontsConteroller.changeFontToComfort(this,edit_driver_card);
+        FontsConteroller.changeFontToComfort(this,edit_driver_about);
+        FontsConteroller.changeFontToComfort(this,b_driver_save);
+        FontsConteroller.changeFontToComfort(this,hint_text_rating);*/
     } // изменяем шрифты вьюх
 
     private void takeDriver() {

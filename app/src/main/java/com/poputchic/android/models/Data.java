@@ -1,11 +1,11 @@
-package com.poputchic.android.classes;
+package com.poputchic.android.models;
 
 import android.content.Context;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.poputchic.android.classes.classes.Companion;
-import com.poputchic.android.classes.classes.Driver;
+import com.poputchic.android.models.companion.Companion;
+import com.poputchic.android.models.driver.Driver;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -109,7 +109,7 @@ public class Data{
         try {
             br = new BufferedReader(new InputStreamReader(context.openFileInput(VARIABLES_CLASS.FILENAME)));
         } catch (FileNotFoundException e) {
-            Log.d(VARIABLES_CLASS.LOG_TAG,"EXCEPTION_0_2");
+            //Log.d(VARIABLES_CLASS.LOG_TAG,"EXCEPTION_0_2");
             e.printStackTrace();
         }
         String str = "";

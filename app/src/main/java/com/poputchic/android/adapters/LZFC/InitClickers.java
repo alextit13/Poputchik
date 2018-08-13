@@ -3,7 +3,6 @@ package com.poputchic.android.adapters.LZFC;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -12,15 +11,13 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.poputchic.android.R;
 import com.poputchic.android.activities.events.EventRefreshAdapter;
-import com.poputchic.android.classes.classes.Driver;
-import com.poputchic.android.classes.classes.Zayavka;
-import com.poputchic.android.classes.classes.ZayavkaFromCompanion;
+import com.poputchic.android.models.driver.Driver;
+import com.poputchic.android.models.Zayavka;
+import com.poputchic.android.models.ZayavkaFromCompanion;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class InitClickers {

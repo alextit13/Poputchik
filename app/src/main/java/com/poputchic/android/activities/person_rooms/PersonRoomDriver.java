@@ -1,18 +1,13 @@
 package com.poputchic.android.activities.person_rooms;
 
-import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Build;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -31,13 +26,12 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.poputchic.android.FontsDriver;
+import com.poputchic.android.models.fonts.FontsConteroller;
 import com.poputchic.android.R;
 import com.poputchic.android.activities.person_rooms.my_travels.MyTravels;
 import com.poputchic.android.bottom_toolbar.BottomToolbarController;
-import com.poputchic.android.classes.VARIABLES_CLASS;
-import com.poputchic.android.classes.classes.Driver;
-import com.poputchic.android.classes.classes.Review;
+import com.poputchic.android.models.driver.Driver;
+import com.poputchic.android.models.Review;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -46,9 +40,6 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import me.iwf.photopicker.PhotoPicker;
-
-import static com.poputchic.android.classes.VARIABLES_CLASS.LOG_TAG;
 
 public class PersonRoomDriver extends Activity {
 
@@ -79,13 +70,13 @@ public class PersonRoomDriver extends Activity {
     }
 
     private void changeFonts() {
-        FontsDriver.changeFontToComfort(this,(TextView)findViewById(R.id.activity_person_room_driver));
-        FontsDriver.changeFontToComfort(this,(TextView)findViewById(R.id.pr_tv_rating));
-        FontsDriver.changeFontToComfort(this,(TextView)findViewById(R.id.pr_tv_name));
-        FontsDriver.changeFontToComfort(this,(TextView)findViewById(R.id.pr_tv_years));
-        FontsDriver.changeFontToComfort(this,(TextView)findViewById(R.id.pr_tv_email));
-        FontsDriver.changeFontToComfort(this,(TextView)findViewById(R.id.pr_tv_number_phone));
-        FontsDriver.changeFontToComfort(this,(TextView)findViewById(R.id.pr_tv_car));
+        /*FontsConteroller.changeFontToComfort(this,(TextView)findViewById(R.id.activity_person_room_driver));
+        FontsConteroller.changeFontToComfort(this,(TextView)findViewById(R.id.pr_tv_rating));
+        FontsConteroller.changeFontToComfort(this,(TextView)findViewById(R.id.pr_tv_name));
+        FontsConteroller.changeFontToComfort(this,(TextView)findViewById(R.id.pr_tv_years));
+        FontsConteroller.changeFontToComfort(this,(TextView)findViewById(R.id.pr_tv_email));
+        FontsConteroller.changeFontToComfort(this,(TextView)findViewById(R.id.pr_tv_number_phone));
+        FontsConteroller.changeFontToComfort(this,(TextView)findViewById(R.id.pr_tv_car));*/
     }
 
     public void click(View view) {

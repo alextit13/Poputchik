@@ -1,9 +1,7 @@
 package com.poputchic.android.adapters.LZFC;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,25 +10,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.poputchic.android.FontsDriver;
+import com.poputchic.android.models.fonts.FontsConteroller;
 import com.poputchic.android.R;
-import com.poputchic.android.classes.VARIABLES_CLASS;
-import com.poputchic.android.classes.classes.Companion;
-import com.poputchic.android.classes.classes.Driver;
-import com.poputchic.android.classes.classes.Zayavka;
-import com.poputchic.android.classes.classes.ZayavkaFromCompanion;
+import com.poputchic.android.models.companion.Companion;
+import com.poputchic.android.models.driver.Driver;
+import com.poputchic.android.models.ZayavkaFromCompanion;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class LZFCAdapter extends BaseAdapter{
@@ -114,14 +101,14 @@ public class LZFCAdapter extends BaseAdapter{
     } // изменяем данные во вьюхах
 
     private void changeFonts(HelperHolder holder, int position) {
-        FontsDriver.changeFontToComfort(ctx,holder.about_driver_L);
-        FontsDriver.changeFontToComfort(ctx,holder.button_ok_hide);
-        FontsDriver.changeFontToComfort(ctx,holder.text_take_companion);
-        FontsDriver.changeFontToComfort(ctx,holder.cost_L);
-        FontsDriver.changeFontToComfort(ctx,holder.name_companion_L);
-        FontsDriver.changeFontToComfort(ctx,holder.phone_driver_L);
-        FontsDriver.changeFontToComfort(ctx,holder.travel_to_L);
-        FontsDriver.changeFontToComfort(ctx,holder.travel_from_L);
+        /*FontsConteroller.changeFontToComfort(ctx,holder.about_driver_L);
+        FontsConteroller.changeFontToComfort(ctx,holder.button_ok_hide);
+        FontsConteroller.changeFontToComfort(ctx,holder.text_take_companion);
+        FontsConteroller.changeFontToComfort(ctx,holder.cost_L);
+        FontsConteroller.changeFontToComfort(ctx,holder.name_companion_L);
+        FontsConteroller.changeFontToComfort(ctx,holder.phone_driver_L);
+        FontsConteroller.changeFontToComfort(ctx,holder.travel_to_L);
+        FontsConteroller.changeFontToComfort(ctx,holder.travel_from_L);*/
     }
 
     private void init(HelperHolder holder,View convertView, int position) {

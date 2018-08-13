@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,21 +22,17 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.poputchic.android.FontsDriver;
+import com.poputchic.android.models.fonts.FontsConteroller;
 import com.poputchic.android.R;
-import com.poputchic.android.adapters.TravelAdapter;
 import com.poputchic.android.adapters.ZayavkaCompletedAdapter;
 import com.poputchic.android.bottom_toolbar.BottomToolbarController;
-import com.poputchic.android.classes.VARIABLES_CLASS;
-import com.poputchic.android.classes.classes.Companion;
-import com.poputchic.android.classes.classes.Driver;
-import com.poputchic.android.classes.classes.Travel;
-import com.poputchic.android.classes.classes.Zayavka;
-import com.poputchic.android.classes.classes.ZayavkaFromCompanion;
+import com.poputchic.android.models.VARIABLES_CLASS;
+import com.poputchic.android.models.companion.Companion;
+import com.poputchic.android.models.driver.Driver;
+import com.poputchic.android.models.Zayavka;
+import com.poputchic.android.models.ZayavkaFromCompanion;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class MyTravelsCompanion extends Activity {
@@ -45,9 +40,7 @@ public class MyTravelsCompanion extends Activity {
     private ImageView back_button_my_travels;
     private TextView logo_my_travels;
     private ListView list_my_z;
-    private ArrayList<String>listStrings = new ArrayList<>();
     private ArrayList<ZayavkaFromCompanion> listMyZ = new ArrayList<>();
-    private Object list;
     private Companion companion;
     private Driver driver;
     private int rating = 0;
@@ -66,8 +59,8 @@ public class MyTravelsCompanion extends Activity {
     }
 
     private void changeFonts() {
-        FontsDriver.changeFontToComfort(this,(TextView)findViewById(R.id.activity_my_travels_companion));
-        FontsDriver.changeFontToComfort(this,(TextView)findViewById(R.id.logo_my_travels));
+        //FontsConteroller.changeFontToComfort(this,(TextView)findViewById(R.id.activity_my_travels_companion));
+        //FontsConteroller.changeFontToComfort(this,(TextView)findViewById(R.id.logo_my_travels));
     }
 
     public void click(View view) {

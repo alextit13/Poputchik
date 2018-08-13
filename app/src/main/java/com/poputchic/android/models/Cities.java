@@ -1,4 +1,4 @@
-package com.poputchic.android.classes.enums;
+package com.poputchic.android.models;
 
 public enum Cities {
 

@@ -1,7 +1,7 @@
 package com.poputchic.android.bottom_toolbar;
 
-import com.poputchic.android.classes.classes.Companion;
-import com.poputchic.android.classes.classes.Driver;
+import com.poputchic.android.models.companion.Companion;
+import com.poputchic.android.models.driver.Driver;
 
 public interface BottomToolbarListener {
     // описание методов класса контроллера нижнего тулбара

@@ -44,7 +44,7 @@
         </provider>
 
         <activity
-            android:name=".SplashScreen"
+            android:name=".views.SplashScreen"
             android:noHistory="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
@@ -54,7 +54,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.reg_and_sign.Registration"
+            android:name=".views.registration.Registration"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:noHistory="true"/>
         <activity

@@ -14,9 +14,9 @@ import com.poputchic.android.activities.MyTravelsCompanion;
 import com.poputchic.android.activities.Reviews;
 import com.poputchic.android.activities.person_rooms.PersonRoomCompanion;
 import com.poputchic.android.activities.person_rooms.PersonRoomDriver;
-import com.poputchic.android.classes.Data;
-import com.poputchic.android.classes.classes.Companion;
-import com.poputchic.android.classes.classes.Driver;
+import com.poputchic.android.models.Data;
+import com.poputchic.android.models.companion.Companion;
+import com.poputchic.android.models.driver.Driver;
 
 public class BottomToolbarController implements BottomToolbarListener{
 

@@ -1,16 +1,11 @@
 package com.poputchic.android.activities.main_list;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -20,19 +15,19 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.poputchic.android.FontsDriver;
+import com.poputchic.android.models.fonts.FontsConteroller;
 import com.poputchic.android.R;
 import com.poputchic.android.activities.DetailViewTravel;
 import com.poputchic.android.activities.events.EventRefreshAdapter;
 import com.poputchic.android.adapters.LZFC.LZFCAdapter;
 import com.poputchic.android.adapters.TravelAdapter;
 import com.poputchic.android.bottom_toolbar.BottomToolbarController;
-import com.poputchic.android.classes.Data;
-import com.poputchic.android.classes.VARIABLES_CLASS;
-import com.poputchic.android.classes.classes.Companion;
-import com.poputchic.android.classes.classes.Driver;
-import com.poputchic.android.classes.classes.Travel;
-import com.poputchic.android.classes.classes.ZayavkaFromCompanion;
+import com.poputchic.android.models.Data;
+import com.poputchic.android.models.VARIABLES_CLASS;
+import com.poputchic.android.models.companion.Companion;
+import com.poputchic.android.models.driver.Driver;
+import com.poputchic.android.models.Travel;
+import com.poputchic.android.models.ZayavkaFromCompanion;
 import com.poputchic.android.find_fragments.FindFragment;
 import com.poputchic.android.find_fragments.MessageFragment;
 import com.wang.avi.AVLoadingIndicatorView;
@@ -68,7 +63,7 @@ public class MainListActivity extends Activity implements FindFragment.EditNameD
 
     private void changeFont(TextView tv){
         // именение шрифтов вьюх
-        FontsDriver.changeFontToComfort(this,tv);
+        //FontsConteroller.changeFontToComfort(this,tv);
     } // меняем шрифт вьюхи на главном экаране
 
     private void init() {

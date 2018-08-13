@@ -3,7 +3,6 @@ package com.poputchic.android.activities.reg_and_sign;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
@@ -16,14 +15,13 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.poputchic.android.FontsDriver;
+import com.poputchic.android.models.fonts.FontsConteroller;
 import com.poputchic.android.R;
 import com.poputchic.android.activities.main_list.MainListActivity;
 import com.poputchic.android.admin.AdminActivity;
-import com.poputchic.android.classes.Data;
-import com.poputchic.android.classes.VARIABLES_CLASS;
-import com.poputchic.android.classes.classes.Companion;
-import com.poputchic.android.classes.classes.Driver;
+import com.poputchic.android.models.Data;
+import com.poputchic.android.models.companion.Companion;
+import com.poputchic.android.models.driver.Driver;
 import com.wang.avi.AVLoadingIndicatorView;
 
 public class SignIn extends Activity {
@@ -59,12 +57,12 @@ public class SignIn extends Activity {
     }
 
     private void changeFonts() {
-        FontsDriver.changeFontToComfort(this,(TextView)findViewById(R.id.a_toolbar));
-        FontsDriver.changeFontToComfort(this,(TextView)findViewById(R.id.b_b_sign_in));
-        FontsDriver.changeFontToComfort(this,(TextView)findViewById(R.id.b_et_email));
-        FontsDriver.changeFontToComfort(this,(TextView)findViewById(R.id.b_et_password));
-        FontsDriver.changeFontToComfort(this,(TextView)findViewById(R.id.a_text_reg));
-        FontsDriver.changeFontToComfort(this,(TextView)findViewById(R.id.enter_your_data));
+        /*FontsConteroller.changeFontToComfort(this,(TextView)findViewById(R.id.a_toolbar));
+        FontsConteroller.changeFontToComfort(this,(TextView)findViewById(R.id.b_b_sign_in));
+        FontsConteroller.changeFontToComfort(this,(TextView)findViewById(R.id.b_et_email));
+        FontsConteroller.changeFontToComfort(this,(TextView)findViewById(R.id.b_et_password));
+        FontsConteroller.changeFontToComfort(this,(TextView)findViewById(R.id.a_text_reg));
+        FontsConteroller.changeFontToComfort(this,(TextView)findViewById(R.id.enter_your_data));*/
     }
 
     private void init(){

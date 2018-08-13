@@ -25,13 +25,12 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.poputchic.android.FontsDriver;
+import com.poputchic.android.models.fonts.FontsConteroller;
 import com.poputchic.android.R;
 import com.poputchic.android.activities.person_rooms.my_travels.MyFinishesTravels;
 import com.poputchic.android.bottom_toolbar.BottomToolbarController;
-import com.poputchic.android.classes.classes.Companion;
-import com.poputchic.android.classes.classes.Driver;
-import com.poputchic.android.classes.classes.Review;
+import com.poputchic.android.models.companion.Companion;
+import com.poputchic.android.models.Review;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -63,12 +62,12 @@ public class PersonRoomCompanion extends Activity {
     }
 
     private void changeFonts() {
-        FontsDriver.changeFontToComfort(this,(TextView)findViewById(R.id.activity_person_room_companion_label));
-        FontsDriver.changeFontToComfort(this,pr_tv_name_c);
-        FontsDriver.changeFontToComfort(this,pr_tv_years_c);
-        FontsDriver.changeFontToComfort(this,pr_tv_email_c);
-        FontsDriver.changeFontToComfort(this,pr_tv_number_phone_c);
-        FontsDriver.changeFontToComfort(this,pr_tv_about_c);
+//        FontsConteroller.changeFontToComfort(this,(TextView)findViewById(R.id.activity_person_room_companion_label));
+//        FontsConteroller.changeFontToComfort(this,pr_tv_name_c);
+//        FontsConteroller.changeFontToComfort(this,pr_tv_years_c);
+//        FontsConteroller.changeFontToComfort(this,pr_tv_email_c);
+//        FontsConteroller.changeFontToComfort(this,pr_tv_number_phone_c);
+//        FontsConteroller.changeFontToComfort(this,pr_tv_about_c);
     }
 
     public void click(View view) {

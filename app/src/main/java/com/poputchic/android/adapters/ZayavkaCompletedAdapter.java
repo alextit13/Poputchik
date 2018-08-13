@@ -1,32 +1,17 @@
 package com.poputchic.android.adapters;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.poputchic.android.FontsDriver;
+import com.poputchic.android.models.fonts.FontsConteroller;
 import com.poputchic.android.R;
-import com.poputchic.android.classes.VARIABLES_CLASS;
-import com.poputchic.android.classes.classes.Companion;
-import com.poputchic.android.classes.classes.Driver;
-import com.poputchic.android.classes.classes.Travel;
-import com.poputchic.android.classes.classes.Zayavka;
-import com.poputchic.android.classes.classes.ZayavkaFromCompanion;
+import com.poputchic.android.models.companion.Companion;
+import com.poputchic.android.models.Zayavka;
+import com.poputchic.android.models.ZayavkaFromCompanion;
 import com.poputchic.interfaces.GettingDriver;
 import com.squareup.picasso.Picasso;
 
@@ -133,13 +118,13 @@ public class ZayavkaCompletedAdapter extends BaseAdapter{
     }
 
     private void changeFonts(View view) {
-        FontsDriver.changeFontToComfort(ctx,(TextView) view.findViewById(R.id.name_driver_and_year_c));
-        FontsDriver.changeFontToComfort(ctx,(TextView) view.findViewById(R.id.car_c));
-        FontsDriver.changeFontToComfort(ctx,(TextView) view.findViewById(R.id.tv_date));
-        //FontsDriver.changeFontToComfort(ctx,(TextView) view.findViewById(R.id.d_tv_from));
-        /*FontsDriver.changeFontToComfort(ctx,(TextView) view.findViewById(R.id.d_tv_to));
-        FontsDriver.changeFontToComfort(ctx,(TextView) view.findViewById(R.id.places));
-        FontsDriver.changeFontToComfort(ctx,(TextView) view.findViewById(R.id.d_tv_about));*/
+        /*FontsConteroller.changeFontToComfort(ctx,(TextView) view.findViewById(R.id.name_driver_and_year_c));
+        FontsConteroller.changeFontToComfort(ctx,(TextView) view.findViewById(R.id.car_c));
+        FontsConteroller.changeFontToComfort(ctx,(TextView) view.findViewById(R.id.tv_date));*/
+        //FontsConteroller.changeFontToComfort(ctx,(TextView) view.findViewById(R.id.d_tv_from));
+        /*FontsConteroller.changeFontToComfort(ctx,(TextView) view.findViewById(R.id.d_tv_to));
+        FontsConteroller.changeFontToComfort(ctx,(TextView) view.findViewById(R.id.places));
+        FontsConteroller.changeFontToComfort(ctx,(TextView) view.findViewById(R.id.d_tv_about));*/
     }
 
     // товар по позици

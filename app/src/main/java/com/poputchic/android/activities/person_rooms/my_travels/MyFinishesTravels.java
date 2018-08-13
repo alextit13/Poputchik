@@ -12,12 +12,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.poputchic.android.FontsDriver;
+import com.poputchic.android.models.fonts.FontsConteroller;
 import com.poputchic.android.R;
 import com.poputchic.android.adapters.LZFC.LZFCAdapter;
-import com.poputchic.android.classes.classes.Companion;
-import com.poputchic.android.classes.classes.Driver;
-import com.poputchic.android.classes.classes.ZayavkaFromCompanion;
+import com.poputchic.android.models.companion.Companion;
+import com.poputchic.android.models.driver.Driver;
+import com.poputchic.android.models.ZayavkaFromCompanion;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -131,7 +131,7 @@ public class MyFinishesTravels extends Activity {
     }
 
     private void changeFonts() {
-        FontsDriver.changeFontToComfort(this,(TextView)findViewById(R.id.activity_my_finishes_travel_label));
-        FontsDriver.changeFontToComfort(this,(TextView)findViewById(R.id.logo_my_travels));
+        /*FontsConteroller.changeFontToComfort(this,(TextView)findViewById(R.id.activity_my_finishes_travel_label));
+        FontsConteroller.changeFontToComfort(this,(TextView)findViewById(R.id.logo_my_travels));*/
     }
 }

@@ -1,4 +1,4 @@
-package com.poputchic.android.classes.classes;
+package com.poputchic.android.models;
 
 import java.io.Serializable;
 
