@@ -15,6 +15,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.poputchic.android.models.Zayavka;
 import com.poputchic.android.models.fonts.FontsConteroller;
 import com.poputchic.android.R;
 import com.poputchic.android.adapters.TravelAdapter;
@@ -54,7 +55,8 @@ public class MyTravels extends Activity {
 
     private void completeList() {
         list_trawels = new ArrayList<>();
-        FirebaseDatabase.getInstance().getReference().child("travels").addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference().child("travels").addListenerForSingleValueEvent(
+                new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot data : dataSnapshot.getChildren()){
@@ -106,9 +108,36 @@ public class MyTravels extends Activity {
     }
 
     private void deleteItemTravel() {
-        Log.d(VARIABLES_CLASS.LOG_TAG,"num = " + num);
+        //Log.d(VARIABLES_CLASS.LOG_TAG,"num = " + num);
         FirebaseDatabase.getInstance().getReference().child("travels").child(list_trawels.get(num)
         .getTime_create()+"").removeValue();
+
+        deleteAllZayavkiForThisTravel(list_trawels.get(num).getTime_create()+"");
+
+    }
+
+    private void deleteAllZayavkiForThisTravel(final String s) {
+        FirebaseDatabase.getInstance().getReference().child("zayavki").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot data : dataSnapshot.getChildren()){
+                    String travel = "";
+                    try {
+                        travel = data.getValue(Zayavka.class).getTravel();
+                    }catch (NullPointerException e){e.printStackTrace();}
+
+                    if (travel.equals(s)){
+                        FirebaseDatabase.getInstance().getReference().child("zayavki").child(data.getValue(Zayavka.class).getDateCreate())
+                                .removeValue();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void init() {

@@ -1,4 +1,4 @@
-package com.poputchic.android.views;
+package com.poputchic.android.views.splash;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import com.poputchic.android.R;
 import com.poputchic.android.activities.main_list.MainListActivity;
+import com.poputchic.android.views.signInOrRegistration.SignInOrRegistration;
 import com.poputchic.android.models.companion.Companion;
 import com.poputchic.android.models.driver.Driver;
 import com.poputchic.android.presenters.splashScreenPresenter.SplashScreenPresenter;
@@ -42,7 +43,7 @@ public class SplashScreen extends Activity implements SplashScreenPresenter.Resu
     @Override
     public void getCompanionResult(Companion companion) {
         if (companion == null)
-            startActivity(new Intent(this, Registration.class));
+            startActivity(new Intent(this, SignInOrRegistration.class));
         else {
             intent = new Intent(this,MainListActivity.class);
             intent.putExtra("companion",companion);

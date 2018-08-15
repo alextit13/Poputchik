@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.poputchic.android.views.SplashScreen"
+    tools:context="com.poputchic.android.views.splash.SplashScreen"
     android:background="@color/black_100">
     <ImageView
         android:src="@drawable/a_main_icon"

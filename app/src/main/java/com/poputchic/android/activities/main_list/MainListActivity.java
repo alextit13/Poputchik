@@ -158,7 +158,11 @@ public class MainListActivity extends Activity implements FindFragment.EditNameD
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 ArrayList<ZayavkaFromCompanion>list = new ArrayList<>();
                                 for (DataSnapshot data : dataSnapshot.getChildren()){
-                                    if (new Date().getTime() < Long.parseLong(data.getValue(ZayavkaFromCompanion.class).getFrom_time())){
+                                    long l = 0;
+                                    try {
+                                        l = Long.parseLong(data.getValue(ZayavkaFromCompanion.class).getFrom_time());
+                                    }catch (NumberFormatException e){ e.printStackTrace();}
+                                    if (new Date().getTime() < l){
                                         list.add(data.getValue(ZayavkaFromCompanion.class));
                                     }
                                 }
@@ -225,7 +229,10 @@ public class MainListActivity extends Activity implements FindFragment.EditNameD
 
                             for (DataSnapshot data : dataSnapshot.getChildren()) {
 
-                                if (new Date().getTime() < Long.parseLong(data.getValue(Travel.class).getTime_from())){
+                                long dateNow = new Date().getTime();
+                                String dateTravel = data.getValue(Travel.class).getTime_from();
+
+                                if (dateNow < Long.parseLong(dateTravel)){
                                     if (!city.equals("")&&data.getValue(Travel.class).getFrom().contains(city)){
 
                                         listTravesl.add(data.getValue(Travel.class));

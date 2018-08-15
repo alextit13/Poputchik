@@ -93,7 +93,11 @@ public class LZFCAdapter extends BaseAdapter{
         holder.travel_to_L.setText(objects.get(position).getTo_location());
         holder.travel_from_L.setText(objects.get(position).getFrom_location());
         if (driver==null){
-            holder.driver_take_zayavka.setText(listDrivers.get(position).toString());
+            try {
+                holder.driver_take_zayavka.setText(listDrivers.get(position).toString());
+            }catch (NullPointerException e) {
+                e.printStackTrace();
+            }
         }
         Picasso.with(ctx).load(listCompanions.get(position).getImage_path()+"").resize(100,100)
                 .into(holder.iv_driver);

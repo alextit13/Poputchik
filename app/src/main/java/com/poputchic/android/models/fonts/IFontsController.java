@@ -11,5 +11,6 @@ public interface IFontsController {
     void changeAllListFontsInViews(List<EditText> viewsExtendetListView);
     void changeAllListFontsInViewsTV(List<TextView> viewsExtendetListView);
     void changeFontToComfortButton(Button b);
+    void changeFontToComfortButton(List<Button>listButtons);
 
 }

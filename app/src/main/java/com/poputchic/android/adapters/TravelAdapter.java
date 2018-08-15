@@ -180,18 +180,6 @@ public class TravelAdapter extends BaseAdapter{
                              TextView d_tv_about, TextView d_tv_from, TextView d_tv_to, TextView places,
                              TextView name_driver_and_year, TextView car, TextView rating_driver,
                              TextView review_driver1, TextView finish_travels) {
-        /*FontsConteroller.changeFontToComfort(ctx,tv_date);
-        FontsConteroller.changeFontToComfort(ctx,review_driver);
-        FontsConteroller.changeFontToComfort(ctx,review_driver_c);
-        FontsConteroller.changeFontToComfort(ctx,d_tv_about);
-        FontsConteroller.changeFontToComfort(ctx,d_tv_from);
-        FontsConteroller.changeFontToComfort(ctx,d_tv_to);
-        FontsConteroller.changeFontToComfort(ctx,places);
-        FontsConteroller.changeFontToComfort(ctx,name_driver_and_year);
-        FontsConteroller.changeFontToComfort(ctx,car);
-        FontsConteroller.changeFontToComfort(ctx,rating_driver);
-        FontsConteroller.changeFontToComfort(ctx,review_driver1);
-        FontsConteroller.changeFontToComfort(ctx,finish_travels);*/
     }
 
     public void clicker(final Travel t){

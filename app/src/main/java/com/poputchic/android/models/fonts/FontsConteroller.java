@@ -33,6 +33,11 @@ public class FontsConteroller implements IFontsController{
     }
 
     @Override
+    public void changeFontToComfortButton(List<Button> listButtons) {
+        for (Button b : listButtons) b.setTypeface(tf);
+    }
+
+    @Override
     public void changeAllListFontsInViews(TextView... viewsExtendetListView) {
         for (TextView tv : viewsExtendetListView) tv.setTypeface(tf);
     }

@@ -42,6 +42,8 @@ import com.poputchic.android.models.Cities;
 import com.poputchic.android.map.MapsActivity;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -57,6 +59,7 @@ public class AddTravel extends Activity {
     private Driver driver;
 
     private String defaultLocation = "";
+    private long milisecondsDate = 0;
 
     private int minute, hours, day, month, year;
 
@@ -286,7 +289,7 @@ public class AddTravel extends Activity {
         createAdresses();
         if (adress_from!=null||adress_to!=null){
             Travel travel = new Travel(0,Integer.parseInt(e_how_many_peoples.getText().toString())
-                    ,adress_from,adress_to, new Date(year,month,day,hours,minute).getTime() + ""
+                    ,adress_from,adress_to, milisecondsDate + ""
                     ,"",driver.getDate_create()+"",e_about.getText().toString(),new Date().getTime()+"");
             f_pb_.setVisibility(View.VISIBLE);
             add_container.setAlpha(.3f);
@@ -318,44 +321,6 @@ public class AddTravel extends Activity {
         }else{
             Snackbar.make(e_b_go,"Заполните все поля",Snackbar.LENGTH_LONG).show();
         }
-
-
-
-        /*if (!b_onMap_start.getText().toString().equals("Карта")){
-            // если на кнопке адрес
-            //Log.d(VARIABLES_CLASS.LOG_TAG,"11");
-            adress_from = b_onMap_start.getText().toString();
-        }else if (!e_et_from.getText().toString().equals("")&&
-                !e_et_pointer_adress_1.getText().toString().equals("")) {
-            //Log.d(VARIABLES_CLASS.LOG_TAG,"12");
-            {
-                //Log.d(VARIABLES_CLASS.LOG_TAG,"13");
-                adress_from = e_et_from.getText().toString() + "," + e_et_pointer_adress_1.getText().toString();
-            }
-        }else{
-            //Log.d(VARIABLES_CLASS.LOG_TAG,"4");
-            Snackbar.make(e_b_go,"Заполните все поля",Snackbar.LENGTH_LONG).show();
-            f_pb_.setVisibility(View.INVISIBLE);
-            add_container.setAlpha(1f);
-        }
-
-        if (!e_et_pointer_adress_1.getText().toString().equals("")){
-            // если на кнопке адрес
-            //Log.d(VARIABLES_CLASS.LOG_TAG,"21");
-            adress_to = e_et_pointer_adress_1.getText().toString();
-        }else if (!e_et_to.getText().toString().equals("")&&
-                !e_et_pointer_adress_2.getText().toString().equals("")) {
-            //Log.d(VARIABLES_CLASS.LOG_TAG,"22");
-            {
-                //Log.d(VARIABLES_CLASS.LOG_TAG,"23");
-                adress_to = e_et_to.getText().toString() + "," + e_et_pointer_adress_2.getText().toString();
-            }
-        }else{
-            //Log.d(VARIABLES_CLASS.LOG_TAG,"24");
-            Snackbar.make(e_b_go,"Заполните все поля",Snackbar.LENGTH_LONG).show();
-            f_pb_.setVisibility(View.INVISIBLE);
-            add_container.setAlpha(1f);
-        }*/
     }
 
     private void map(Button b) {
@@ -407,6 +372,18 @@ public class AddTravel extends Activity {
         new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+
+                i1 = i1 + 1;
+
+                String string_date = i2+"-"+i1+"-"+i;
+                SimpleDateFormat f = new SimpleDateFormat("dd-MM-yyyy");
+                try {
+                    Date d = f.parse(string_date);
+                    milisecondsDate = d.getTime();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
                 year = i; month = i1; day = i2;
                 e_b_date.setText(i2 + "." + i1 + "."+i);
             }
@@ -420,6 +397,9 @@ public class AddTravel extends Activity {
             public void onTimeSet(TimePicker timePicker, int i, int i1) {
                 switch (b.getId()) {
                     case R.id.e_b_time_start:
+
+                        milisecondsDate = milisecondsDate + (i * 3600000) + (i1 * 60000);
+
                         // ...
                         minute = i1;
                         hours = i;
