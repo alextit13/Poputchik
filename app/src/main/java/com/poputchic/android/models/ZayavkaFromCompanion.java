@@ -15,6 +15,16 @@ public class ZayavkaFromCompanion extends Zayavka implements Serializable{
     public ZayavkaFromCompanion() {
     }
 
+    public ZayavkaFromCompanion(String cost, String dateCreate, String driver, String companion, String travel, String date, String from_location, String to_location, String price, String companion1, String driver1) {
+        super(cost, dateCreate, driver, companion, travel);
+        this.date = date;
+        this.from_location = from_location;
+        this.to_location = to_location;
+        this.price = price;
+        this.companion = companion1;
+        this.driver = driver1;
+    }
+
     public ZayavkaFromCompanion(String driver, String date, String from_location, String to_location, String from_time, String to_time, String price, String companion) {
         this.driver = driver;
         this.date = date;

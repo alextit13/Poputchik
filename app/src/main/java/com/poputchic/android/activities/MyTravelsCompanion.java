@@ -51,6 +51,7 @@ public class MyTravelsCompanion extends Activity {
     private ArrayList<Zayavka>listZayavki = new ArrayList<>();
     private ArrayList<Companion>listCompanion = new ArrayList<>();
     private List<Object>listObj = new ArrayList<>();
+    private List<ZayavkaFromCompanion>listSecondListZFC = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -190,7 +191,6 @@ public class MyTravelsCompanion extends Activity {
                                         listMyZ.add(data.getValue(ZayavkaFromCompanion.class));
                                     }
                                     //Log.d(VARIABLES_CLASS.LOG_TAG,"list size = " + listMyZ.size());
-                                    goToAdapter(listMyZ);
                                 }
                             }
 
@@ -200,6 +200,39 @@ public class MyTravelsCompanion extends Activity {
                             }
                         }
                 );
+        getSecondZayavkaList();
+    }
+
+    private void getSecondZayavkaList(){
+        FirebaseDatabase.getInstance().getReference().child("zayavki").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                    Zayavka z = data.getValue(Zayavka.class);
+                    if (z.getCompanion() != null) {
+                        if (z.getCompanion().equals(companion.getDate_create())) {
+                            listSecondListZFC.add(new ZayavkaFromCompanion(
+                                    z.getDriver(),
+                                    z.getDateCreate(),
+                                    "",
+                                    "",
+                                    "",
+                                    "",
+                                    z.getCost(),
+                                    z.getCompanion()
+                            ));
+                        }
+                    }
+                }
+                listMyZ.addAll(listSecondListZFC);
+                goToAdapter(listMyZ);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void goToAdapter(final List<ZayavkaFromCompanion>list) {
@@ -341,13 +374,26 @@ public class MyTravelsCompanion extends Activity {
             @Override
             public void onClick(View view) {
                 alertDialog.dismiss();
-                save(review_RAR.getText().toString());
+                save(review_RAR.getText().toString(),i);
             }
         });
         alertDialog.show();
     }
 
-    private void save(String review) {
+    private void save(String review, int i) {
+
+        if (listMyZ.get(i).getFrom_time().equals("")) {
+            FirebaseDatabase.getInstance().getReference().child("zayavki")
+                    .child(listMyZ.get(i).getDate())
+                    .removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    Toast.makeText(MyTravelsCompanion.this, "Поездка окончена!", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
+
         FirebaseDatabase.getInstance().getReference().child("complete_travel").child(listMyZ.get(clickItem).getDate()+"")
                 .setValue(listMyZ.get(clickItem));
         if (review!=null&&!review.equals("")){

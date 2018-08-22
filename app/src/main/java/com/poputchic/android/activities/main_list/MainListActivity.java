@@ -274,7 +274,7 @@ public class MainListActivity extends Activity implements FindFragment.EditNameD
                         }
                     });
         } catch (Exception e) {
-            System.out.println("crash");
+            //System.out.println("crash");
         }
     }
 

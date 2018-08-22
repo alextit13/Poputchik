@@ -67,20 +67,32 @@ public class AdapterAceptUserAsCompanion extends BaseAdapter{
         Date curentDate = new Date(Long.parseLong(z.getDate()));
         SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM");
 
-        Date curentDate_from = new Date(Long.parseLong(z.getFrom_time()));
-        SimpleDateFormat sdf_from_hours = new SimpleDateFormat("HH");
-        SimpleDateFormat sdf_from_minutes = new SimpleDateFormat("MM");
-        SimpleDateFormat sdf_from = new SimpleDateFormat("dd MMMM");
+        Date curentDate_from = null;
+        SimpleDateFormat sdf_from_hours = null;
+        SimpleDateFormat sdf_from_minutes = null;
+        SimpleDateFormat sdf_from = null;
 
 
-         ((TextView) convertView.findViewById(R.id.tv_date)).setText(sdf.format(curentDate));
+        String textResult = "";
+
+        if (!z.getFrom_time().equals("") && !z.getTo_time().equals("")) {
+            curentDate_from = new Date(Long.parseLong(z.getFrom_time()));
+            sdf_from_hours = new SimpleDateFormat("HH");
+            sdf_from_minutes = new SimpleDateFormat("MM");
+            sdf_from = new SimpleDateFormat("dd MMMM");
+
+            textResult =
+                    "Из: "+z.getFrom_location() + "\n" +
+                            "В: " +z.getTo_location();
+            textResult = textResult + "Отправление: в " + sdf_from_hours.format(curentDate_from) + " ч. "
+                    + sdf_from_minutes.format(curentDate_from) + " м. " + "\n"
+                    + sdf_from.format(curentDate_from);
+        }
+
+        ((TextView) convertView.findViewById(R.id.tv_date)).setText(sdf.format(curentDate));
         ((TextView) convertView.findViewById(R.id.price_tv)).setText(z.getPrice() + " р.");
-        ((TextView) convertView.findViewById(R.id.about_tv_travel)).setText(
-                "Из: "+z.getFrom_location() + "\n" +
-                "В: " +z.getTo_location() + "\n" +
-                "Отправление: в " + sdf_from_hours.format(curentDate_from) + " ч. "
-                        + sdf_from_minutes.format(curentDate_from) + " м. " + "\n"
-                        + sdf_from.format(curentDate_from));
+        ((TextView) convertView.findViewById(R.id.about_tv_travel)).setText(textResult);
+
 
         //((ImageView) convertView.findViewById(R.id.to_image)).setVisibility(View.GONE);
 

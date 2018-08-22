@@ -145,7 +145,7 @@ public class TravelAdapter extends BaseAdapter{
         //Log.d(VARIABLES_CLASS.LOG_TAG,"position = " + position);
         if (lisrDRVR!=null&&!lisrDRVR.isEmpty()){
             driver = lisrDRVR.get(position);
-            Log.d(VARIABLES_CLASS.LOG_TAG,"driver = " + driver);
+            //Log.d(VARIABLES_CLASS.LOG_TAG,"driver = " + driver);
             if (driver.getName()!=null&&driver.getYear()!=0){name_driver_and_year.setText(driver.getName()+", "+driver.getYear());}
             if (driver.getName_car()!=null&&driver.getYear_car()!=null){car.setText(driver.getName_car()+", "+ driver.getYear_car());}
             if (driver.getRating()!=null){rating_driver.setText(driver.getRating()+"");}
