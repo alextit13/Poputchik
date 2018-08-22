@@ -53,28 +53,36 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".views.registration.Registration"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:noHistory="true"/>
+
         <activity
             android:name=".activities.main_list.MainListActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
         <activity
             android:name="me.iwf.photopicker.PhotoPickerActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:noHistory="true"/>
+
         <activity
             android:name="me.iwf.photopicker.PhotoPagerActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:noHistory="true"/>
+
         <activity
             android:name=".activities.reg_and_sign.SignIn"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:noHistory="true"/>
         <activity
             android:name=".views.signInOrRegistration.SignInOrRegistration"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:noHistory="true">
         </activity>
+
         <activity
             android:name=".activities.AddTravel"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
@@ -92,46 +100,59 @@
 
         <activity
             android:name=".map.MapsActivity"
-            android:label="@string/title_activity_maps" />
+            android:label="@string/title_activity_maps"
+            android:noHistory="true"/>
         <activity
             android:name=".activities.person_rooms.PersonRoomDriver"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:noHistory="true"/>
         <activity
             android:name=".activities.person_rooms.EditDriverProfile"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:noHistory="true"/>
         <activity
             android:name=".activities.person_rooms.my_travels.MyTravels"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:noHistory="true"/>
         <activity
             android:name=".activities.person_rooms.PersonRoomCompanion"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:noHistory="true"/>
         <activity
             android:name=".activities.person_rooms.my_travels.MyFinishesTravels"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:noHistory="true"/>
         <activity
             android:name=".activities.person_rooms.EditCompanionProfile"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:noHistory="true"/>
         <activity
             android:name=".activities.DetailViewTravel"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:noHistory="true"/>
         <activity
             android:name=".activities.ZayavkiToMyTravels"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:noHistory="true"/>
         <activity
             android:name=".activities.MyTravelsCompanion"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:noHistory="true"/>
         <activity
             android:name=".activities.Reviews"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:noHistory="true"/>
         <activity
             android:name=".activities.AddZayavka"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".activities.reviewsActivities.RewiewsDrivers"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:noHistory="true"/>
         <activity
             android:name=".admin.AdminActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:noHistory="true">
         </activity>
 
 

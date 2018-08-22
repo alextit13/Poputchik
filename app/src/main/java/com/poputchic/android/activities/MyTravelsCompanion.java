@@ -17,11 +17,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.poputchic.android.adapters.AdapterAceptUserAsCompanion;
 import com.poputchic.android.models.fonts.FontsConteroller;
 import com.poputchic.android.R;
 import com.poputchic.android.adapters.ZayavkaCompletedAdapter;
@@ -179,7 +181,7 @@ public class MyTravelsCompanion extends Activity {
 
     public void getList() {
         FirebaseDatabase.getInstance().getReference().child("complete_travels_with_zay_from_comp")
-                .addValueEventListener(
+                .addListenerForSingleValueEvent(
                         new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -187,7 +189,7 @@ public class MyTravelsCompanion extends Activity {
                                     if (data.getValue(ZayavkaFromCompanion.class).getCompanion().equals(companion.getDate_create())){
                                         listMyZ.add(data.getValue(ZayavkaFromCompanion.class));
                                     }
-                                    Log.d(VARIABLES_CLASS.LOG_TAG,"list size = " + listMyZ.size());
+                                    //Log.d(VARIABLES_CLASS.LOG_TAG,"list size = " + listMyZ.size());
                                     goToAdapter(listMyZ);
                                 }
                             }
@@ -201,46 +203,44 @@ public class MyTravelsCompanion extends Activity {
     }
 
     private void goToAdapter(final List<ZayavkaFromCompanion>list) {
-        if (!listObj.isEmpty()){
-
-            ZayavkaCompletedAdapter adapter = new ZayavkaCompletedAdapter(MyTravelsCompanion.this,list,listCompanion,listObj);
-            list_my_z.setAdapter(adapter);
-            list_my_z.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    clickItem = i;
-                    AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(MyTravelsCompanion.this);
+        AdapterAceptUserAsCompanion adapter = new AdapterAceptUserAsCompanion
+                (MyTravelsCompanion.this,list);
+        list_my_z.setAdapter(adapter);
+        list_my_z.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                clickItem = i;
+                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(MyTravelsCompanion.this);
 // ...Irrelevant code for customizing the buttons and title
-                    LayoutInflater inflater = getLayoutInflater();
-                    View dialogView = inflater.inflate(R.layout.alert_label_editor, null);
-                    dialogBuilder.setView(dialogView);
+                LayoutInflater inflater = getLayoutInflater();
+                View dialogView = inflater.inflate(R.layout.alert_label_editor, null);
+                dialogBuilder.setView(dialogView);
 
-                    Button button_finish = (Button) dialogView.findViewById(R.id.finish);
-                    Button cancel = (Button) dialogView.findViewById(R.id.cancel);
+                Button button_finish = (Button) dialogView.findViewById(R.id.finish);
+                Button cancel = (Button) dialogView.findViewById(R.id.cancel);
 
-                    final int j = i;
+                final int j = i;
 
-                    final AlertDialog alertDialog = dialogBuilder.create();
-                    cancel.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            alertDialog.dismiss();
+                final AlertDialog alertDialog = dialogBuilder.create();
+                cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        alertDialog.dismiss();
+                    }
+                });
+                button_finish.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (driver==null){
+                            newDialogRatingAndRewiew(j);
+                        }else if (companion==null){
+                            cancelTravel(j,listObj);
                         }
-                    });
-                    button_finish.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            if (driver==null){
-                                newDialogRatingAndRewiew(j);
-                            }else if (companion==null){
-                                cancelTravel(j,listObj);
-                            }
-                        }
-                    });
-                    alertDialog.show();
-                }
-            });
-        }
+                    }
+                });
+                alertDialog.show();
+            }
+        });
     }
 
     private void cancelTravel(int num_click, List<Object>L) {
@@ -348,18 +348,22 @@ public class MyTravelsCompanion extends Activity {
     }
 
     private void save(String review) {
-        /*FirebaseDatabase.getInstance().getReference().child("complete_travel").child(listMyZ.get(clickItem).getTime_create()+"")
+        FirebaseDatabase.getInstance().getReference().child("complete_travel").child(listMyZ.get(clickItem).getDate()+"")
                 .setValue(listMyZ.get(clickItem));
         if (review!=null&&!review.equals("")){
-            FirebaseDatabase.getInstance().getReference().child("reviews").child(listMyZ.get(clickItem).getDriver_create()+"")
+            FirebaseDatabase.getInstance().getReference().child("reviews").child(listMyZ.get(clickItem).getDate()+"")
                     .child(companion.getDate_create()+"")
                     .setValue(review);
         }
 
-        FirebaseDatabase.getInstance().getReference().child("users").child("drivers").child(listMyZ.get(clickItem).getDriver_create()+"")
-                .child("rating")
+        FirebaseDatabase.getInstance().getReference().child("complete_travels_with_zay_from_comp")
+                .child(listMyZ.get(clickItem).getDate()).removeValue();
+
+        FirebaseDatabase.getInstance().getReference().child("users").child("drivers").child(listMyZ.get(clickItem)
+                .getDriver()+"").child("rating")
                 .setValue(rating+"");
 
-        Toast.makeText(this, "Поездка завершена!", Toast.LENGTH_SHORT).show();*/
+        Toast.makeText(this, "Поездка завершена!", Toast.LENGTH_SHORT).show();
+        finish();
     }
 }

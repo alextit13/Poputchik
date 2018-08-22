@@ -47,20 +47,18 @@ public class AdminActivity extends Activity {
     }
 
     public void clickAdmin(View view) {
-        FragmentTransaction fTrans_two = getFragmentManager().beginTransaction();
+        //FragmentTransaction fTrans_two = getFragmentManager().beginTransaction();
         switch (view.getId()){
             case R.id.btn_message_one_user:
                 //
-                fTrans_two.replace(R.id.container,fragment_one);
+                getFragmentManager().beginTransaction().replace(R.id.container,fragment_one).commit();
                 break;
             case R.id.btn_message_all_users:
                 //
-                fTrans_two.replace(R.id.container,fragment_all);
+                getFragmentManager().beginTransaction().replace(R.id.container,fragment_all).commit();
                 break;
             default:
                 break;
         }
-        fTrans_two.addToBackStack(null);
-        fTrans_two.commit();
     }
 }

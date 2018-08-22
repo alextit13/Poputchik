@@ -32,9 +32,11 @@ public class Companion implements Serializable{
     private String phone;
     private String cardNumber;
 
+    private String city;
     private Data data;
     private String D = "";
     private Companion companion;
+    private String priglos;
 
     public Companion() {
     }
@@ -50,7 +52,7 @@ public class Companion implements Serializable{
         this.phone = phone;
     }
 
-    public Companion(String about, String date_create, int year, String image_path, String email, String password, String name, String phone, String cardNumber) {
+    public Companion(String about, String date_create, int year, String image_path, String email, String password, String name, String phone, String cardNumber, String priglos, int f) {
         this.about = about;
         this.date_create = date_create;
         this.year = year;
@@ -60,6 +62,60 @@ public class Companion implements Serializable{
         this.name = name;
         this.phone = phone;
         this.cardNumber = cardNumber;
+        this.priglos = priglos;
+    }
+
+    public Companion(String about, String date_create, int year, String image_path, String email, String password, String name, String phone, String cardNumber, String city) {
+        this.about = about;
+        this.date_create = date_create;
+        this.year = year;
+        this.image_path = image_path;
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.phone = phone;
+        this.cardNumber = cardNumber;
+        this.city=city;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public Data getData() {
+        return data;
+    }
+
+    public void setData(Data data) {
+        this.data = data;
+    }
+
+    public String getD() {
+        return D;
+    }
+
+    public void setD(String d) {
+        D = d;
+    }
+
+    public Companion getCompanion() {
+        return companion;
+    }
+
+    public void setCompanion(Companion companion) {
+        this.companion = companion;
+    }
+
+    public String getPriglos() {
+        return priglos;
+    }
+
+    public void setPriglos(String priglos) {
+        this.priglos = priglos;
     }
 
     public String getCardNumber() {

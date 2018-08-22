@@ -69,7 +69,7 @@ public class RegistrationPresenter implements IRegistrationPresenter,FirebaseDri
                 listFields.get(0).getText().toString(), listFields.get(1).getText().toString()
                 , listFields.get(3).getText().toString(), "Авто", "1",
                 listFields.get(4).getText().toString(), new ArrayList<Travel>(), new ArrayList<Travel>(),
-                new ArrayList<Travel>());
+                new ArrayList<Travel>(),listFields.get(5).getText().toString(),listFields.get(6).getText().toString());
     }
 
     @Override
@@ -77,7 +77,8 @@ public class RegistrationPresenter implements IRegistrationPresenter,FirebaseDri
         return new Companion("Обо мне", new Date().getTime() + ""
                 , 18, "http://www.clker.com/cliparts/B/R/Y/m/P/e/blank-profile-hi.png"
                 , listFields.get(0).getText().toString(), listFields.get(1).getText().toString()
-                , listFields.get(3).getText().toString(), listFields.get(4).getText().toString());
+                , listFields.get(3).getText().toString(), listFields.get(4).getText().toString()
+                , listFields.get(5).getText().toString(),listFields.get(6).getText().toString(),0);
     }
 
     @Override

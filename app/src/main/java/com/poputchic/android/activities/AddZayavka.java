@@ -376,7 +376,12 @@ public class AddZayavka extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         String city = "";
-        city = data.getStringExtra("city");
+        try {
+            city = data.getStringExtra("city");
+        }catch (RuntimeException r){
+            r.printStackTrace();
+        }
+
         if (requestCode==1){
             // start point
             adress_from = data.getStringExtra("adress");

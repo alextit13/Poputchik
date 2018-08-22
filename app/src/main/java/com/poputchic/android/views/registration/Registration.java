@@ -43,7 +43,8 @@ public class Registration extends Activity implements IRegistration, Registratio
     private List<String> usersEmails;  // тут емейлы всех зарегистрированных пользователей
 
     private RegistrationPresenter presenter;
-    @BindViews({R.id.a_et_email, R.id.a_et_password, R.id.a_et_password_confirm, R.id.a_et_name, R.id.a_et_number_of_phone})
+    @BindViews({R.id.a_et_email, R.id.a_et_password, R.id.a_et_password_confirm, R.id.a_et_name, R.id.a_et_number_of_phone,R.id.a_et_city,
+    R.id.a_et_priglos})
     List<EditText> listEditTexts;
     @BindViews({R.id.a_cb_driver, R.id.a_cb_companion}) List<RadioButton> listRadioButtons;
     @BindView(R.id.scroll_reg) ScrollView scroll_reg;

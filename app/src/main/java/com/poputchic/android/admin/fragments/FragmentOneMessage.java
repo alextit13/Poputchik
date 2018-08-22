@@ -94,7 +94,11 @@ public class FragmentOneMessage extends Fragment{
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for (DataSnapshot data : dataSnapshot.getChildren()){
-                            list.add(data.getValue(Companion.class).getName());
+                            String nameAndCardNumberResult = data.getValue(Companion.class).getName();
+                            if (data.getValue(Companion.class).getCardNumber() != null) {
+                                nameAndCardNumberResult = nameAndCardNumberResult + "\n" + data.getValue(Companion.class).getCardNumber();
+                            }
+                            list.add(nameAndCardNumberResult);
                             listDates.add(data.getValue(Companion.class).getDate_create());
                         }
                         completeList();

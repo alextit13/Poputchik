@@ -2,7 +2,9 @@ package com.poputchic.android.activities;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.AlertDialog;
+import android.app.Application;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
@@ -16,6 +18,7 @@ import android.support.design.widget.Snackbar;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.test.mock.MockPackageManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -44,6 +47,7 @@ import com.poputchic.android.map.MapsActivity;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -348,8 +352,21 @@ public class AddTravel extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode==1){
             // start point
-            adress_from = data.getStringExtra("adress");
-            if (data.getStringExtra("adress")!=null){
+            try {
+                adress_from = data.getStringExtra("adress");
+            }catch (RuntimeException e) {
+                e.printStackTrace();
+            }
+
+            String stringFromData = "";
+
+            try {
+                stringFromData = data.getStringExtra("adress");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            if (stringFromData!=null && !stringFromData.equals("")){
                 e_et_from.setText(data.getStringExtra("city"));
                 e_et_pointer_adress_1.setText(adress_from);
             }
@@ -357,8 +374,19 @@ public class AddTravel extends Activity {
             //Log.d(VARIABLES_CLASS.LOG_TAG,"req = " +  data.getParcelableExtra("coor"));
         }else if (requestCode==2){
             // finish point
-            adress_to = data.getStringExtra("adress");
-            if (data.getStringExtra("adress")!=null){
+            try {
+                adress_to = data.getStringExtra("adress");
+            }catch (RuntimeException e) {
+                e.printStackTrace();
+            }
+
+            String dataFromData = "";
+            try {
+                dataFromData = data.getStringExtra("adress");
+            }catch (Exception e) {
+                e.printStackTrace();
+            }
+            if (dataFromData!=null && !dataFromData.equals("")){
                 e_et_to.setText(data.getStringExtra("city"));
                 e_et_pointer_adress_2.setText(adress_to);
             }

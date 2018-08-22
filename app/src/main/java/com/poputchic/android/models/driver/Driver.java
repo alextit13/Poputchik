@@ -44,8 +44,30 @@ public class Driver implements Serializable{
     private Data data;
     private String D = "";
     private Driver driver;
+    private String city;
+    private String priglos;
 
     public Driver() {
+    }
+
+    public Driver(String numberCard, String about, String date_create, int year, String image_path, String rating, String email, String password, String name, String name_car, String year_car, String numberPhone, ArrayList<Travel> active_travels, ArrayList<Travel> complete_travels, ArrayList<Travel> rewiews, String city, String priglos) {
+        this.numberCard = numberCard;
+        this.about = about;
+        this.date_create = date_create;
+        this.year = year;
+        this.image_path = image_path;
+        this.rating = rating;
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.name_car = name_car;
+        this.year_car = year_car;
+        this.numberPhone = numberPhone;
+        this.active_travels = active_travels;
+        this.complete_travels = complete_travels;
+        this.rewiews = rewiews;
+        this.city = city;
+        this.priglos=priglos;
     }
 
     public Driver(String numberCard, String about, String date_create, int year, String image_path, String rating, String email, String password, String name, String name_car, String year_car, String numberPhone, ArrayList<Travel> active_travels, ArrayList<Travel> complete_travels, ArrayList<Travel> rewiews) {
@@ -83,6 +105,86 @@ public class Driver implements Serializable{
         this.complete_travels = complete_travels;
         this.rewiews = rewiews;
         this.numApply=numApp;
+    }
+
+    public void setDate_create(String date_create) {
+        this.date_create = date_create;
+    }
+
+    public void setImage_path(String image_path) {
+        this.image_path = image_path;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public ArrayList<Travel> getActive_travels() {
+        return active_travels;
+    }
+
+    public void setActive_travels(ArrayList<Travel> active_travels) {
+        this.active_travels = active_travels;
+    }
+
+    public ArrayList<Travel> getComplete_travels() {
+        return complete_travels;
+    }
+
+    public void setComplete_travels(ArrayList<Travel> complete_travels) {
+        this.complete_travels = complete_travels;
+    }
+
+    public void setRewiews(ArrayList<Travel> rewiews) {
+        this.rewiews = rewiews;
+    }
+
+    public int getNumApply() {
+        return numApply;
+    }
+
+    public void setNumApply(int numApply) {
+        this.numApply = numApply;
+    }
+
+    public Data getData() {
+        return data;
+    }
+
+    public void setData(Data data) {
+        this.data = data;
+    }
+
+    public String getD() {
+        return D;
+    }
+
+    public void setD(String d) {
+        D = d;
+    }
+
+    public Driver getDriver() {
+        return driver;
+    }
+
+    public void setDriver(Driver driver) {
+        this.driver = driver;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getPriglos() {
+        return priglos;
+    }
+
+    public void setPriglos(String priglos) {
+        this.priglos = priglos;
     }
 
     public String getNumberPhone() {

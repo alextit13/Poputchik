@@ -56,6 +56,7 @@
         android:id="@+id/list_my_z"
         android:layout_below="@id/logo_my_travels"
         android:layout_width="300dp"
+        android:layout_above="@+id/bottom_bar"
         android:layout_height="wrap_content">
     </ListView>
     <TableRow

@@ -25,13 +25,14 @@ import com.poputchic.android.models.Travel;
 
 import java.util.ArrayList;
 
-public class MyTravels extends Activity {
+public class MyTravels extends Activity implements TravelAdapter.RefreshAdapter {
 
     private ImageView back_button_my_travels;
     private ListView list_my_travels;
     private ArrayList<Travel>list_trawels;
     private Driver driver;
     private int num = 0;
+    private TravelAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +66,9 @@ public class MyTravels extends Activity {
                         list_trawels.add(data.getValue(Travel.class));
                     }
                 }
-                list_my_travels.setAdapter(new TravelAdapter(MyTravels.this,list_trawels,null));
+                if (adapter == null)
+                adapter = new TravelAdapter(MyTravels.this,list_trawels,null,MyTravels.this);
+                list_my_travels.setAdapter(adapter);
             }
 
             @Override
@@ -74,6 +77,8 @@ public class MyTravels extends Activity {
             }
         });
     }
+
+
 
     private void clicker() {
         back_button_my_travels.setOnClickListener(new View.OnClickListener() {
@@ -144,5 +149,12 @@ public class MyTravels extends Activity {
         back_button_my_travels = (ImageView) findViewById(R.id.back_button_my_travels);
         list_my_travels = (ListView) findViewById(R.id.list_my_travels);
 
+    }
+
+    @Override
+    public void refresh() {
+//        adapter = new TravelAdapter(MyTravels.this,list_trawels,null,this);
+//        list_my_travels.setAdapter(adapter);
+        completeList();
     }
 }

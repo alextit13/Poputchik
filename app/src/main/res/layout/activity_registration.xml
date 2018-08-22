@@ -129,6 +129,19 @@
                     android:fontFamily="@font/comforta_light"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+                <EditText
+                    android:id="@+id/a_et_city"
+                    android:hint="@string/city"
+                    android:fontFamily="@font/comforta_light"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <EditText
+                    android:id="@+id/a_et_priglos"
+                    android:hint="@string/priglos"
+                    android:inputType="phone"
+                    android:fontFamily="@font/comforta_light"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
                 <android.support.v7.widget.CardView
                     app:cardElevation="5dp"
                     app:cardCornerRadius="5dp"

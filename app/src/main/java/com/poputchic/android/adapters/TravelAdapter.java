@@ -1,5 +1,6 @@
 package com.poputchic.android.adapters;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -22,6 +23,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.poputchic.android.activities.person_rooms.my_travels.MyTravels;
 import com.poputchic.android.models.fonts.FontsConteroller;
 import com.poputchic.android.R;
 import com.poputchic.android.models.VARIABLES_CLASS;
@@ -54,32 +56,27 @@ public class TravelAdapter extends BaseAdapter{
     RelativeLayout back;
     Driver driver;
     ArrayList<Driver>lisrDRVR;
+    Activity activity;
 /*
     public TravelAdapter(){
 
     }*/
 
-    public TravelAdapter(Context context, ArrayList<Travel> products, Companion c) {
+    public TravelAdapter(Context context, ArrayList<Travel> products, Companion c, Activity activity) {
         ctx = context;
         objects = products;
         lInflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         companion = c;
+        this.activity=activity;
     }
 
-    public TravelAdapter(Context context, ArrayList<Travel> products, Companion c,ArrayList<Driver> lisrDrivers) {
+    public TravelAdapter(Context context, ArrayList<Travel> products, Companion c,ArrayList<Driver> lisrDrivers,Activity activity) {
         lisrDRVR = lisrDrivers;
         ctx = context;
         objects = products;
         lInflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         companion = c;
-    }
-
-    public TravelAdapter(Context context, ArrayList<Travel> products, Companion c,int requestCode_swich) {
-        swich = requestCode_swich;
-        ctx = context;
-        objects = products;
-        lInflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        companion = c;
+        this.activity=activity;
     }
 
     @Override
@@ -112,7 +109,16 @@ public class TravelAdapter extends BaseAdapter{
         if (t!=null){
             if (t.getTime_from()!=null){
                 String d = "";
-                Date date = new Date(Long.parseLong(t.getTime_from()));
+
+                long timeFrom = 0;
+                try {
+                    timeFrom = Long.parseLong(t.getTime_from());
+                }catch (NumberFormatException n){
+                    timeFrom = new Date().getTime();
+                    Log.d("TAG",n.getMessage());
+                }
+
+                Date date = new Date(timeFrom);
                 DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.LONG,  Locale.getDefault());
                 d = dateFormat.format(date);
                 tv_date.setText(d);
@@ -128,6 +134,7 @@ public class TravelAdapter extends BaseAdapter{
             }
         }
         takeDriver(position);
+
         clicker(t);
         return view;
     }
@@ -135,7 +142,7 @@ public class TravelAdapter extends BaseAdapter{
     int reviews = 0;
 
     private void takeDriver(int position){
-        Log.d(VARIABLES_CLASS.LOG_TAG,"position = " + position);
+        //Log.d(VARIABLES_CLASS.LOG_TAG,"position = " + position);
         if (lisrDRVR!=null&&!lisrDRVR.isEmpty()){
             driver = lisrDRVR.get(position);
             Log.d(VARIABLES_CLASS.LOG_TAG,"driver = " + driver);
@@ -203,6 +210,7 @@ public class TravelAdapter extends BaseAdapter{
                                 cost = myEditText.getText().toString();
                                 //Log.d(VARIABLES_CLASS.LOG_TAG,"cost = " + cost);
                                 //checkSingelton(t,cost);
+
                                 addMeToTravel(t,cost);
                             }
                         })
@@ -252,6 +260,12 @@ public class TravelAdapter extends BaseAdapter{
                 int numPlacesResult = t.getPlaces()-1;
                 FirebaseDatabase.getInstance().getReference().child("travels").child(t.getTime_create()+"").child("places")
                         .setValue(numPlacesResult);
+                //int numPlaces = Integer.parseInt(places.getText().toString()) - 1;
+
+
+                RefreshAdapter refreshAdapter = (RefreshAdapter)activity;
+                refreshAdapter.refresh();
+
             }else{
                 Toast.makeText(ctx, "Вы уже подали заявку на данную поездку!", Toast.LENGTH_SHORT).show();
             }
@@ -270,5 +284,9 @@ public class TravelAdapter extends BaseAdapter{
     @Override
     public CharSequence[] getAutofillOptions() {
         return new CharSequence[0];
+    }
+
+    public interface RefreshAdapter{
+        void refresh();
     }
 }

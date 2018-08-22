@@ -6,6 +6,7 @@ import android.location.Geocoder;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -63,6 +64,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     //Log.d(VARIABLES_CLASS.LOG_TAG,"address = " + addresses.get(0));
                 } catch (IOException e) {
                     //Log...
+
                 }
                 Intent intent = new Intent();
                 try {
@@ -72,6 +74,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     }
                 }catch (Exception e){
                     //Log...
+                    Log.d("LOG_LOC",e.getMessage());
                 }
 
                 setResult(RESULT_OK, intent);
